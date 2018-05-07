@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-//CLEARENT: import the ClearentPayments header
-#import <ClearentPayments/ClearentPayments.h>
+//CLEARENT: import the ClearentIdtechIOSFramework header
+#import <ClearentIdtechIOSFramework/ClearentIdtechIOSFramework.h>
+
 
 @interface ViewController : UIViewController<UIAlertViewDelegate, Clearent_Public_IDT_UniPayIII_Delegate, UIActionSheetDelegate,MFMailComposeViewControllerDelegate>
 {
