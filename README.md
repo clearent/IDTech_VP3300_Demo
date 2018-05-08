@@ -1,4 +1,4 @@
-# Demo app showing the Clearent Framework working with the VP300/UnipayIII device
+# Demo app showing the Clearent Framework working with the VP3300/UnipayIII device
 
 This demo is a version of the UniPayIIITestApp demo that's included in the 80149808-001-A.zip download from here: https://atlassian.idtechproducts.com/confluence/display/KB/VP3300+-+Home.
 
