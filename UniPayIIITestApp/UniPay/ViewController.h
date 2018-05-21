@@ -11,7 +11,7 @@
 #import <ClearentIdtechIOSFramework/ClearentIdtechIOSFramework.h>
 
 
-@interface ViewController : UIViewController<UIAlertViewDelegate, Clearent_Public_IDT_UniPayIII_Delegate, UIActionSheetDelegate,MFMailComposeViewControllerDelegate>
+@interface ViewController : UIViewController<UIAlertViewDelegate, Clearent_Public_IDTech_VP3300_Delegate, UIActionSheetDelegate,MFMailComposeViewControllerDelegate>
 {
     
     IBOutlet UITextView *resultsTextView;

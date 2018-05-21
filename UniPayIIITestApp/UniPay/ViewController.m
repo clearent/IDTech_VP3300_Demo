@@ -34,7 +34,7 @@
 @synthesize prompt_doConnection_Low_Volume;
 
 //CLEARENT: This is the object you will interact with.
-Clearent_UniPayIII *clearentPayments;
+Clearent_VP3300 *clearentPayments;
 
 extern int g_IOS_Type;
 
@@ -44,10 +44,8 @@ extern int g_IOS_Type;
 }
 -(void) _appendMessageToResults:(id)object{
     [self.resultsTextView setText:[NSString stringWithFormat:@"%@\n%@\n", self.resultsTextView.text,(NSString*)object]];
-    // [self.resultsTextView scrollRangeToVisible:NSMakeRange([self.resultsTextView.text length], 0)];
-    
+    [self.resultsTextView scrollRangeToVisible:NSMakeRange([self.resultsTextView.text length], 0)];
 }
-
 
 -(void) appendMessageToData:(NSString*) message{
     [self performSelectorOnMainThread:@selector(_appendMessageToData:) withObject:message waitUntilDone:false];
@@ -285,7 +283,7 @@ static int _lcdDisplayMode = 0;
     
 #ifndef __i386__
     //CLEARENT: Initialize the ClearentPayments object with your public delegate. In this example, the ViewController is your delegate (Clearent_Public_IDT_UniPayIII_Delegate).
-    clearentPayments = [[Clearent_UniPayIII alloc]  init];
+    clearentPayments = [[Clearent_VP3300 alloc]  init];
     [clearentPayments init:self];
     NSLog(@"ClearentPayments has been initialized");
 #endif
