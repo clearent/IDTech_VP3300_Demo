@@ -40,7 +40,7 @@ extern int g_IOS_Type;
 
 -(void) appendMessageToResults:(NSString*) message{
     [self performSelectorOnMainThread:@selector(_appendMessageToResults:) withObject:message waitUntilDone:false];
-
+    
 }
 -(void) _appendMessageToResults:(id)object{
     [self.resultsTextView setText:[NSString stringWithFormat:@"%@\n%@\n", self.resultsTextView.text,(NSString*)object]];
@@ -51,7 +51,7 @@ extern int g_IOS_Type;
 
 -(void) appendMessageToData:(NSString*) message{
     [self performSelectorOnMainThread:@selector(_appendMessageToData:) withObject:message waitUntilDone:false];
-
+    
 }
 -(void) _appendMessageToData:(id)object{
     [self.dataTextView setText:[NSString stringWithFormat:@"%@\n%@\n", self.dataTextView.text, (NSString*)object]];
@@ -64,17 +64,17 @@ extern int g_IOS_Type;
     //[self.resultsTextView scrollRangeToVisible:NSMakeRange([self.resultsTextView.text length], 0)];
     [self.dataTextView setText: @""];
     //[self.dataTextView scrollRangeToVisible:NSMakeRange([self.resultsTextView.text length], 0)];
-
-
+    
+    
 }
 
 //for return IDTResult type function
 -(void) displayUpRet2:(NSString*) operation returnValue: (RETURN_CODE)rt
 {
     
-//    NSString * str = [NSString stringWithFormat:
-//                      @"%@ ERROR: ID-\"%i\", message: %@.",
-//                      operation, rt, [[IDT_UniPayIII sharedController] device_getResponseCodeString:rt]];
+    //    NSString * str = [NSString stringWithFormat:
+    //                      @"%@ ERROR: ID-\"%i\", message: %@.",
+    //                      operation, rt, [[IDT_UniPayIII sharedController] device_getResponseCodeString:rt]];
     
     NSString * str = [NSString stringWithFormat:
                       @"%@ ERROR: ID-\"%i\", message: %@.",
@@ -100,7 +100,7 @@ extern int g_IOS_Type;
             NSLog(@"Selected Value is %i",selectedValue);
         }
         else{
-           //[[IDT_UniPayIII sharedController] emv_callbackResponseLCD:0 selection:0];
+            //[[IDT_UniPayIII sharedController] emv_callbackResponseLCD:0 selection:0];
             [clearentPayments emv_callbackResponseLCD:0 selection:0];
         }
         
@@ -118,7 +118,7 @@ extern int g_IOS_Type;
 }
 
 #pragma mark - Clearent/UniPay Delegate methods
-    
+
 
 static int _lcdDisplayMode = 0;
 - (void) lcdDisplay:(int)mode  lines:(NSArray*)lines{
@@ -130,7 +130,7 @@ static int _lcdDisplayMode = 0;
             [str appendString:@"\n"];
         }
     }
-
+    
     switch (mode) {
         case 0x10:
             //clear screen
@@ -146,7 +146,7 @@ static int _lcdDisplayMode = 0;
             alert.alertViewStyle = UIAlertViewStylePlainTextInput;
             [alert show];
         }
-
+            
             break;
         default:
             break;
@@ -177,8 +177,7 @@ static int _lcdDisplayMode = 0;
 -(void)deviceConnected{
     NSLog(@"Connected --");
     connectedLabel.text = @"Connected";
-   [self appendMessageToResults:@"(UniPay III Connected)"];
-   [self appendMessageToResults:[NSString stringWithFormat:@"Framework Version a: %@",[IDT_Device SDK_version]]];
+    [self appendMessageToResults:@"(UniPay III Connected)"];
     [self appendMessageToResults:[NSString stringWithFormat:@"Framework Version b: %@",[clearentPayments SDK_version]]];
 }
 
@@ -190,7 +189,7 @@ static int _lcdDisplayMode = 0;
 
 -(void) eventFunctionICC: (Byte) nICC_Attached{
     NSLog(@"UniPay_EventFunctionICC Return Status Code %2X ",  nICC_Attached);
-    [self appendMessageToResults:[NSString stringWithFormat:@"\nUniPay_EventFunctionICC Return Status Code %2X ",  nICC_Attached]];    
+    [self appendMessageToResults:[NSString stringWithFormat:@"\nUniPay_EventFunctionICC Return Status Code %2X ",  nICC_Attached]];
 }
 
 -(void) dismissAllAlertViews {
@@ -199,6 +198,7 @@ static int _lcdDisplayMode = 0;
 }
 
 - (void) deviceMessage:(NSString*)message{
+    NSLog(@"Device message called %@",  message);
     [self appendMessageToResults:message];
 }
 
@@ -221,7 +221,7 @@ static int _lcdDisplayMode = 0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    // Do any additional setup after loading the view, typically from a nib.
     
     //init alert views
     prompt_doConnection = [[UIAlertView alloc]
@@ -231,11 +231,11 @@ static int _lcdDisplayMode = 0;
                            cancelButtonTitle:@"Cancel"
                            otherButtonTitles:@"OK",nil];
     prompt_doConnection_Low_Volume = [[UIAlertView alloc]
-                           initWithTitle:@"UniPay III"
-                           message:@"Device detected in headphone jack. Try connecting it? WARNING: Low volume detected. Please increase headphone volume to MAXIMUM before proceeding with connection attempt."
-                           delegate:self
-                           cancelButtonTitle:@"Cancel"
-                           otherButtonTitles:@"OK",nil];
+                                      initWithTitle:@"UniPay III"
+                                      message:@"Device detected in headphone jack. Try connecting it? WARNING: Low volume detected. Please increase headphone volume to MAXIMUM before proceeding with connection attempt."
+                                      delegate:self
+                                      cancelButtonTitle:@"Cancel"
+                                      otherButtonTitles:@"OK",nil];
     
     //for iPhone
     if (0 == g_IOS_Type) {
@@ -282,7 +282,7 @@ static int _lcdDisplayMode = 0;
         self.pcControlPanes.numberOfPages = 5;
         self.pcControlPanes.currentPage = 0;
     }
-
+    
 #ifndef __i386__
     //CLEARENT: Initialize the ClearentPayments object with your public delegate. In this example, the ViewController is your delegate (Clearent_Public_IDT_UniPayIII_Delegate).
     clearentPayments = [[Clearent_UniPayIII alloc]  init];
@@ -293,8 +293,8 @@ static int _lcdDisplayMode = 0;
 
 //CLEARENT: A public delegate implementation requiring you to provide the url to use when it needs to create a transaction token (JWT representing the payment transaction request).
 -(NSString*) getTransactionTokenUrl {
-    return @"http://dhigginbotham.clearent.lan:9001/rest/v2/emvjwt";
-    //return @"http://gateway-dev.clearent.net/rest/v2/emvjwt";
+    return @"https://gateway-dev.clearent.net/rest/v2/mobilejwt";
+    //return @"http://dhigginbotham.clearent.lan:9001/rest/v2/mobilejwt";
 }
 //CLEARENT: A public delegate implementation requiring you to provide the public key Clearent provides.
 -(NSString*) getPublicKey {
@@ -309,7 +309,7 @@ static int _lcdDisplayMode = 0;
     
     NSDictionary *successfulResponseDictionary = [self jsonAsDictionary:jsonString];
     NSDictionary *payload = [successfulResponseDictionary objectForKey:@"payload"];
-    NSDictionary *emvJwt = [payload objectForKey:@"emv-jwt"];
+    NSDictionary *emvJwt = [payload objectForKey:@"mobile-jwt"];
     NSString *cvm = [emvJwt objectForKey:@"cvm"];
     NSString *lastFour = [emvJwt objectForKey:@"last-four"];
     NSString *trackDataHash = [emvJwt objectForKey:@"track-data-hash"];
@@ -331,8 +331,10 @@ static int _lcdDisplayMode = 0;
 - (void) exampleTransactionToClearentPayments:(NSString*)token {
     NSLog(@"%@Run the transaction...",token);
     //Construct the url
-    NSString *targetUrl = [NSString stringWithFormat:@"%@/rest/v2/mobile/transactions", @"http://dhigginbotham.clearent.lan:9000"];
-    //NSString *targetUrl = [NSString stringWithFormat:@"%@/rest/v2/mobile/transactions", @"https://gateway-dev.clearent.net"];
+    NSString *targetUrl = [NSString stringWithFormat:@"%@/rest/v2/mobile/transactions", @"https://gateway-dev.clearent.net"];
+    //NSString *targetUrl = [NSString stringWithFormat:@"%@/rest/v2/mobile/transactions", @"http://dhigginbotham.clearent.lan:9000"];
+    
+    
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     //Create a sample json request.
     NSData *postData = [self exampleClearentTransactionRequestAsJson];
@@ -345,9 +347,9 @@ static int _lcdDisplayMode = 0;
     
     //add a test apikey as a header
     [request setValue:@"12fa1a5617464354a72b3c9eb92d4f3b" forHTTPHeaderField:@"api-key"];
-
+    
     //add the JWT as a header.
-    [request setValue:token forHTTPHeaderField:@"emvjwt"];
+    [request setValue:token forHTTPHeaderField:@"mobilejwt"];
     [request setURL:[NSURL URLWithString:targetUrl]];
     //Do the Post. Report the result to your user (this example sends the message to the console on the demo app (lower left corner of ui)).
     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
@@ -370,7 +372,7 @@ static int _lcdDisplayMode = 0;
 - (NSData*) exampleClearentTransactionRequestAsJson {
     NSDictionary* dict = @{@"amount":@"4.55",@"type":@"SALE",@"email-address":@"bguntli@clearent.com",@"email-receipt":@"true"};
     return [NSJSONSerialization dataWithJSONObject:dict
-                                                   options:NSJSONWritingPrettyPrinted error:nil];
+                                           options:NSJSONWritingPrettyPrinted error:nil];
 }
 
 - (NSDictionary *)jsonAsDictionary:(NSString *)stringJson {
@@ -386,7 +388,7 @@ static int _lcdDisplayMode = 0;
 }
 
 - (void)viewDidUnload {
-     [super viewDidUnload];
+    [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
 
@@ -461,11 +463,30 @@ static int _lcdDisplayMode = 0;
 }
 
 
-
+//
+//Discover - A0000001523010 - x
+//
+//Discover Common Debit - A0000001524010 do
+//
+//China UnionPay Credit - A000000333010102 - x
+//
+//JCB - A0000000651010
+//
+//American Express - A00000002501 - maybe
+//
+//Mastercard Credit - A0000000041010 - x
+//
+//Visa - A0000000031010 - x
+//
+//Visa Electron - A0000000032010 - do
+//
+//Visa common debit - A0000000980840 - do
+//
 
 - (IBAction) f_loadDefaultAID:(id)sender{
+    //Visa
     NSString* name = @"a0000000031010";
-    NSString* TLVstring = @"5f5701005f2a0208409f090200095f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
+    NSString* TLVstring = @"5f5701005f2a0208409f090200096f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
     NSData* TLV = [IDTUtility hexToData:TLVstring];
     //RETURN_CODE rt = [[IDT_UniPayIII sharedController] emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
     RETURN_CODE rt = [clearentPayments emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
@@ -506,7 +527,7 @@ static int _lcdDisplayMode = 0;
     name = @"a000000003101004";
     TLVstring = @"5f5701005f2a0208409f090200965f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
     TLV = [IDTUtility hexToData:TLVstring];
-    //rt = [[IDT_UniPayIII sharedController] emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
+    //rt = [[IDT_VP3300 sharedController] emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
     rt = [clearentPayments emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
@@ -515,11 +536,10 @@ static int _lcdDisplayMode = 0;
     else{
         [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
     }
-
+    
     name = @"a000000003101005";
     TLVstring = @"5f5701005f2a0208409f090200965f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
     TLV = [IDTUtility hexToData:TLVstring];
-    rt = [[IDT_UniPayIII sharedController] emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
     rt = [clearentPayments emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
@@ -543,7 +563,7 @@ static int _lcdDisplayMode = 0;
     name = @"a000000003101007";
     TLVstring = @"5f5701005f2a0208409f090200965f3601029f1b0400003a98df25039f3704df28039f0802dfee150100df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
     TLV = [IDTUtility hexToData:TLVstring];
-    //rt = [[IDT_UniPayIII sharedController] emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
+    //rt = [[IDT_VP3300 sharedController] emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
     rt = [clearentPayments emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
@@ -552,10 +572,11 @@ static int _lcdDisplayMode = 0;
     else{
         [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
     }
+    //Mastercard Credit
     name = @"a0000000041010";
     TLVstring = @"5f5701005f2a0208409f090200025f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
     TLV = [IDTUtility hexToData:TLVstring];
-    //rt = [[IDT_UniPayIII sharedController] emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
+    //rt = [[IDT_VP3300 sharedController] emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
     rt = [clearentPayments emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
@@ -564,6 +585,8 @@ static int _lcdDisplayMode = 0;
     else{
         [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
     }
+    
+    //JCB
     name = @"a0000000651010";
     TLVstring = @"5f5701005f2a0208409f090202005f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
     TLV = [IDTUtility hexToData:TLVstring];
@@ -576,7 +599,9 @@ static int _lcdDisplayMode = 0;
     else{
         [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
     }
-    name = @"a000000025010501";
+    //American Express
+    //name = @"a000000025010501";
+    name = @"A00000002501";
     TLVstring = @"5f5701005f2a0208409f090200015f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
     TLV = [IDTUtility hexToData:TLVstring];
     //rt = [[IDT_UniPayIII sharedController] emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
@@ -588,6 +613,7 @@ static int _lcdDisplayMode = 0;
     else{
         [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
     }
+    //Discover
     name = @"a0000001523010";
     TLVstring = @"5f5701005f2a0208409f090200015f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
     TLV = [IDTUtility hexToData:TLVstring];
@@ -600,7 +626,7 @@ static int _lcdDisplayMode = 0;
     else{
         [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
     }
-    
+    //China UnionPay Credit
     name = @"a000000333010102";
     TLVstring = @"5f5701005f2a0208409f090200305f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
     TLV = [IDTUtility hexToData:TLVstring];
@@ -637,11 +663,96 @@ static int _lcdDisplayMode = 0;
     else{
         [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
     }
-
+    
+    //UnionPay Quasi Credit
+    name = @"a000000333010103";
+    TLVstring = @"5f5701005f2a0208409f090200965f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
+    TLV = [IDTUtility hexToData:TLVstring];
+    //rt = [[IDT_UniPayIII sharedController] emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
+    rt = [clearentPayments emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
+    if (RETURN_CODE_DO_SUCCESS == rt)
+    {
+        [self appendMessageToResults: [NSString stringWithFormat:@"Aid %@ Loaded",name]];
+    }
+    else{
+        [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
+    }
+    
+    //Discover common debit
+    name = @"A0000001524010";
+    TLVstring = @"5f5701005f2a0208409f090200965f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
+    TLV = [IDTUtility hexToData:TLVstring];
+    //rt = [[IDT_UniPayIII sharedController] emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
+    rt = [clearentPayments emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
+    if (RETURN_CODE_DO_SUCCESS == rt)
+    {
+        [self appendMessageToResults: [NSString stringWithFormat:@"Aid %@ Loaded",name]];
+    }
+    else{
+        [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
+    }
+    
+    //Discover common debit
+    name = @"A0000001524010";
+    TLVstring = @"5f5701005f2a0208409f090200965f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
+    TLV = [IDTUtility hexToData:TLVstring];
+    //rt = [[IDT_UniPayIII sharedController] emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
+    rt = [clearentPayments emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
+    if (RETURN_CODE_DO_SUCCESS == rt)
+    {
+        [self appendMessageToResults: [NSString stringWithFormat:@"Aid %@ Loaded",name]];
+    }
+    else{
+        [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
+    }
+    
+    //Visa electron
+    name = @"A0000000032010";
+    TLVstring = @"5f5701005f2a0208409f090200965f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
+    TLV = [IDTUtility hexToData:TLVstring];
+    //rt = [[IDT_UniPayIII sharedController] emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
+    rt = [clearentPayments emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
+    if (RETURN_CODE_DO_SUCCESS == rt)
+    {
+        [self appendMessageToResults: [NSString stringWithFormat:@"Aid %@ Loaded",name]];
+    }
+    else{
+        [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
+    }
+    
+    //Visa electron
+    name = @"A0000000032010";
+    TLVstring = @"5f5701005f2a0208409f090200965f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
+    TLV = [IDTUtility hexToData:TLVstring];
+    //rt = [[IDT_UniPayIII sharedController] emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
+    rt = [clearentPayments emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
+    if (RETURN_CODE_DO_SUCCESS == rt)
+    {
+        [self appendMessageToResults: [NSString stringWithFormat:@"Aid %@ Loaded",name]];
+    }
+    else{
+        [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
+    }
+    
+    //Visa common debit
+    name = @"A0000000980840";
+    TLVstring = @"5f5701005f2a0208409f090200965f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
+    TLV = [IDTUtility hexToData:TLVstring];
+    //rt = [[IDT_UniPayIII sharedController] emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
+    rt = [clearentPayments emv_setApplicationData:name configData:[IDTUtility TLVtoDICT:TLV]];
+    if (RETURN_CODE_DO_SUCCESS == rt)
+    {
+        [self appendMessageToResults: [NSString stringWithFormat:@"Aid %@ Loaded",name]];
+    }
+    else{
+        [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
+    }
     
     
-
 }
+
+
+
 
 
 
@@ -1043,20 +1154,20 @@ static int _lcdDisplayMode = 0;
         return;
     }
     
-        NSString *sta;
-        if(response->iccPower)
-            sta =@"[ICC Powered]";
-        else
-            sta = @"[ICC Power not Ready]";
-        if(response->cardSeated)
-            sta =[NSString stringWithFormat:@"%@,[Card Seated]", sta];
-        else
-            sta =[NSString stringWithFormat:@"%@,[Card not Seated]", sta];
-        
-        [self appendMessageToResults:[NSString stringWithFormat:@"%@",sta]];
+    NSString *sta;
+    if(response->iccPower)
+        sta =@"[ICC Powered]";
+    else
+        sta = @"[ICC Power not Ready]";
+    if(response->cardSeated)
+        sta =[NSString stringWithFormat:@"%@,[Card Seated]", sta];
+    else
+        sta =[NSString stringWithFormat:@"%@,[Card not Seated]", sta];
     
-
-
+    [self appendMessageToResults:[NSString stringWithFormat:@"%@",sta]];
+    
+    
+    
 }
 
 - (IBAction) f_IccPowerON: (id)sender{
@@ -1066,7 +1177,7 @@ static int _lcdDisplayMode = 0;
     if(RETURN_CODE_DO_SUCCESS == rt)
     {
         [self appendMessageToResults:[NSString stringWithFormat:@"ICC Powered On, data: %@\n%@", response.description, [[NSString alloc] initWithData:response encoding:NSASCIIStringEncoding] ]];
-
+        
     }else
     {
         [self displayUpRet2: @"ICC Powerd On" returnValue:rt];
@@ -1076,7 +1187,7 @@ static int _lcdDisplayMode = 0;
 }
 
 - (IBAction) f_IccPowerOFF: (id)sender{
-
+    
     NSString* error;
     //RETURN_CODE rt = [[IDT_UniPayIII sharedController] icc_powerOffICC:&error];
     RETURN_CODE rt = [clearentPayments icc_powerOffICC:&error];
@@ -1158,6 +1269,11 @@ static int _lcdDisplayMode = 0;
     
     NSData* response;
     //RETURN_CODE rt = [[IDT_UniPayIII sharedController] device_sendIDGCommand:cmdVal subCommand:subcmdVal data:[self hexToData:txtDirectIO.text] response:&response];
+    
+    
+    NSLog(@"test : %@",txtDirectIO.text);
+    
+    
     RETURN_CODE rt = [clearentPayments device_sendIDGCommand:cmdVal subCommand:subcmdVal data:[self hexToData:txtDirectIO.text] response:&response];
     if (RETURN_CODE_DO_SUCCESS == rt) {
         [self appendMessageToResults:[NSString stringWithFormat:@"Send Command Result: %@", response.description]];
@@ -1201,10 +1317,10 @@ static int _lcdDisplayMode = 0;
     //RETURN_CODE rt = [[IDT_UniPayIII sharedController] icc_exchangeAPDU:dataBuffer response:&response];
     RETURN_CODE rt = [clearentPayments icc_exchangeAPDU:dataBuffer response:&response];
     [self displayUpRet2: @"ExchangeAPDU" returnValue:rt];
-
+    
     
     [self appendMessageToResults:[NSString stringWithFormat:@"ExchangeAPDU Result: APDU %@", response.response.description ]];
-
+    
     if (RETURN_CODE_DO_SUCCESS == rt)
         [self appendMessageToResults:[NSString stringWithFormat:@"ExchangeAPDU SW1 SW2: %02X, %02X", response.SW1,response.SW2]];
 }
@@ -1213,7 +1329,7 @@ static int _lcdDisplayMode = 0;
 
 - (IBAction) f_testRKI:(id)sender{
     //RETURN_CODE rt = [[IDT_UniPayIII sharedController]  device_startRKI];
-     RETURN_CODE rt = [clearentPayments  device_startRKI];
+    RETURN_CODE rt = [clearentPayments  device_startRKI];
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
         [self appendMessageToResults: @"Start RKI Success"];
@@ -1225,14 +1341,14 @@ static int _lcdDisplayMode = 0;
 }
 
 - (IBAction) removeAllCAPK:(id)sender{
-     RETURN_CODE rt = 0;
+    RETURN_CODE rt = 0;
     //RETURN_CODE rt = [[IDT_UniPayIII sharedController]  ctls_removeAllCAPK];
     //RETURN_CODE rt = [clearentPayments ctls_removeAllCAPK];
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
         [self appendMessageToResults: [NSString stringWithFormat:@"Remove All CAPK Success"]];
         [self appendMessageToResults: [NSString stringWithFormat:@"Remove All CAPK Success"]];
-
+        
     }
     else{
         [self displayUpRet2: @"Remove All CAPK Failure" returnValue: rt];
@@ -1240,23 +1356,23 @@ static int _lcdDisplayMode = 0;
 }
 
 -(IBAction) loadCTLSCAPK:(id)sender{
-
-//    RETURN_CODE rt = [[IDT_UniPayIII sharedController]  ctls_setCAPK:[IDTUtility hexToData:@"a000000003500101b769775668cacb5d22a647d1d993141edab7237b000100018000d11197590057b84196c2f4d11a8f3c05408f422a35d702f90106ea5b019bb28ae607aa9cdebcd0d81a38d48c7ebb0062d287369ec0c42124246ac30d80cd602ab7238d51084ded4698162c59d25eac1e66255b4db2352526ef0982c3b8ad3d1cce85b01db5788e75e09f44be7361366def9d1e1317b05e5d0ff5290f88a0db47"]];
-     RETURN_CODE rt = 0;
-//    RETURN_CODE rt = [clearentPayments  ctls_setCAPK:[IDTUtility hexToData:@"a000000003500101b769775668cacb5d22a647d1d993141edab7237b000100018000d11197590057b84196c2f4d11a8f3c05408f422a35d702f90106ea5b019bb28ae607aa9cdebcd0d81a38d48c7ebb0062d287369ec0c42124246ac30d80cd602ab7238d51084ded4698162c59d25eac1e66255b4db2352526ef0982c3b8ad3d1cce85b01db5788e75e09f44be7361366def9d1e1317b05e5d0ff5290f88a0db47"]];
     
-//    rt = [[IDT_UniPayIII sharedController]  ctls_setCAPK:[IDTUtility hexToData:@"a000000003510101b9d248075a3f23b522fe45573e04374dc4995d71000000039000db5fa29d1fda8c1634b04dccff148abee63c772035c79851d3512107586e02a917f7c7e885e7c4a7d529710a145334ce67dc412cb1597b77aa2543b98d19cf2cb80c522bdbea0f1b113fa2c86216c8c610a2d58f29cf3355ceb1bd3ef410d1edd1f7ae0f16897979de28c6ef293e0a19282bd1d793f1331523fc71a228800468c01a3653d14c6b4851a5c029478e757f"]];
+    //    RETURN_CODE rt = [[IDT_UniPayIII sharedController]  ctls_setCAPK:[IDTUtility hexToData:@"a000000003500101b769775668cacb5d22a647d1d993141edab7237b000100018000d11197590057b84196c2f4d11a8f3c05408f422a35d702f90106ea5b019bb28ae607aa9cdebcd0d81a38d48c7ebb0062d287369ec0c42124246ac30d80cd602ab7238d51084ded4698162c59d25eac1e66255b4db2352526ef0982c3b8ad3d1cce85b01db5788e75e09f44be7361366def9d1e1317b05e5d0ff5290f88a0db47"]];
+    RETURN_CODE rt = 0;
+    //    RETURN_CODE rt = [clearentPayments  ctls_setCAPK:[IDTUtility hexToData:@"a000000003500101b769775668cacb5d22a647d1d993141edab7237b000100018000d11197590057b84196c2f4d11a8f3c05408f422a35d702f90106ea5b019bb28ae607aa9cdebcd0d81a38d48c7ebb0062d287369ec0c42124246ac30d80cd602ab7238d51084ded4698162c59d25eac1e66255b4db2352526ef0982c3b8ad3d1cce85b01db5788e75e09f44be7361366def9d1e1317b05e5d0ff5290f88a0db47"]];
     
-//     rt = [clearentPayments  ctls_setCAPK:[IDTUtility hexToData:@"a000000003510101b9d248075a3f23b522fe45573e04374dc4995d71000000039000db5fa29d1fda8c1634b04dccff148abee63c772035c79851d3512107586e02a917f7c7e885e7c4a7d529710a145334ce67dc412cb1597b77aa2543b98d19cf2cb80c522bdbea0f1b113fa2c86216c8c610a2d58f29cf3355ceb1bd3ef410d1edd1f7ae0f16897979de28c6ef293e0a19282bd1d793f1331523fc71a228800468c01a3653d14c6b4851a5c029478e757f"]];
+    //    rt = [[IDT_UniPayIII sharedController]  ctls_setCAPK:[IDTUtility hexToData:@"a000000003510101b9d248075a3f23b522fe45573e04374dc4995d71000000039000db5fa29d1fda8c1634b04dccff148abee63c772035c79851d3512107586e02a917f7c7e885e7c4a7d529710a145334ce67dc412cb1597b77aa2543b98d19cf2cb80c522bdbea0f1b113fa2c86216c8c610a2d58f29cf3355ceb1bd3ef410d1edd1f7ae0f16897979de28c6ef293e0a19282bd1d793f1331523fc71a228800468c01a3653d14c6b4851a5c029478e757f"]];
     
-//        rt = [[IDT_UniPayIII sharedController]  ctls_setCAPK:[IDTUtility hexToData:@"a000000004ff0101439eb23d8a71b99f879c1a1f1765252d840b9a74000100019000f69dbb5e15983eae3ccf31cf4e47098c2fc16f97a0c710f84777efa99622d86502b138728ab12e3481a84d20e014ad2d634d2836f27f294924b895a87f91f81b8169d4dfdad8d7cbd741804cd61b467c7a9acfeceb71188caa73a907547699d45c9c7d2098ac2966266417f665a46bdd012c097dbd33d1d11aff6ec8a9c0ad814a65b48262ca011636079a328c1aaeb7"]];
+    //     rt = [clearentPayments  ctls_setCAPK:[IDTUtility hexToData:@"a000000003510101b9d248075a3f23b522fe45573e04374dc4995d71000000039000db5fa29d1fda8c1634b04dccff148abee63c772035c79851d3512107586e02a917f7c7e885e7c4a7d529710a145334ce67dc412cb1597b77aa2543b98d19cf2cb80c522bdbea0f1b113fa2c86216c8c610a2d58f29cf3355ceb1bd3ef410d1edd1f7ae0f16897979de28c6ef293e0a19282bd1d793f1331523fc71a228800468c01a3653d14c6b4851a5c029478e757f"]];
     
-//     rt = [clearentPayments  ctls_setCAPK:[IDTUtility hexToData:@"a000000004ff0101439eb23d8a71b99f879c1a1f1765252d840b9a74000100019000f69dbb5e15983eae3ccf31cf4e47098c2fc16f97a0c710f84777efa99622d86502b138728ab12e3481a84d20e014ad2d634d2836f27f294924b895a87f91f81b8169d4dfdad8d7cbd741804cd61b467c7a9acfeceb71188caa73a907547699d45c9c7d2098ac2966266417f665a46bdd012c097dbd33d1d11aff6ec8a9c0ad814a65b48262ca011636079a328c1aaeb7"]];
-
+    //        rt = [[IDT_UniPayIII sharedController]  ctls_setCAPK:[IDTUtility hexToData:@"a000000004ff0101439eb23d8a71b99f879c1a1f1765252d840b9a74000100019000f69dbb5e15983eae3ccf31cf4e47098c2fc16f97a0c710f84777efa99622d86502b138728ab12e3481a84d20e014ad2d634d2836f27f294924b895a87f91f81b8169d4dfdad8d7cbd741804cd61b467c7a9acfeceb71188caa73a907547699d45c9c7d2098ac2966266417f665a46bdd012c097dbd33d1d11aff6ec8a9c0ad814a65b48262ca011636079a328c1aaeb7"]];
+    
+    //     rt = [clearentPayments  ctls_setCAPK:[IDTUtility hexToData:@"a000000004ff0101439eb23d8a71b99f879c1a1f1765252d840b9a74000100019000f69dbb5e15983eae3ccf31cf4e47098c2fc16f97a0c710f84777efa99622d86502b138728ab12e3481a84d20e014ad2d634d2836f27f294924b895a87f91f81b8169d4dfdad8d7cbd741804cd61b467c7a9acfeceb71188caa73a907547699d45c9c7d2098ac2966266417f665a46bdd012c097dbd33d1d11aff6ec8a9c0ad814a65b48262ca011636079a328c1aaeb7"]];
+    
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
         [self appendMessageToResults: [NSString stringWithFormat:@"Set CTLS Success"]];
-
+        
     }
     else{
         [self displayUpRet2: @"Set CTLS Info " returnValue: rt];
@@ -1267,13 +1383,13 @@ static int _lcdDisplayMode = 0;
 
 - (IBAction) ctlsAIDList:(id)sender{
     NSArray *result;
- RETURN_CODE rt = 0;
+    RETURN_CODE rt = 0;
     //RETURN_CODE rt = [[IDT_UniPayIII sharedController]  ctls_retrieveAIDList:&result];
     //RETURN_CODE rt = [clearentPayments ctls_retrieveAIDList:&result];
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
         [self appendMessageToResults: [NSString stringWithFormat:@"CTLS Aid:\n%@", result.description]];
-
+        
     }
     else{
         [self displayUpRet2: @"CTLS Aid info" returnValue: rt];
@@ -1288,7 +1404,7 @@ static int _lcdDisplayMode = 0;
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
         [self appendMessageToResults: [NSString stringWithFormat:@"CTLS CAPK:\n%@", result.description]];
-
+        
     }
     else{
         [self displayUpRet2: @"CTLS CAPK info" returnValue: rt];
@@ -1298,13 +1414,13 @@ static int _lcdDisplayMode = 0;
 
 - (IBAction) ctlsGetAid:(id)sender{
     NSDictionary *result;
- RETURN_CODE rt = 0;
+    RETURN_CODE rt = 0;
     //RETURN_CODE rt = [[IDT_UniPayIII sharedController]  ctls_retrieveApplicationData:@"A0000000031010" response:&result];
     //RETURN_CODE rt = [clearentPayments  ctls_retrieveApplicationData:@"A0000000031010" response:&result];
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
         [self appendMessageToResults: [NSString stringWithFormat:@"AID info:\n%@", result.description]];
-
+        
     }
     else{
         [self displayUpRet2: @"AID Info info" returnValue: rt];
@@ -1313,7 +1429,7 @@ static int _lcdDisplayMode = 0;
 
 - (IBAction) configGroup0:(id)sender{
     NSDictionary *result;
- RETURN_CODE rt = 0;
+    RETURN_CODE rt = 0;
     //RETURN_CODE rt = [[IDT_UniPayIII sharedController]  ctls_getConfigurationGroup:0 response:&result];
     //RETURN_CODE rt = [clearentPayments  ctls_getConfigurationGroup:0 response:&result];
     if (RETURN_CODE_DO_SUCCESS == rt)
@@ -1360,7 +1476,7 @@ static int _lcdDisplayMode = 0;
         [self displayUpRet2: @"Terminal Settings error " returnValue: rt];
     }
     
-
+    
 }
 
 -(IBAction) createCRLFile:(id)sender{
@@ -1396,7 +1512,7 @@ static int _lcdDisplayMode = 0;
     
 }
 -(IBAction) createAIDFile:(id)sender{
-
+    
     NSString* name = @"a0000000031010";
     NSString* TLVstring = @"9f01065649534130305f5701005f2a0208409f090200965f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
     NSData* TLV = [IDTUtility hexToData:TLVstring];
@@ -1410,7 +1526,7 @@ static int _lcdDisplayMode = 0;
         [self displayUpRet2: @"AID for a0000000031010 error " returnValue: rt];
     }
     
-
+    
 }
 -(IBAction) getCAPKFile:(id)sender{
     NSData *result;
@@ -1434,7 +1550,7 @@ static int _lcdDisplayMode = 0;
     {
         [self appendMessageToResults: [NSString stringWithFormat:@"AID Tags:\n%@", result.description]];
         [self appendMessageToResults: [NSString stringWithFormat:@"TLV Stream:\n%@", [IDTUtility DICTotTLV:result]]];
-
+        
     }
     else{
         [self displayUpRet2: @"Installed AIDs info" returnValue: rt];
@@ -1481,7 +1597,7 @@ static int _lcdDisplayMode = 0;
         [self displayUpRet2: @"Aid Not Removed " returnValue: rt];
     }
     
- 
+    
     
 }
 -(IBAction) getAIDFList:(id)sender{
@@ -1536,12 +1652,12 @@ static int _lcdDisplayMode = 0;
 }
 
 -(IBAction)startEMV:(id)sender{
-
+    
     if (stressTest.on){
         [autoAuth setOn:TRUE];
         [autoComplete setOn:TRUE];
     }
-
+    
     //
     [clearentPayments emv_disableAutoAuthenticateTransaction:!autoAuth.on];
     resultsTextView.text = @"";
@@ -1563,54 +1679,55 @@ static int _lcdDisplayMode = 0;
     else{
         [self displayUpRet2: @"Complete Transaction info" returnValue: rt];
     }
-
+    
     
 }
 
 
 
 -(unsigned int) char2hex:(char)c{
-	
-	switch (c) {
-		case '0' ... '9': return c - '0';
-		case 'a' ... 'f': return c - 'a' + 10;
-		case 'A' ... 'F': return c - 'A' + 10;
-		default: return -1;
-	}
+    
+    switch (c) {
+        case '0' ... '9': return c - '0';
+        case 'a' ... 'f': return c - 'a' + 10;
+        case 'A' ... 'F': return c - 'A' + 10;
+        default: return -1;
+    }
 }
 
 - (NSData *)hexToData:(NSString*)str {   //Example - Pass string that contains characters "30313233", and it will return a data object containing ascii characters "0123"
-	if ([str length] == 0) {
-		return nil;
-	}
-	
-	unsigned stringIndex=0, resultIndex=0, max=(int)[str length];
-	NSMutableData* result = [NSMutableData dataWithLength:(max + 1)/2];
-	unsigned char* bytes = [result mutableBytes];
-	
-	unsigned num_nibbles = 0;
-	unsigned char byte_value = 0;
-	
-	for (stringIndex = 0; stringIndex < max; stringIndex++) {
-		unsigned int val = [self char2hex:[str characterAtIndex:stringIndex]];
-		
-		num_nibbles++;
-		byte_value = byte_value * 16 + (unsigned char)val;
-		if (! (num_nibbles % 2)) {
-			bytes[resultIndex++] = byte_value;
-			byte_value = 0;
-		}
-	}
-	
-	
-	//final nibble
-	if (num_nibbles % 2) {
-		bytes[resultIndex++] = byte_value;
-	}
-	
-	[result setLength:resultIndex];
-	
-	return result;
+    if ([str length] == 0) {
+        return nil;
+    }
+    
+    unsigned stringIndex=0, resultIndex=0, max=(int)[str length];
+    NSMutableData* result = [NSMutableData dataWithLength:(max + 1)/2];
+    unsigned char* bytes = [result mutableBytes];
+    
+    unsigned num_nibbles = 0;
+    unsigned char byte_value = 0;
+    
+    for (stringIndex = 0; stringIndex < max; stringIndex++) {
+        unsigned int val = [self char2hex:[str characterAtIndex:stringIndex]];
+        
+        num_nibbles++;
+        byte_value = byte_value * 16 + (unsigned char)val;
+        if (! (num_nibbles % 2)) {
+            bytes[resultIndex++] = byte_value;
+            byte_value = 0;
+        }
+    }
+    
+    
+    //final nibble
+    if (num_nibbles % 2) {
+        bytes[resultIndex++] = byte_value;
+    }
+    
+    [result setLength:resultIndex];
+    
+    return result;
 }
 
 @end
+

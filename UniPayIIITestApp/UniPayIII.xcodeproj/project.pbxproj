@@ -34,17 +34,28 @@
 		40F1569816F6F22100999E23 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F1569716F6F22100999E23 /* Foundation.framework */; };
 		40F1569A16F6F22100999E23 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F1569916F6F22100999E23 /* CoreGraphics.framework */; };
 		40F156BB16F6F35C00999E23 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F156BA16F6F35C00999E23 /* ExternalAccessory.framework */; };
-		E7C54CE520A0B9FE002CC355 /* ClearentIdtechIOSFramework.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = E7C54CE420A0B9FE002CC355 /* ClearentIdtechIOSFramework.framework.dSYM */; };
+		E79BC81620B355860030FD8C /* IDTech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E79BC7EB20B302060030FD8C /* IDTech.framework */; };
+		E79BC81820B355870030FD8C /* ClearentIdtechIOSFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E79BC81720B355870030FD8C /* ClearentIdtechIOSFramework.framework */; };
+		E79BC81A20B3562B0030FD8C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2519D9EC197F29A9008E2DFC /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		E79BC7F920B330890030FD8C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E7C54CE320A0B9EA002CC355 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				E7C54CE520A0B9FE002CC355 /* ClearentIdtechIOSFramework.framework.dSYM in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,9 +98,36 @@
 		40F1569716F6F22100999E23 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		40F1569916F6F22100999E23 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		40F156BA16F6F35C00999E23 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
-		E73741C31FFD7F42006E0E08 /* IDTech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDTech.framework; path = ClearentPayments/IDTech.framework; sourceTree = "<group>"; };
-		E7C54CE420A0B9FE002CC355 /* ClearentIdtechIOSFramework.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = ClearentIdtechIOSFramework.framework.dSYM; path = ../Carthage/Build/iOS/ClearentIdtechIOSFramework.framework.dSYM; sourceTree = "<group>"; };
-		E7C54D0320A0E835002CC355 /* ClearentIdtechIOSFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClearentIdtechIOSFramework.framework; path = ../Carthage/Build/iOS/ClearentIdtechIOSFramework.framework; sourceTree = "<group>"; };
+		E79BC7CA20B302060030FD8C /* UniPayIII.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = UniPayIII.xcodeproj; sourceTree = "<group>"; };
+		E79BC7CE20B302060030FD8C /* UniPay-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UniPay-Prefix.pch"; sourceTree = "<group>"; };
+		E79BC7D020B302060030FD8C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E79BC7D220B302060030FD8C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
+		E79BC7D420B302060030FD8C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
+		E79BC7D520B302060030FD8C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E79BC7D620B302060030FD8C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		E79BC7D720B302060030FD8C /* UniPay-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UniPay-Info.plist"; sourceTree = "<group>"; };
+		E79BC7D920B302060030FD8C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		E79BC7DA20B302060030FD8C /* Default-Portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x.png"; sourceTree = "<group>"; };
+		E79BC7DB20B302060030FD8C /* 3591.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3591.png; sourceTree = "<group>"; };
+		E79BC7DC20B302060030FD8C /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
+		E79BC7DD20B302060030FD8C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		E79BC7DE20B302060030FD8C /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		E79BC7DF20B302060030FD8C /* btnClear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnClear.png; sourceTree = "<group>"; };
+		E79BC7E020B302060030FD8C /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		E79BC7E120B302060030FD8C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		E79BC7E220B302060030FD8C /* iM-EA00-lost2.ats */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iM-EA00-lost2.ats"; sourceTree = "<group>"; };
+		E79BC7E320B302060030FD8C /* IDTechLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IDTechLogo.png; sourceTree = "<group>"; };
+		E79BC7E420B302060030FD8C /* IDTechLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IDTechLogo.jpg; sourceTree = "<group>"; };
+		E79BC7E520B302060030FD8C /* 2531170_191716885000_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2531170_191716885000_2.jpg; sourceTree = "<group>"; };
+		E79BC7E620B302060030FD8C /* im-140811-iM.hex */ = {isa = PBXFileReference; lastKnownFileType = text; path = "im-140811-iM.hex"; sourceTree = "<group>"; };
+		E79BC7E720B302060030FD8C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		E79BC7E820B302060030FD8C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E79BC7E920B302060030FD8C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E79BC7EA20B302060030FD8C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		E79BC7EB20B302060030FD8C /* IDTech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IDTech.framework; sourceTree = "<group>"; };
+		E79BC7EC20B302060030FD8C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		E79BC7ED20B302060030FD8C /* IDTech.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IDTech.bundle; sourceTree = "<group>"; };
+		E79BC81720B355870030FD8C /* ClearentIdtechIOSFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ClearentIdtechIOSFramework.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +135,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E79BC81A20B3562B0030FD8C /* AVFoundation.framework in Frameworks */,
+				E79BC81820B355870030FD8C /* ClearentIdtechIOSFramework.framework in Frameworks */,
+				E79BC81620B355860030FD8C /* IDTech.framework in Frameworks */,
 				25F004E81DA31C8300422860 /* CoreBluetooth.framework in Frameworks */,
 				2502F75B1986C5D5000BE09A /* MessageUI.framework in Frameworks */,
 				2519D9F1197F29BD008E2DFC /* MediaPlayer.framework in Frameworks */,
@@ -142,14 +183,11 @@
 		40F1568616F6F22100999E23 = {
 			isa = PBXGroup;
 			children = (
-				E7C54D0320A0E835002CC355 /* ClearentIdtechIOSFramework.framework */,
-				E7C54CE420A0B9FE002CC355 /* ClearentIdtechIOSFramework.framework.dSYM */,
 				253E80F41AC249EC00AB2D07 /* Images.xcassets */,
 				2502F7241986B126000BE09A /* IDTechLogo.jpg */,
 				40F1569B16F6F22100999E23 /* UniPay */,
 				40F1569416F6F22100999E23 /* Frameworks */,
 				40F1569216F6F22100999E23 /* Products */,
-				E77A56691FFE588400261158 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -164,6 +202,8 @@
 		40F1569416F6F22100999E23 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E79BC81720B355870030FD8C /* ClearentIdtechIOSFramework.framework */,
+				E79BC7C920B302060030FD8C /* UniPayIIITestApp */,
 				25F004E71DA31C8300422860 /* CoreBluetooth.framework */,
 				2502F75A1986C5D5000BE09A /* MessageUI.framework */,
 				2519D9F0197F29BD008E2DFC /* MediaPlayer.framework */,
@@ -206,12 +246,61 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E77A56691FFE588400261158 /* Recovered References */ = {
+		E79BC7C920B302060030FD8C /* UniPayIIITestApp */ = {
 			isa = PBXGroup;
 			children = (
-				E73741C31FFD7F42006E0E08 /* IDTech.framework */,
+				E79BC7CA20B302060030FD8C /* UniPayIII.xcodeproj */,
+				E79BC7CD20B302060030FD8C /* UniPay */,
+				E79BC7EB20B302060030FD8C /* IDTech.framework */,
+				E79BC7EC20B302060030FD8C /* Images.xcassets */,
+				E79BC7ED20B302060030FD8C /* IDTech.bundle */,
 			);
-			name = "Recovered References";
+			name = UniPayIIITestApp;
+			sourceTree = "<group>";
+		};
+		E79BC7CB20B302060030FD8C /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E79BC7CD20B302060030FD8C /* UniPay */ = {
+			isa = PBXGroup;
+			children = (
+				E79BC7CE20B302060030FD8C /* UniPay-Prefix.pch */,
+				E79BC7CF20B302060030FD8C /* InfoPlist.strings */,
+				E79BC7D120B302060030FD8C /* ViewController_iPad.xib */,
+				E79BC7D320B302060030FD8C /* ViewController_iPhone.xib */,
+				E79BC7D520B302060030FD8C /* AppDelegate.h */,
+				E79BC7D620B302060030FD8C /* ViewController.m */,
+				E79BC7D720B302060030FD8C /* UniPay-Info.plist */,
+				E79BC7D820B302060030FD8C /* img */,
+				E79BC7E820B302060030FD8C /* main.m */,
+				E79BC7E920B302060030FD8C /* AppDelegate.m */,
+				E79BC7EA20B302060030FD8C /* ViewController.h */,
+			);
+			path = UniPay;
+			sourceTree = "<group>";
+		};
+		E79BC7D820B302060030FD8C /* img */ = {
+			isa = PBXGroup;
+			children = (
+				E79BC7D920B302060030FD8C /* Icon.png */,
+				E79BC7DA20B302060030FD8C /* Default-Portrait@2x.png */,
+				E79BC7DB20B302060030FD8C /* 3591.png */,
+				E79BC7DC20B302060030FD8C /* Default-Portrait.png */,
+				E79BC7DD20B302060030FD8C /* Default@2x.png */,
+				E79BC7DE20B302060030FD8C /* Icon-72.png */,
+				E79BC7DF20B302060030FD8C /* btnClear.png */,
+				E79BC7E020B302060030FD8C /* Icon@2x.png */,
+				E79BC7E120B302060030FD8C /* Default-568h@2x.png */,
+				E79BC7E220B302060030FD8C /* iM-EA00-lost2.ats */,
+				E79BC7E320B302060030FD8C /* IDTechLogo.png */,
+				E79BC7E420B302060030FD8C /* IDTechLogo.jpg */,
+				E79BC7E520B302060030FD8C /* 2531170_191716885000_2.jpg */,
+				E79BC7E620B302060030FD8C /* im-140811-iM.hex */,
+				E79BC7E720B302060030FD8C /* Default.png */,
+			);
+			path = img;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,6 +315,7 @@
 				40F1568F16F6F22100999E23 /* Resources */,
 				E7C54CE320A0B9EA002CC355 /* CopyFiles */,
 				E7C54CFA20A0CE09002CC355 /* ShellScript */,
+				E79BC7F920B330890030FD8C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -260,6 +350,12 @@
 			mainGroup = 40F1568616F6F22100999E23;
 			productRefGroup = 40F1569216F6F22100999E23 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E79BC7CB20B302060030FD8C /* Products */;
+					ProjectRef = E79BC7CA20B302060030FD8C /* UniPayIII.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				40F1569016F6F22100999E23 /* UniPayIII */,
@@ -350,6 +446,30 @@
 			path = Bin_File;
 			sourceTree = "<group>";
 		};
+		E79BC7CF20B302060030FD8C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E79BC7D020B302060030FD8C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E79BC7D120B302060030FD8C /* ViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E79BC7D220B302060030FD8C /* en */,
+			);
+			name = ViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+		E79BC7D320B302060030FD8C /* ViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E79BC7D420B302060030FD8C /* en */,
+			);
+			name = ViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -357,6 +477,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
+				CLANG_ENABLE_MODULES = NO;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -378,10 +500,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/UniPay",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -411,6 +530,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
+				CLANG_ENABLE_MODULES = NO;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -431,10 +552,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/UniPay",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -466,21 +584,18 @@
 				DEVELOPMENT_TEAM = S7H96J5U5C;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/UniPay",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UniPay/UniPay-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/UniPay",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "UniPay/UniPay-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/UniPay",
+					"$(PROJECT_DIR)",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
@@ -507,21 +622,18 @@
 				DEVELOPMENT_TEAM = S7H96J5U5C;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/UniPay",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UniPay/UniPay-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/UniPay",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "UniPay/UniPay-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/UniPay",
+					"$(PROJECT_DIR)",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
