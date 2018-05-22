@@ -11,12 +11,12 @@
 
 @implementation Clearent_VP3300
 
-- (void) init : (id <Clearent_Public_IDTech_VP3300_Delegate>) publicDelegate {
+- (void) init : (id <Clearent_Public_IDTech_VP3300_Delegate>) publicDelegate clearentBaseUrl:(NSString*)clearentBaseUrl publicKey:(NSString*)publicKey {
     NSLog(@"Set the delegate in the ID Tech solution to our ClearentDelegate, which will call the Public delegate when needed.");
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         self.clearentDelegate = [[ClearentDelegate alloc] init];
-        [self.clearentDelegate init:publicDelegate];
+        [self.clearentDelegate init:publicDelegate clearentBaseUrl:clearentBaseUrl publicKey:publicKey];
         [IDT_VP3300 sharedController].delegate = self.clearentDelegate;
         NSLog(@"Clearent_VP3300 initialized");
     });
@@ -53,10 +53,6 @@
 -(RETURN_CODE) device_getFirmwareVersion:(NSString**)response {
     return [[IDT_VP3300 sharedController] device_getFirmwareVersion:response];
 }
-
-//-(bool) device_enableBLEDeviceSearch:(IDT_DEVICE_Types)type identifier:(NSUUID*)identifier {
-//    return [[IDT_VP3300 sharedController] device_enableBLEDeviceSearch:type identifier:identifier];
-//}
 
 -(bool) device_disableBLEDeviceSearch {
     return [[IDT_VP3300 sharedController] device_disableBLEDeviceSearch];
