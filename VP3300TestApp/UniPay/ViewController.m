@@ -207,6 +207,10 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     connectedLabel.text = @"Connected";
    [self appendMessageToResults:@"(VP3300 Connected)"];
     [self appendMessageToResults:[NSString stringWithFormat:@"Framework Version: %@",[IDT_Device SDK_version]]];
+    
+    NSLog(@"Run the reader configuration once. For now it will run every time for demo purposes");
+    [clearentVP3300 configure_reader];
+    
 }
 
 -(void)deviceDisconnected{
@@ -352,9 +356,6 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     [self appendMessageToResults:[NSString stringWithFormat:@"\nVP3300_EventFunctionICC Return Status Code %2X ",  nICC_Attached]];
     
 }
-
-
-
 
 -(void) dismissAllAlertViews {
     [prompt_doConnection dismissWithClickedButtonIndex:-1 animated:FALSE];
@@ -518,7 +519,8 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 #ifndef __i386__
     //CLEARENT: Initialize the clearentVP3300 object with your public delegate, the Clearent Base Url, and the public key Clearent provided. In this example, the ViewController is your delegate (Clearent_Public_IDTech_VP3300_Delegate).
     clearentVP3300 = [[Clearent_VP3300 alloc]  init];
-    [clearentVP3300 init:self clearentBaseUrl:@"https://gateway-dev.clearent.net" publicKey:@"307a301406072a8648ce3d020106092b240303020801010c0362000474ce100cfdf0f3e15782c96b41f20522d5660e8474a753722e2b9c0d3a768a068c377b524750dd89163866caad1aba885fd34250d3e122b789499f87f262a0204c6e649617604bcebaa730bf6c2a74cf54a69abf9f6bf7ecfed3e44e463e31fc"];
+    [clearentVP3300 init:self clearentBaseUrl:@"https://gateway-qa.clearent.net" publicKey:@"307a301406072a8648ce3d020106092b240303020801010c0362000474ce100cfdf0f3e15782c96b41f20522d5660e8474a753722e2b9c0d3a768a068c377b524750dd89163866caad1aba885fd34250d3e122b789499f87f262a0204c6e649617604bcebaa730bf6c2a74cf54a69abf9f6bf7ecfed3e44e463e31fc"];
+    
     NSLog(@"clearentVP3300 has been initialized");
 #endif
     [friendlyName setText: [clearentVP3300 device_getBLEFriendlyName]];
@@ -556,9 +558,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 - (void) exampleUseJwtToRunPaymentTransaction:(NSString*)jwt {
     NSLog(@"%@Run the transaction...",jwt);
     //Construct the url
-    NSString *targetUrl = [NSString stringWithFormat:@"%@/rest/v2/mobile/transactions", @"https://gateway-dev.clearent.net"];
-    //NSString *targetUrl = [NSString stringWithFormat:@"%@/rest/v2/mobile/transactions", @"http://dhigginbotham.clearent.lan:9000"];
-    
+    NSString *targetUrl = [NSString stringWithFormat:@"%@/rest/v2/mobile/transactions", @"https://gateway-qa.clearent.net"];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     //Create a sample json request.
@@ -595,7 +595,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 }
 
 - (NSData*) exampleClearentTransactionRequestAsJson {
-    NSDictionary* dict = @{@"amount":@"4.54",@"type":@"SALE",@"email-address":@"bguntli@clearent.com",@"email-receipt":@"true"};
+    NSDictionary* dict = @{@"amount":@"1.00",@"type":@"SALE",@"email-address":@"bguntli@clearent.com",@"email-receipt":@"true"};
     return [NSJSONSerialization dataWithJSONObject:dict
                                            options:NSJSONWritingPrettyPrinted error:nil];
 }
@@ -1794,17 +1794,8 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
         [autoAuth setOn:TRUE];
         [autoComplete setOn:TRUE];
     }
-    [clearentVP3300 emv_disableAutoAuthenticateTransaction:!autoAuth.on];
-    resultsTextView.text = @"";
-
-    NSData* responseData = nil;
-     NSData* pass = [IDTUtility hexToData:@"01019B1EC13E97990A0CC9CC391D6FCD2A2DF7673531255411C71B4F6127137961D40000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"];
-    
-    RETURN_CODE rt = [clearentVP3300 device_sendIDGCommand:0x04 subCommand:0x11 data:pass response:&responseData];
-  
-    NSData* tags = [IDTUtility hexToData:@"FFEE06189f220201009f2604000000029F2b050100000000df010101"];
-    
-     rt = [clearentVP3300 device_startTransaction:1.00 amtOther:0 type:0 timeout:60 tags:tags forceOnline:false fallback:true];
+    [[IDT_VP3300 sharedController] emv_disableAutoAuthenticateTransaction:!autoAuth.on];
+    RETURN_CODE rt = [[IDT_VP3300 sharedController] device_startTransaction:1.00 amtOther:0 type:0 timeout:60 tags:nil forceOnline:false fallback:true];
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
         [self appendMessageToResults: @"Start Transaction Command Accepted"];
@@ -1825,7 +1816,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     
     NSMutableDictionary *tags = [NSMutableDictionary new];
     
-     RETURN_CODE rt = [clearentVP3300 emv_startTransaction:1.00 amtOther:0 type:0 timeout:60 tags:nil forceOnline:false fallback:true];
+     RETURN_CODE rt = [clearentVP3300 emv_startTransaction:1.01 amtOther:0 type:0 timeout:60 tags:nil forceOnline:false fallback:true];
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
         [self appendMessageToResults: @"Start Transaction Command Accepted"];
