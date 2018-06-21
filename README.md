@@ -18,7 +18,7 @@ Implement the successfulTransactionToken method and every time a successful card
 
   jwt - This is the jwt you will present when it is time to perform a payment transaction for the card that was read.
 
-Implement the errorTransactionToken method to monitor errors with the process of converting the credit card data to its safe (jwt) representation.
+Monitor for card reader issues using the deviceMessage method.
 
 In ViewController.m there is an example of running a payment transaction. The method is exampleUseJwtToRunPaymentTransaction.
 
