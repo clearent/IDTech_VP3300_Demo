@@ -28,6 +28,7 @@
     IBOutlet UISwitch *autoComplete;
     IBOutlet UISwitch *stressTest;
     IBOutlet UITextField *friendlyName;
+    IBOutlet UITextField *txtAmount;
     
     
 }
@@ -53,6 +54,7 @@
 @property(nonatomic, strong) UIAlertView *prompt_doConnection;
 @property(nonatomic, strong) UIAlertView *prompt_doConnection_Low_Volume;
 @property(nonatomic, strong) UITextField *friendlyName;
+@property(nonatomic, strong) UITextField *txtAmount;
 
 - (IBAction) f_cancelTrans:(id)sender;
 - (IBAction) f_allowPIN:(id)sender;
@@ -114,3 +116,4 @@
 
 
 @end
+
