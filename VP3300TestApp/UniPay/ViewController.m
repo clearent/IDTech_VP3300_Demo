@@ -201,9 +201,8 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 -(void)deviceConnected{
     NSLog(@"Connected --");
     connectedLabel.text = @"Connected";
-    [self appendMessageToResults:@"(VP3300 Connected)"];
-    [self appendMessageToResults:[NSString stringWithFormat:@"Framework Version: %@",[IDT_Device SDK_version]]];
-    NSLog(@"Run the reader configuration once. For now it will run every time for demo purposes");
+    //   [self appendMessageToResults:@"(VP3300 Connected)"];
+    //  [self appendMessageToResults:[NSString stringWithFormat:@"Framework Version: %@",[IDT_Device SDK_version]]];
 }
 
 -(void)deviceDisconnected{
@@ -213,6 +212,136 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     
 }
 
+//Clearent delegate controls this method
+//- (void) swipeMSRData:(IDTMSRData*)cardData{
+//    NSLog(@"--MSR event Received, Type: %d, data: %@", cardData.event, cardData.encTrack1);
+//    switch (cardData.event) {
+//        case EVENT_MSR_CARD_DATA:
+//        {
+//            switch (cardData.captureEncodeType) {
+//                case CAPTURE_ENCODE_TYPE_ISOABA:
+//                    [self appendMessageToResults:[NSString stringWithFormat:@"Encode Type: %@", @"ISO/ABA"]];
+//                    break;
+//                case CAPTURE_ENCODE_TYPE_AAMVA:
+//                    [self appendMessageToResults:[NSString stringWithFormat:@"Encode Type: %@", @"AA/MVA"]];
+//                    break;
+//
+//                case CAPTURE_ENCODE_TYPE_Other:
+//                    [self appendMessageToResults:[NSString stringWithFormat:@"Encode Type: %@", @"Other"]];
+//                    break;
+//
+//                case CAPTURE_ENCODE_TYPE_Raw:
+//                    [self appendMessageToResults:[NSString stringWithFormat:@"Encode Type: %@", @"Raw"]];
+//                    break;
+//
+//                case CAPTURE_ENCODE_TYPE_JIS_I:
+//                    [self appendMessageToResults:[NSString stringWithFormat:@"Encode Type: %@", @"CAPTURE_ENCODE_TYPE_JIS_I"]];
+//                    break;
+//
+//                case CAPTURE_ENCODE_TYPE_JIS_II:
+//                    [self appendMessageToResults:[NSString stringWithFormat:@"Encode Type: %@", @"CAPTURE_ENCODE_TYPE_JIS_II"]];
+//                    break;
+//
+//                default:
+//                    [self appendMessageToResults:[NSString stringWithFormat:@"Encode Type: %@", @"UNKNOWN"]];
+//
+//                    break;
+//            }
+//            switch (cardData.captureEncryptType) {
+//                case CAPTURE_ENCRYPT_TYPE_AES:
+//                    [self appendMessageToResults:[NSString stringWithFormat:@"Encrypt Type: %@", @"AES"]];
+//                    break;
+//                case CAPTURE_ENCRYPT_TYPE_TDES:
+//                    [self appendMessageToResults:[NSString stringWithFormat:@"Encrypt Type: %@", @"TDES"]];
+//                    break;
+//                case CAPTURE_ENCRYPT_TYPE_NO_ENCRYPTION:
+//                    [self appendMessageToResults:[NSString stringWithFormat:@"Encrypt Type: %@", @"NONE"]];
+//                    break;
+//
+//
+//                default:
+//                    [self appendMessageToResults:[NSString stringWithFormat:@"Encrypt Type: %@", @"UNKNOWN"]];
+//
+//                    break;
+//            }
+//
+//            [self appendMessageToResults:[NSString stringWithFormat:@"Full card data: %@", cardData.cardData]];
+//            [self appendMessageToResults:[NSString stringWithFormat:@"Track 1: %@", cardData.track1]];
+//            [self appendMessageToResults:[NSString stringWithFormat:@"Track 2: %@", cardData.track2]];
+//            [self appendMessageToResults:[NSString stringWithFormat:@"Track 3: %@", cardData.track3]];
+//            [self appendMessageToResults:[NSString stringWithFormat:@"Length Track 1: %i", cardData.track1Length]];
+//            [self appendMessageToResults:[NSString stringWithFormat:@"Length Track 2: %i", cardData.track2Length]];
+//            [self appendMessageToResults:[NSString stringWithFormat:@"Length Track 3: %i", cardData.track3Length]];
+//            [self appendMessageToResults:[NSString stringWithFormat:@"Encoded Track 1: %@", cardData.encTrack1.description]];
+//            [self appendMessageToResults:[NSString stringWithFormat:@"Encoded Track 2: %@", cardData.encTrack2.description]];
+//            [self appendMessageToResults:[NSString stringWithFormat:@"Encoded Track 3: %@", cardData.encTrack3.description]];
+//            [self appendMessageToResults:[NSString stringWithFormat:@"Hash Track 1: %@", cardData.hashTrack1.description]];
+//            [self appendMessageToResults:[NSString stringWithFormat:@"Hash Track 2: %@", cardData.hashTrack2.description]];
+//            [self appendMessageToResults:[NSString stringWithFormat:@"Hash Track 3: %@", cardData.hashTrack3.description]];
+//            [self appendMessageToResults:[NSString stringWithFormat:@"KSN: %@", cardData.KSN.description]];
+//            [self appendMessageToResults:[NSString stringWithFormat:@"\nSessionID: %@",  cardData.sessionID.description]];
+//            [self appendMessageToResults:[NSString stringWithFormat:@"\nReader Serial Number: %@",  cardData.RSN]];
+//            [self appendMessageToResults:[NSString stringWithFormat:@"\nRead Status: %2X",  cardData.readStatus]];
+//            if (cardData.unencryptedTags != nil) [self appendMessageToResults:[NSString stringWithFormat:@"Unencrytped Tags: %@", cardData.unencryptedTags.description]];
+//            if (cardData.encryptedTags != nil) [self appendMessageToResults:[NSString stringWithFormat:@"Encrypted Tags: %@", cardData.encryptedTags.description]];
+//            if (cardData.maskedTags != nil) [self appendMessageToResults:[NSString stringWithFormat:@"Masked Tags: %@", cardData.maskedTags.description]];
+//
+//            NSLog(@"Track 1: %@", cardData.track1);
+//            NSLog(@"Track 2: %@", cardData.track2);
+//            NSLog(@"Track 3: %@", cardData.track3);
+//            NSLog(@"Encoded Track 1: %@", cardData.encTrack1.description);
+//            NSLog(@"Encoded Track 2: %@", cardData.encTrack2.description);
+//            NSLog(@"Encoded Track 3: %@", cardData.encTrack3.description);
+//            NSLog(@"Hash Track 1: %@", cardData.hashTrack1.description);
+//            NSLog(@"Hash Track 2: %@", cardData.hashTrack2.description);
+//            NSLog(@"Hash Track 3: %@", cardData.hashTrack3.description);
+//            NSLog(@"SessionID: %@", cardData.sessionID.description);
+//            NSLog(@"nReader Serial Number: %@", cardData.RSN);
+//            NSLog(@"Read Status: %2X", cardData.readStatus);
+//            NSLog(@"KSN: %@", cardData.KSN.description);
+//
+//
+//
+//            return;
+//        }
+//            break;
+//
+//        case EVENT_MSR_CANCEL_KEY:
+//        {
+//            [self appendMessageToResults:[NSString stringWithFormat:@"(Event) MSR Cancel Key received: %@", cardData.encTrack1]];
+//            return;
+//        }
+//            break;
+//
+//        case EVENT_MSR_BACKSPACE_KEY:
+//        {
+//            [self appendMessageToResults:[NSString stringWithFormat:@"(Event) MSR Backspace Key received: %@", cardData.encTrack1]];
+//            return;
+//        }
+//            break;
+//
+//        case EVENT_MSR_ENTER_KEY:
+//        {
+//            [self appendMessageToResults:[NSString stringWithFormat:@"(Event) MSR Enter Key received: %@", cardData.encTrack1]];
+//            return;
+//        }
+//            break;
+//
+//        case EVENT_MSR_UNKNOWN:
+//        {
+//            [self appendMessageToResults:[NSString stringWithFormat:@"(Event) MSR unknown event, data: %@", cardData.encTrack1]];
+//            return;
+//        }
+//            break;
+//        case EVENT_MSR_TIMEOUT:
+//        {
+//            [self appendMessageToResults:@"(Event) MSR TIMEOUT"];
+//            return;
+//        }
+//        default:
+//            break;
+//    }
+//}
 
 -(void) eventFunctionICC: (Byte) nICC_Attached{
     NSLog(@"VP3300_EventFunctionICC Return Status Code %2X ",  nICC_Attached);
@@ -228,6 +357,71 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 - (void) deviceMessage:(NSString*)message{
     [self appendMessageToResults:message];
 }
+
+//Clearent delegate controls this.
+//- (void) emvTransactionData:(IDTEMVData*)emvData errorCode:(int)error{
+//    bool loopData = stressTest.on;
+//
+//    [self appendMessageToResults:[NSString stringWithFormat:@"EMV Transaction Data Response: = %@",[clearentVP3300 device_getResponseCodeString:error]]];
+//
+//    if (emvData.resultCodeV2 != EMV_RESULT_CODE_V2_NO_RESPONSE) [self appendMessageToResults:[NSString stringWithFormat:@"EMV_RESULT_CODE_V2_response = %2X",emvData.resultCodeV2]];
+//    if (emvData == nil) {
+//        return;
+//    }
+//
+//    if (emvData.resultCodeV2 == EMV_RESULT_CODE_V2_START_TRANS_SUCCESS) {
+//        loopData = false;
+//        [self appendMessageToResults:@"START SUCCESS: AUTHENTICATION REQUIRED"];
+//    }
+//    if (emvData.resultCodeV2 == EMV_RESULT_CODE_V2_APPROVED || emvData.resultCodeV2 == EMV_RESULT_CODE_V2_APPROVED_OFFLINE ) {
+//
+//        [self appendMessageToResults:@"APPROVED"];
+//    }
+//    if (emvData.resultCodeV2 == EMV_RESULT_CODE_V2_MSR_SUCCESS) {
+//        [self appendMessageToResults:@"MSR Data Captured"];
+//    }
+//
+//    if (emvData.cardType == 0) {
+//        [self appendMessageToResults:@"CONTACT"];
+//        if (emvData.resultCodeV2 == EMV_RESULT_CODE_V2_GO_ONLINE) {
+//            [self appendMessageToResults:@"ONLINE REQUEST"];
+//            loopData = false;
+//            if (autoComplete.on) [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(completeEMV:) userInfo:nil repeats:false];
+//        }
+//    }
+//    if (emvData.cardType == 1) {
+//        [self appendMessageToResults:@"CONTACTLESS"];
+//    }
+//
+//    if (emvData.encryptedTags!= nil || emvData.cardData.encTrack1 != nil || emvData.cardData.encTrack2 != nil ){
+//        if (emvData.encryptionMode == 0) {
+//            [self appendMessageToResults:@"TDES ENCRYPTION"];
+//        }
+//        if (emvData.encryptionMode == 1) {
+//            [self appendMessageToResults:@"AES ENCRYPTION"];
+//        }∂
+//    }
+//
+//
+//
+//
+//    if (emvData.unencryptedTags != nil) [self appendMessageToResults:[NSString stringWithFormat:@"Unencrytped Tags: %@", emvData.unencryptedTags.description]];
+//    if (emvData.encryptedTags != nil) [self appendMessageToResults:[NSString stringWithFormat:@"Encrypted Tags: %@", emvData.encryptedTags.description]];
+//    if (emvData.maskedTags != nil) [self appendMessageToResults:[NSString stringWithFormat:@"Masked Tags: %@", emvData.maskedTags.description]];
+//    if (emvData.unencryptedTags != nil)NSLog(@"Unencrytped Tags: %@", emvData.unencryptedTags.description);
+//    if (emvData.encryptedTags != nil) NSLog(@"Encrypted Tags: %@", emvData.encryptedTags.description);
+//    if (emvData.maskedTags != nil) NSLog(@"Masked Tags: %@", emvData.maskedTags.description);
+//    if (emvData.hasAdvise) [self appendMessageToResults:@"Response Has Advise Request"];
+//    if (emvData.hasReversal) [self appendMessageToResults:@"Response Has Reversal Request"];
+//    if (emvData.hasAdvise) NSLog(@"Response Has Advise Request");
+//    if (emvData.hasReversal) NSLog(@"Response Has Reversal Request");
+//    if (emvData.cardData != nil) [self swipeMSRData:emvData.cardData];
+//
+//    [self dismissAllAlertViews];
+//    if (loopData)[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(startEMV:) userInfo:nil repeats:false];
+//}
+
+
 
 
 
@@ -317,7 +511,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 #ifndef __i386__
     //CLEARENT: Initialize the clearentVP3300 object with your public delegate, the Clearent Base Url, and the public key Clearent provided. In this example, the ViewController is your delegate (Clearent_Public_IDTech_VP3300_Delegate).
     clearentVP3300 = [[Clearent_VP3300 alloc]  init];
-    [clearentVP3300 init:self clearentBaseUrl:@"https://gateway-qa.clearent.net" publicKey:@"307a301406072a8648ce3d020106092b240303020801010c0362000474ce100cfdf0f3e15782c96b41f20522d5660e8474a753722e2b9c0d3a768a068c377b524750dd89163866caad1aba885fd34250d3e122b789499f87f262a0204c6e649617604bcebaa730bf6c2a74cf54a69abf9f6bf7ecfed3e44e463e31fc"];
+    [clearentVP3300 init:self clearentBaseUrl:@"https://gateway-qa.clearent.net" publicKey:@"307a301406072a8648ce3d020106092b240303020801010c036200042b0cfb3a1faaca8fb779081717a0bafb03e0cb061a1ef297f75dc5b951aaf163b0c2021e9bb73071bf89c711070e96ab1b63c674be13041d9eb68a456eb6ae63a97a9345c120cd8bff1d5998b2ebbafc198c5c5b26c687bfbeb68b312feb43bf"];
     NSLog(@"clearentVP3300 has been initialized");
 #endif
     [friendlyName setText: [clearentVP3300 device_getBLEFriendlyName]];
@@ -362,7 +556,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     
     //add a test apikey as a header
-    [request setValue:@"12fa1a5617464354a72b3c9eb92d4f3b" forHTTPHeaderField:@"api-key"];
+    [request setValue:@"24425c33043244778a188bd19846e860" forHTTPHeaderField:@"api-key"];
     
     //add the JWT as a header.
     [request setValue:jwt forHTTPHeaderField:@"mobilejwt"];
@@ -383,12 +577,20 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
               NSDictionary *payload = [successfulResponseDictionary objectForKey:@"payload"];
               NSDictionary *transaction = [payload objectForKey:@"transaction"];
               NSString *transactionId = [transaction objectForKey:@"id"];
+              NSString *amount = [transaction objectForKey:@"amount"];
+              NSString *result = [transaction objectForKey:@"result"];
+              NSString *transactionResult = [NSString stringWithFormat:@"Payment completed. Final Amount: %@ Result: %@ Transaction Id: %@", amount, result, transactionId];
+              [self appendMessageToResults:transactionResult];
               [self exampleRequestReceipt:transactionId];
-              [self appendMessageToResults:responseStr];
               NSLog(@"Clearent Transaction : %s", responseStr);
           } else {
               NSString *responseStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-              [self appendMessageToResults:responseStr];
+              NSDictionary *errorResponseDictionary = [self jsonAsDictionary:responseStr];
+              NSDictionary *payload = [errorResponseDictionary objectForKey:@"payload"];
+              NSDictionary *transaction = [payload objectForKey:@"transaction"];
+              NSString *errorMessage = [transaction objectForKey:@"display-message"];
+              NSString *errorResult = [NSString stringWithFormat:@"Payment transaction failed. %@", errorMessage];
+              [self appendMessageToResults:errorResult];
               NSLog(@"Clearent Transaction : %s", responseStr);
           }
       }] resume];
@@ -396,6 +598,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 
 - (NSData*) exampleClearentTransactionRequestAsJson {
     NSDictionary* dict = @{@"amount":txtAmount.text,@"type":@"SALE"};
+    
     return [NSJSONSerialization dataWithJSONObject:dict
                                            options:NSJSONWritingPrettyPrinted error:nil];
 }
@@ -435,7 +638,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     
     //add a test apikey as a header
-    [request setValue:@"12fa1a5617464354a72b3c9eb92d4f3b" forHTTPHeaderField:@"api-key"];
+    [request setValue:@"24425c33043244778a188bd19846e860" forHTTPHeaderField:@"api-key"];
     
     [request setURL:[NSURL URLWithString:targetUrl]];
     //Do the Post. Report the result to your user (this example sends the message to the console on the demo app (lower left corner of ui)).
@@ -450,7 +653,12 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
               [self appendMessageToResults:error.description];
           } else if(data != nil) {
               NSString *responseStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-              [self appendMessageToResults:responseStr];
+              NSDictionary *successfulResponseDictionary = [self jsonAsDictionary:responseStr];
+              NSDictionary *payload = [successfulResponseDictionary objectForKey:@"payload"];
+              NSDictionary *receipt = [payload objectForKey:@"receipt-response"];
+              NSString *emailAddress = [receipt objectForKey:@"email-address"];
+              NSString *receiptResult = [NSString stringWithFormat:@"Receipt emailed to %@", emailAddress];
+              [self appendMessageToResults:receiptResult];
               NSLog(@"Clearent Receipt Request Response : %s", responseStr);
           }
       }] resume];
@@ -1639,7 +1847,12 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
         [autoComplete setOn:TRUE];
     }
     [[IDT_VP3300 sharedController] emv_disableAutoAuthenticateTransaction:!autoAuth.on];
-    double amount = [txtAmount.text doubleValue];
+    double amount;
+    if(txtAmount.text != nil && ![txtAmount.text isEqualToString:@""]) {
+        amount = [txtAmount.text doubleValue];
+    } else {
+        amount = 1.00;
+    }
     RETURN_CODE rt = [clearentVP3300 device_startTransaction:amount amtOther:0 type:0 timeout:60 tags:nil forceOnline:false fallback:true];
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
@@ -1658,7 +1871,9 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     }
     [clearentVP3300 emv_disableAutoAuthenticateTransaction:!autoAuth.on];
     resultsTextView.text = @"";
+    
     NSMutableDictionary *tags = [NSMutableDictionary new];
+    
     double amount = [txtAmount.text doubleValue];
     RETURN_CODE rt = [clearentVP3300 emv_startTransaction:amount amtOther:0 type:0 timeout:60 tags:nil forceOnline:false fallback:true];
     if (RETURN_CODE_DO_SUCCESS == rt)
@@ -1668,6 +1883,8 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2: @"Start Transaction info" returnValue: rt];
     }
+    
+    
 }
 
 -(IBAction)completeEMV:(id)sender{
@@ -1681,7 +1898,11 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2: @"Complete Transaction info" returnValue: rt];
     }
+    
+    
 }
+
+
 
 -(unsigned int) char2hex:(char)c{
     
@@ -1728,4 +1949,3 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 }
 
 @end
-
