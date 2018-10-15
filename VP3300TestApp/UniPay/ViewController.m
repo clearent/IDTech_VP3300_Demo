@@ -42,22 +42,22 @@ extern int g_IOS_Type;
 
 -(void) appendMessageToResults:(NSString*) message{
     [self performSelectorOnMainThread:@selector(_appendMessageToResults:) withObject:message waitUntilDone:false];
-    
+
 }
 -(void) _appendMessageToResults:(id)object{
     [self.resultsTextView setText:[NSString stringWithFormat:@"%@\n%@\n", self.resultsTextView.text,(NSString*)object]];
     // [self.resultsTextView scrollRangeToVisible:NSMakeRange([self.resultsTextView.text length], 0)];
-    
+
 }
 
 -(void) appendMessageToData:(NSString*) message{
     [self performSelectorOnMainThread:@selector(_appendMessageToData:) withObject:message waitUntilDone:false];
-    
+
 }
 -(void) _appendMessageToData:(id)object{
     [self.dataTextView setText:[NSString stringWithFormat:@"%@\n%@\n", self.dataTextView.text, (NSString*)object]];
     // [self.dataTextView scrollRangeToVisible:NSMakeRange([self.dataTextView.text length], 0)];
-    
+
 }
 
 - (IBAction) DoClearLog:(id)sender{
@@ -70,12 +70,12 @@ extern int g_IOS_Type;
 //for return IDTResult type function
 -(void) displayUpRet2:(NSString*) operation returnValue: (RETURN_CODE)rt
 {
-    
+
     NSString * str = [NSString stringWithFormat:
                       @"%@ ERROR: ID-\"%i\", message: %@.",
                       operation, rt, [clearentVP3300 device_getResponseCodeString:rt]];
     [self appendMessageToResults:str];
-    
+
 }
 
 - (IBAction) DoKeyboardOff:(id)sender{
@@ -84,46 +84,46 @@ extern int g_IOS_Type;
 
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    
+
     if ([alertView.title isEqualToString:@"PIN REQUEST"]) {
         if(buttonIndex == 1){
             NSString* PIN = [[alertView textFieldAtIndex:0] text] ;
             [[alertView textFieldAtIndex:0] resignFirstResponder];
-            
+
             [clearentVP3300 emv_callbackResponsePIN:_mode KSN:nil PIN:[PIN dataUsingEncoding:NSUTF8StringEncoding]];
             NSLog(@"PIN Value is %@",PIN);
         }
         else{
             [clearentVP3300 emv_callbackResponsePIN:EMV_PIN_MODE_CANCEL KSN:nil PIN:nil];
         }
-        
+
     }
-    
+
     if ([alertView.title isEqualToString:@"Please Select"]) {
         if(buttonIndex == 1){
             int selectedValue = [[[alertView textFieldAtIndex:0] text] intValue];
             [[alertView textFieldAtIndex:0] resignFirstResponder];
-            
+
             [clearentVP3300 emv_callbackResponseLCD:_lcdDisplayMode selection:(unsigned char)selectedValue];
             NSLog(@"Selected Value is %i",selectedValue);
         }
         else{
             [clearentVP3300 emv_callbackResponseLCD:0 selection:0];
         }
-        
+
     }
-    
+
     if (alertView == prompt_doConnection || alertView == prompt_doConnection_Low_Volume)
     {
         //selected option to start the connection task at the reader attachment prompt
         if (1 == buttonIndex) {
             //[self appendMessageToResults: @"Start Connect Task..."];
             [clearentVP3300 device_connectToAudioReader];
-            
+
         }
     }
-    
-    
+
+
 }
 
 
@@ -143,7 +143,7 @@ static int _lcdDisplayMode = 0;
             [str appendString:@"\n"];
         }
     }
-    
+
     switch (mode) {
         case 0x10:
             //clear screen
@@ -161,7 +161,7 @@ static int _lcdDisplayMode = 0;
             alert.alertViewStyle = UIAlertViewStylePlainTextInput;
             [alert show];
         }
-            
+
             break;
         default:
             NSLog(@"undefined mode ?");
@@ -184,13 +184,13 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 - (void) plugStatusChange:(BOOL)deviceInserted{
     if (deviceInserted) {
         //[self appendMessageToResults: @"device Attached."];
-        
+
         if ([[AVAudioSession sharedInstance] outputVolume] < 1.0) {
             [prompt_doConnection_Low_Volume show];
         } else{
             [prompt_doConnection show];
         }
-        
+
     }
     else{
         // [self appendMessageToResults: @"device removed."];
@@ -209,7 +209,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     NSLog(@"DisConnt --");
     connectedLabel.text = @"Disconnect";
     // [self appendMessageToResults:@"([VP3300 sharedController] Disconnect)"];
-    
+
 }
 
 //Clearent delegate controls this method
@@ -346,7 +346,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 -(void) eventFunctionICC: (Byte) nICC_Attached{
     NSLog(@"VP3300_EventFunctionICC Return Status Code %2X ",  nICC_Attached);
     [self appendMessageToResults:[NSString stringWithFormat:@"\nVP3300_EventFunctionICC Return Status Code %2X ",  nICC_Attached]];
-    
+
 }
 
 -(void) dismissAllAlertViews {
@@ -427,7 +427,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 
 -(void) showAlertView:(NSString*)msg {
     [self dismissAllAlertViews];
-    
+
     UIAlertView *alertView = [[UIAlertView alloc]
                               initWithTitle:@"VP3300"
                               message:msg
@@ -445,7 +445,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
+
     //init alert views
     prompt_doConnection = [[UIAlertView alloc]
                            initWithTitle:@"VP3300"
@@ -459,7 +459,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
                                       delegate:self
                                       cancelButtonTitle:@"Cancel"
                                       otherButtonTitles:@"OK",nil];
-    
+
     //for iPhone
     if (0 == g_IOS_Type) {
         CGRect frame = self.sView.frame;
@@ -467,51 +467,51 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
         CGSize contentSize = frame.size;
         contentSize.width *= 6;
         self.sView.contentSize = contentSize;
-        
+
         // add to scroll view
         frame.origin.y = 0;
         frame.origin.x = frame.size.width * 5   ;
         self.view7.frame = frame;
         [self.sView addSubview: self.view7];
-        
+
         frame.origin.y = 0;
         frame.origin.x = frame.size.width * 4   ;
         self.view2.frame = frame;
         [self.sView addSubview: self.view2];
-        
-        
+
+
         frame.origin.y = 0;
         frame.origin.x = frame.size.width * 3   ;
         self.view6.frame = frame;
         [self.sView addSubview: self.view6];
-        
-        
+
+
         frame.origin.y = 0;
         frame.origin.x = frame.size.width * 2   ;
         self.view5.frame = frame;
         [self.sView addSubview: self.view5];
-        
-        
+
+
         frame.origin.y = 0;
         frame.origin.x = frame.size.width * 1;
         self.view4.frame = frame;
         [self.sView addSubview: self.view4];
-        
+
         frame.origin.y = 0;
         frame.origin.x = frame.size.width * 0;
         self.view1.frame = frame;
         [self.sView addSubview: self.view1];
-        
+
         self.pcControlPanes.numberOfPages = 5;
         self.pcControlPanes.currentPage = 0;
     }
-    
-    
+
+
     //init object
 #ifndef __i386__
     //CLEARENT: Initialize the clearentVP3300 object with your public delegate, the Clearent Base Url, and the public key Clearent provided. In this example, the ViewController is your delegate (Clearent_Public_IDTech_VP3300_Delegate).
     clearentVP3300 = [[Clearent_VP3300 alloc]  init];
-    [clearentVP3300 init:self clearentBaseUrl:@"https://gateway-qa.clearent.net" publicKey:@"307a301406072a8648ce3d020106092b240303020801010c036200042b0cfb3a1faaca8fb779081717a0bafb03e0cb061a1ef297f75dc5b951aaf163b0c2021e9bb73071bf89c711070e96ab1b63c674be13041d9eb68a456eb6ae63a97a9345c120cd8bff1d5998b2ebbafc198c5c5b26c687bfbeb68b312feb43bf"];
+    [clearentVP3300 init:self clearentBaseUrl:@"https://gateway-sb.clearent.net" publicKey:@"307a301406072a8648ce3d020106092b240303020801010c036200042b0cfb3a1faaca8fb779081717a0bafb03e0cb061a1ef297f75dc5b951aaf163b0c2021e9bb73071bf89c711070e96ab1b63c674be13041d9eb68a456eb6ae63a97a9345c120cd8bff1d5998b2ebbafc198c5c5b26c687bfbeb68b312feb43bf"];
     NSLog(@"clearentVP3300 has been initialized");
 #endif
     [friendlyName setText: [clearentVP3300 device_getBLEFriendlyName]];
@@ -524,7 +524,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     NSLog(@"A clearent transaction token (JWT) has been created. Let's show an example of how to use it.");
     NSLog(@"%@",jsonString);
     [self appendMessageToResults:jsonString];
-    
+
     NSDictionary *successfulResponseDictionary = [self jsonAsDictionary:jsonString];
     NSDictionary *payload = [successfulResponseDictionary objectForKey:@"payload"];
     NSDictionary *emvJwt = [payload objectForKey:@"mobile-jwt"];
@@ -536,15 +536,15 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     NSLog(@"%@",cvm);
     NSLog(@"%@",lastFour);
     NSLog(@"%@",trackDataHash);
-    
+
     [self exampleUseJwtToRunPaymentTransaction:jwt];
 }
 
 - (void) exampleUseJwtToRunPaymentTransaction:(NSString*)jwt {
     NSLog(@"%@Run the transaction...",jwt);
     //Construct the url
-    NSString *targetUrl = [NSString stringWithFormat:@"%@/rest/v2/mobile/transactions", @"https://gateway-qa.clearent.net"];
-    
+    NSString *targetUrl = [NSString stringWithFormat:@"%@/rest/v2/mobile/transactions/sale", @"https://gateway-sb.clearent.net"];
+
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     //Create a sample json request.
     NSData *postData = [self exampleClearentTransactionRequestAsJson];
@@ -554,10 +554,10 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     //Use json
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    
+
     //add a test apikey as a header
     [request setValue:@"24425c33043244778a188bd19846e860" forHTTPHeaderField:@"api-key"];
-    
+
     //add the JWT as a header.
     [request setValue:jwt forHTTPHeaderField:@"mobilejwt"];
     [request setURL:[NSURL URLWithString:targetUrl]];
@@ -598,7 +598,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 
 - (NSData*) exampleClearentTransactionRequestAsJson {
     NSDictionary* dict = @{@"amount":txtAmount.text,@"type":@"SALE"};
-    
+
     return [NSJSONSerialization dataWithJSONObject:dict
                                            options:NSJSONWritingPrettyPrinted error:nil];
 }
@@ -612,7 +612,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     if (error) {
         NSLog(@"Error json: %@", [error description]);
     }
-    
+
     //let's send a receipt request
     return jsonDictionary;
 }
@@ -623,10 +623,10 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     }
     NSLog(@"%@Request a receipt for transaction...",transactionId);
     //Construct the url
-    NSString *targetUrl = [NSString stringWithFormat:@"%@/rest/v2/receipts", @"https://gateway-qa.clearent.net"];
-    
+    NSString *targetUrl = [NSString stringWithFormat:@"%@/rest/v2/receipts", @"https://gateway-sb.clearent.net"];
+
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    
+
     NSDictionary* dict = @{@"id":transactionId,@"email-address":@"dhigginbotham@clearent.com"};
     NSData *postData = [NSJSONSerialization dataWithJSONObject:dict
                                                        options:NSJSONWritingPrettyPrinted error:nil];
@@ -636,10 +636,10 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     //Use json
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    
+
     //add a test apikey as a header
     [request setValue:@"24425c33043244778a188bd19846e860" forHTTPHeaderField:@"api-key"];
-    
+
     [request setURL:[NSURL URLWithString:targetUrl]];
     //Do the Post. Report the result to your user (this example sends the message to the console on the demo app (lower left corner of ui)).
     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
@@ -685,7 +685,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
     if (sender != self.sView)
         return;
-    
+
     //for iPhone
     if (0 == g_IOS_Type) {
         //update UIPageControl object
@@ -698,7 +698,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+
     NSLog(@"--viewDidAppear");
     BOOL b = [clearentVP3300 isConnected];
     if(b==YES)
@@ -728,7 +728,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 
 - (IBAction) f_getFirm:(id)sender
 {
-    
+
     NSString *result;
     RETURN_CODE rt = [clearentVP3300  device_getFirmwareVersion:&result];
     if (RETURN_CODE_DO_SUCCESS == rt)
@@ -773,14 +773,14 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
         return;
     }
     [self appendMessageToResults:@"Setting Terminal Tags To Allow PIN"];
-    
-    
+
+
     NSString* TLVstring = @"5F3601029F1A0208409F3501229F3303E0F8C89F4005F000F0A0019F1E085465726D696E616C9F150212349F160F3030303030303030303030303030309F1C0838373635343332319F4E2231303732312057616C6B65722053742E20437970726573732C204341202C5553412EDF260101DF1008656E667265737A68DF110101DF270100DFEE150101DFEE160100DFEE170105DFEE180180DFEE1E08F0DC3CF0C29E9400DFEE1F0180DFEE1B083030303130353030DFEE20013CDFEE21010ADFEE2203323C3C";
     NSData* TLV = [IDTUtility hexToData:TLVstring];
     rt = [clearentVP3300 emv_setTerminalData:[IDTUtility TLVtoDICT:TLV]];
-    
-    
-    
+
+
+
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
         [self appendMessageToResults:@"Terminal Tags Set OK "];
@@ -801,13 +801,13 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
         return;
     }
     [self appendMessageToResults:@"Setting Terminal Tags To Not Allow PIN"];
-    
-    
-    
+
+
+
     NSString* TLVstring = @"5F3601029F1A0208409F3501219F33036028C89F4005F000F0A0019F1E085465726D696E616C9F150212349F160F3030303030303030303030303030309F1C0838373635343332319F4E2231303732312057616C6B65722053742E20437970726573732C204341202C5553412EDF260101DF1008656E667265737A68DF110100DF270100DFEE150101DFEE160100DFEE170105DFEE180180DFEE1E08D0DC20D0C41E1400DFEE1F0180DFEE1B083030303130353030DFEE20013CDFEE21010ADFEE2203323C3C";
     NSData* TLV = [IDTUtility hexToData:TLVstring];
     rt = [clearentVP3300 emv_setTerminalData:[IDTUtility TLVtoDICT:TLV]];
-    
+
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
         [self appendMessageToResults:@"Terminal Tags Set OK "];
@@ -830,7 +830,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
     }
-    
+
     name = @"a00000999901";
     TLVstring = @"5f5701005f2a0208409f090299995f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
     TLV = [IDTUtility hexToData:TLVstring];
@@ -842,7 +842,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
     }
-    
+
     name = @"a000000003101003";
     TLVstring = @"5f5701005f2a0208409f090200965f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
     TLV = [IDTUtility hexToData:TLVstring];
@@ -854,7 +854,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
     }
-    
+
     name = @"a000000003101004";
     TLVstring = @"5f5701005f2a0208409f090200965f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
     TLV = [IDTUtility hexToData:TLVstring];
@@ -866,7 +866,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
     }
-    
+
     name = @"a000000003101005";
     TLVstring = @"5f5701005f2a0208409f090200965f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
     TLV = [IDTUtility hexToData:TLVstring];
@@ -944,7 +944,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
     }
-    
+
     name = @"a000000333010102";
     TLVstring = @"5f5701005f2a0208409f090200305f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
     TLV = [IDTUtility hexToData:TLVstring];
@@ -978,10 +978,10 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2:[NSString stringWithFormat:@"Aid %@ Load Error",name] returnValue: rt];
     }
-    
-    
-    
-    
+
+
+
+
 }
 
 
@@ -999,7 +999,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2:[NSString stringWithFormat:@"CAPK %@ Load Error",[CAPKString substringToIndex:12]] returnValue: rt];
     }
-    
+
     CAPKString = @"a000009999e20101c1056adce9e6f76ea77c89cb832f5a4817907a1a000000037000bd232e348b118eb3f6446ef4da6c3bac9b2ae510c5ad107d38343255d21c4bdf4952a42e92c633b1ce4bfec39afb6dfe147ecbb91d681dac15fb0e198e9a7e4636bdca107bcda3384fcb28b06afef90f099e7084511f3cc010d4343503e1e5a67264b4367daa9a3949499272e9b5022f";
     CAPK = [IDTUtility hexToData:CAPKString];
     rt = [clearentVP3300 emv_setCAPKFile:CAPK];
@@ -1260,13 +1260,13 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2:[NSString stringWithFormat:@"CAPK %@ Load Error",[CAPKString substringToIndex:12]] returnValue: rt];
     }
-    
+
 }
 - (IBAction) f_removeTermData:(id)sender{
     RETURN_CODE rt = [clearentVP3300 emv_removeTerminalData];
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
-        
+
         [self appendMessageToResults: @"Remove Terminal Data Successful"];
     }
     else{
@@ -1349,7 +1349,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
         [self displayUpRet2: @"GetICCReaderStatus" returnValue: rt];
         return;
     }
-    
+
     NSString *sta;
     if(response->iccPower)
         sta =@"[ICC Powered]";
@@ -1359,26 +1359,26 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
         sta =[NSString stringWithFormat:@"%@,[Card Seated]", sta];
     else
         sta =[NSString stringWithFormat:@"%@,[Card not Seated]", sta];
-    
+
     [self appendMessageToResults:[NSString stringWithFormat:@"%@",sta]];
-    
-    
-    
+
+
+
 }
 
 - (IBAction) f_IccPowerON: (id)sender{
     NSData* response;
     RETURN_CODE rt = [clearentVP3300 icc_powerOnICC:&response];
-    
+
     if(RETURN_CODE_DO_SUCCESS == rt)
     {
         [self appendMessageToResults:[NSString stringWithFormat:@"ICC Powered On, data: %@\n%@", response.description, [[NSString alloc] initWithData:response encoding:NSASCIIStringEncoding] ]];
-        
+
     }else
     {
         [self displayUpRet2: @"ICC Powerd On" returnValue:rt];
     }
-    
+
     return;
 }
 
@@ -1418,7 +1418,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 }
 
 - (IBAction) f_IccPowerOFF: (id)sender{
-    
+
     NSString* error;
     RETURN_CODE rt = [clearentVP3300 icc_powerOffICC:&error];
     if(RETURN_CODE_DO_SUCCESS == rt)
@@ -1446,7 +1446,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     if (hexString.length<1) {
         return nil;
     }
-    
+
     char tmpCh[1024] = {0};
     int count = 0;
     for (int k=0; k<hexString.length;k++) {
@@ -1458,24 +1458,24 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
         count++;
     }
     tmpCh[count] = 0;
-    
+
     if (count % 2) {
         return nil;
     }
-    
+
     NSString *temp = [[NSString alloc] initWithUTF8String:tmpCh];
     int m = temp.length % 2;
     if (m>0) {
         return nil;
     }
-    
+
     NSMutableData *result = [[NSMutableData alloc] init];
     unsigned char byte;
     char hexChars[3] = {0};
     for (int i=0; i < (temp.length/2); i++) {
         hexChars[0] = [temp characterAtIndex:i*2];
         hexChars[1] = [temp characterAtIndex:i*2+1];
-        
+
         if (![self isValidChar:hexChars[0]] || ![self isValidChar:hexChars[1]]) {
             return nil;
         }
@@ -1488,15 +1488,15 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 - (IBAction) f_DirectIO:(id)sender
 {
     [txtDirectIO resignFirstResponder];
-    
+
     unsigned int cmdVal;
     NSScanner* scanner = [NSScanner scannerWithString:cmd.text];
     [scanner scanHexInt:&cmdVal];
-    
+
     unsigned int subcmdVal;
     scanner = [NSScanner scannerWithString:subcmd.text];
     [scanner scanHexInt:&subcmdVal];
-    
+
     NSData* response;
     RETURN_CODE rt = [clearentVP3300 device_sendIDGCommand:cmdVal subCommand:subcmdVal data:[self hexToData:txtDirectIO.text] response:&response];
     if (RETURN_CODE_DO_SUCCESS == rt) {
@@ -1512,7 +1512,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 - (IBAction) f_IccExchangeAPDU: (id)sender{
     [txtAPDUData resignFirstResponder];
     [friendlyName resignFirstResponder];
-    
+
     NSData *dataBuffer = nil;
     NSString *valueEntered = txtAPDUData.text;
     if (valueEntered.length < 6)
@@ -1541,10 +1541,10 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     APDUResponse* response;
     RETURN_CODE rt = [clearentVP3300 icc_exchangeAPDU:dataBuffer response:&response];
     [self displayUpRet2: @"ExchangeAPDU" returnValue:rt];
-    
-    
+
+
     [self appendMessageToResults:[NSString stringWithFormat:@"ExchangeAPDU Result: APDU %@", response.response.description ]];
-    
+
     if (RETURN_CODE_DO_SUCCESS == rt)
         [self appendMessageToResults:[NSString stringWithFormat:@"ExchangeAPDU SW1 SW2: %02X, %02X", response.SW1,response.SW2]];
 }
@@ -1556,7 +1556,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
         [self appendMessageToResults: @"Start RKI Success"];
-        
+
     }
     else{
         [self displayUpRet2: @"Get Terminal File info" returnValue: rt];
@@ -1569,7 +1569,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     {
         [self appendMessageToResults: [NSString stringWithFormat:@"Remove All CAPK Success"]];
         [self appendMessageToResults: [NSString stringWithFormat:@"Remove All CAPK Success"]];
-        
+
     }
     else{
         [self displayUpRet2: @"Remove All CAPK Failure" returnValue: rt];
@@ -1580,11 +1580,11 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     RETURN_CODE rt = [clearentVP3300  ctls_setCAPK:[IDTUtility hexToData:@"a000000003500101b769775668cacb5d22a647d1d993141edab7237b000100018000d11197590057b84196c2f4d11a8f3c05408f422a35d702f90106ea5b019bb28ae607aa9cdebcd0d81a38d48c7ebb0062d287369ec0c42124246ac30d80cd602ab7238d51084ded4698162c59d25eac1e66255b4db2352526ef0982c3b8ad3d1cce85b01db5788e75e09f44be7361366def9d1e1317b05e5d0ff5290f88a0db47"]];
     rt = [clearentVP3300  ctls_setCAPK:[IDTUtility hexToData:@"a000000003510101b9d248075a3f23b522fe45573e04374dc4995d71000000039000db5fa29d1fda8c1634b04dccff148abee63c772035c79851d3512107586e02a917f7c7e885e7c4a7d529710a145334ce67dc412cb1597b77aa2543b98d19cf2cb80c522bdbea0f1b113fa2c86216c8c610a2d58f29cf3355ceb1bd3ef410d1edd1f7ae0f16897979de28c6ef293e0a19282bd1d793f1331523fc71a228800468c01a3653d14c6b4851a5c029478e757f"]];
     rt = [clearentVP3300  ctls_setCAPK:[IDTUtility hexToData:@"a000000004ff0101439eb23d8a71b99f879c1a1f1765252d840b9a74000100019000f69dbb5e15983eae3ccf31cf4e47098c2fc16f97a0c710f84777efa99622d86502b138728ab12e3481a84d20e014ad2d634d2836f27f294924b895a87f91f81b8169d4dfdad8d7cbd741804cd61b467c7a9acfeceb71188caa73a907547699d45c9c7d2098ac2966266417f665a46bdd012c097dbd33d1d11aff6ec8a9c0ad814a65b48262ca011636079a328c1aaeb7"]];
-    
+
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
         [self appendMessageToResults: [NSString stringWithFormat:@"Set CTLS Success"]];
-        
+
     }
     else{
         [self displayUpRet2: @"Set CTLS Info " returnValue: rt];
@@ -1599,7 +1599,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
         [self appendMessageToResults: [NSString stringWithFormat:@"CTLS Aid:\n%@", result.description]];
-        
+
     }
     else{
         [self displayUpRet2: @"CTLS Aid info" returnValue: rt];
@@ -1612,12 +1612,12 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
         [self appendMessageToResults: [NSString stringWithFormat:@"CTLS CAPK:\n%@", result.description]];
-        
+
     }
     else{
         [self displayUpRet2: @"CTLS CAPK info" returnValue: rt];
     }
-    
+
 }
 
 - (IBAction) ctlsGetAid:(id)sender{
@@ -1626,7 +1626,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
         [self appendMessageToResults: [NSString stringWithFormat:@"AID info:\n%@", result.description]];
-        
+
     }
     else{
         [self displayUpRet2: @"AID Info info" returnValue: rt];
@@ -1640,12 +1640,12 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     {
         [self appendMessageToResults: [NSString stringWithFormat:@"Confg Group 0 Tiags:\n%@", result.description]];
         [self appendMessageToResults: [NSString stringWithFormat:@"TLV Stream:\n%@", [IDTUtility DICTotTLV:result]]];
-        
+
     }
     else{
         [self displayUpRet2: @"Group 0 info" returnValue: rt];
     }
-    
+
 }
 
 
@@ -1657,12 +1657,12 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     {
         [self appendMessageToResults: [NSString stringWithFormat:@"Terminal Tags Tags:\n%@", result.description]];
         [self appendMessageToResults: [NSString stringWithFormat:@"TLV Stream:\n%@", [IDTUtility DICTotTLV:result]]];
-        
+
     }
     else{
         [self displayUpRet2: @"Get Terminal File info" returnValue: rt];
     }
-    
+
 }
 
 
@@ -1677,12 +1677,12 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2: @"Terminal Settings error " returnValue: rt];
     }
-    
-    
+
+
 }
 
 -(IBAction) createCRLFile:(id)sender{
-    
+
     NSString* CRLString = @"a000009999g1112233a000009999g2123456";
     NSData* CRL = [IDTUtility hexToData:CRLString];
     RETURN_CODE rt = [clearentVP3300 emv_setCRLEntries:CRL];
@@ -1693,11 +1693,11 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2:[NSString stringWithFormat:@"CRL Load Error"] returnValue: rt];
     }
-    
-    
+
+
 }
 -(IBAction) createCAPKFile:(id)sender{
-    
+
     NSString* CAPKString = @"a000009999e10101f8707b9bedf031e58a9f843631b90c90d80ed69500000003700099c5b70aa61b4f4c51b6f90b0e3bfb7a3ee0e7db41bc466888b3ec8e9977c762407ef1d79e0afb2823100a020c3e8020593db50e90dbeac18b78d13f96bb2f57eeddc30f256592417cdf739ca6804a10a29d2806e774bfa751f22cf3b65b38f37f91b4daf8aec9b803f7610e06ac9e6b";
     NSData* CAPK = [IDTUtility hexToData:CAPKString];
     RETURN_CODE rt = [clearentVP3300 emv_setCAPKFile:CAPK];
@@ -1708,11 +1708,11 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2:[NSString stringWithFormat:@"CAPK %@ Load Error",[CAPKString substringToIndex:12]] returnValue: rt];
     }
-    
-    
+
+
 }
 -(IBAction) createAIDFile:(id)sender{
-    
+
     NSString* name = @"a0000000031010";
     NSString* TLVstring = @"9f01065649534130305f5701005f2a0208409f090200965f3601029f1b0400003a98df25039f3704df28039f0802dfee150101df13050000000000df14050000000000df15050000000000df180100df170400002710df190100";
     NSData* TLV = [IDTUtility hexToData:TLVstring];
@@ -1724,8 +1724,8 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2: @"AID for a0000000031010 error " returnValue: rt];
     }
-    
-    
+
+
 }
 -(IBAction) getCAPKFile:(id)sender{
     NSData *result;
@@ -1733,12 +1733,12 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     if (RETURN_CODE_DO_SUCCESS == rt)
     {
         [self appendMessageToResults: [NSString stringWithFormat:@"CAPK File:\n%@", result.description]];
-        
+
     }
     else{
         [self displayUpRet2: @"CAPK File info" returnValue: rt];
     }
-    
+
 }
 -(IBAction) getAIDFile:(id)sender{
     NSDictionary *result;
@@ -1747,12 +1747,12 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     {
         [self appendMessageToResults: [NSString stringWithFormat:@"AID Tags:\n%@", result.description]];
         [self appendMessageToResults: [NSString stringWithFormat:@"TLV Stream:\n%@", [IDTUtility DICTotTLV:result]]];
-        
+
     }
     else{
         [self displayUpRet2: @"Installed AIDs info" returnValue: rt];
     }
-    
+
 }
 -(IBAction) removeCAPKFile:(id)sender{
     RETURN_CODE rt = [clearentVP3300 emv_removeCAPK:@"a000009999" index:@"e1"];
@@ -1763,9 +1763,9 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2: @"CAPK Not Removed " returnValue: rt];
     }
-    
-    
-    
+
+
+
 }
 
 -(IBAction) removeCRL:(id)sender{
@@ -1777,9 +1777,9 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2: @"CRL Removed " returnValue: rt];
     }
-    
-    
-    
+
+
+
 }
 -(IBAction) removeAIDFile:(id)sender{
     RETURN_CODE rt = [clearentVP3300 emv_removeApplicationData:@"a0000000031010"];
@@ -1790,9 +1790,9 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2: @"Aid Not Removed " returnValue: rt];
     }
-    
-    
-    
+
+
+
 }
 -(IBAction) getAIDFList:(id)sender{
     NSArray *result;
@@ -1864,16 +1864,16 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 }
 
 -(IBAction)startEMV:(id)sender{
-    
+
     if (stressTest.on){
         [autoAuth setOn:TRUE];
         [autoComplete setOn:TRUE];
     }
     [clearentVP3300 emv_disableAutoAuthenticateTransaction:!autoAuth.on];
     resultsTextView.text = @"";
-    
+
     NSMutableDictionary *tags = [NSMutableDictionary new];
-    
+
     double amount = [txtAmount.text doubleValue];
     RETURN_CODE rt = [clearentVP3300 emv_startTransaction:amount amtOther:0 type:0 timeout:60 tags:nil forceOnline:false fallback:true];
     if (RETURN_CODE_DO_SUCCESS == rt)
@@ -1883,12 +1883,12 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2: @"Start Transaction info" returnValue: rt];
     }
-    
-    
+
+
 }
 
 -(IBAction)completeEMV:(id)sender{
-    
+
     resultsTextView.text = @"";
     RETURN_CODE rt = [clearentVP3300  emv_completeOnlineEMVTransaction:true hostResponseTags:[IDTUtility hexToData:@"8A023030"]];
     if (RETURN_CODE_DO_SUCCESS == rt)
@@ -1898,14 +1898,14 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     else{
         [self displayUpRet2: @"Complete Transaction info" returnValue: rt];
     }
-    
-    
+
+
 }
 
 
 
 -(unsigned int) char2hex:(char)c{
-    
+
     switch (c) {
         case '0' ... '9': return c - '0';
         case 'a' ... 'f': return c - 'a' + 10;
@@ -1918,17 +1918,17 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     if ([str length] == 0) {
         return nil;
     }
-    
+
     unsigned stringIndex=0, resultIndex=0, max=(int)[str length];
     NSMutableData* result = [NSMutableData dataWithLength:(max + 1)/2];
     unsigned char* bytes = [result mutableBytes];
-    
+
     unsigned num_nibbles = 0;
     unsigned char byte_value = 0;
-    
+
     for (stringIndex = 0; stringIndex < max; stringIndex++) {
         unsigned int val = [self char2hex:[str characterAtIndex:stringIndex]];
-        
+
         num_nibbles++;
         byte_value = byte_value * 16 + (unsigned char)val;
         if (! (num_nibbles % 2)) {
@@ -1936,15 +1936,15 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
             byte_value = 0;
         }
     }
-    
-    
+
+
     //final nibble
     if (num_nibbles % 2) {
         bytes[resultIndex++] = byte_value;
     }
-    
+
     [result setLength:resultIndex];
-    
+
     return result;
 }
 
