@@ -11,7 +11,7 @@
 #import <IDTech/IDTech.h>
 #import <AVFoundation/AVFoundation.h>
 #import "ClearentDelegate.h"
-#import "PublicDelegate.h"
+#import "ClearentPublicVP3300Delegate.h"
 
 /**
  * Interact with this object as a singleton. Provide a delegate that adheres to the Clearent_Public_IDTech_VP3300_Delegate protocol will allow the framework to send messages to you.
@@ -1019,8 +1019,6 @@
  */
 -(RETURN_CODE) emv_retrieveCAPKList:(NSArray**)response;
 
-
-
 /**
  * Retrieve the Certificate Revocation List
  
@@ -1041,10 +1039,6 @@
  - 0x0100 through 0xFFFF refer to IDT_Device::getResponseCodeString:()
  */
 -(RETURN_CODE) emv_retrieveCRLList:(NSMutableArray**)response;
-
-
-
-
 
 /**
  * Retrieve Terminal Data
@@ -1440,6 +1434,7 @@
  
  */
 -(RETURN_CODE) device_startTransaction:(double)amount amtOther:(double)amtOther type:(int)type timeout:(int)timeout tags:(NSData*)tags forceOnline:(BOOL)forceOnline  fallback:(BOOL)fallback;
+
 @end
 
 

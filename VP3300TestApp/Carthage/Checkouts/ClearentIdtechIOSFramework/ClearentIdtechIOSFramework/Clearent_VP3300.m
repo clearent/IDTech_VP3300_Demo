@@ -4,19 +4,18 @@
 //
 //  Created by David Higginbotham on 1/4/18.
 //  Copyright © 2018 Clearent, L.L.C. All rights reserved.
-//
+//.
 
 #import <Foundation/Foundation.h>
 #import "Clearent_VP3300.h"
 
-@implementation Clearent_VP3300
+@implementation Clearent_VP3300 
 
 - (void) init : (id <Clearent_Public_IDTech_VP3300_Delegate>) publicDelegate clearentBaseUrl:(NSString*)clearentBaseUrl publicKey:(NSString*)publicKey {
     NSLog(@"Set the delegate in the ID Tech solution to the ClearentDelegate, which will call the Public delegate when needed.");
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        self.clearentDelegate = [[ClearentDelegate alloc] init];
-        [self.clearentDelegate init:publicDelegate clearentBaseUrl:clearentBaseUrl publicKey:publicKey];
+        self.clearentDelegate = [[ClearentDelegate alloc] init:publicDelegate clearentBaseUrl:clearentBaseUrl publicKey:publicKey];
         [IDT_VP3300 sharedController].delegate = self.clearentDelegate;
         NSLog(@"Clearent_VP3300 initialized");
     });
@@ -179,7 +178,8 @@
 }
 
 -(RETURN_CODE) emv_startTransaction:(double)amount amtOther:(double)amtOther type:(int)type timeout:(int)timeout tags:(NSData*)tags forceOnline:(BOOL)forceOnline fallback:(BOOL)fallback {
-    return [[IDT_VP3300 sharedController] emv_startTransaction:amount amtOther:amtOther type:type timeout:timeout tags:tags forceOnline:forceOnline fallback:fallback];
+    RETURN_CODE emvStartRt =  [[IDT_VP3300 sharedController] emv_startTransaction:amount amtOther:amtOther type:type timeout:timeout tags:tags forceOnline:forceOnline fallback:fallback];
+    return emvStartRt;
 }
 
 -(RETURN_CODE) config_getSerialNumber:(NSString**)response {
@@ -312,7 +312,6 @@
 
 -(RETURN_CODE) device_startTransaction:(double)amount amtOther:(double)amtOther type:(int)type timeout:(int)timeout tags:(NSData*)tags forceOnline:(BOOL)forceOnline  fallback:(BOOL)fallback {
     return [[IDT_VP3300 sharedController] device_startTransaction:amount amtOther:amtOther type:type timeout:timeout tags:tags forceOnline:forceOnline  fallback:fallback];
-    
 }
 
 -(RETURN_CODE) emv_callbackResponsePIN:(EMV_PIN_MODE_Types)mode KSN:(NSData*)KSN PIN:(NSData*)PIN {
@@ -334,6 +333,7 @@
 -(void) processBypassResponse:(NSData*)data {
     return [[IDT_VP3300 sharedController] processBypassResponse:data];
 }
+
 @end
 
 
