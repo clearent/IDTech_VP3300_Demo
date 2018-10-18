@@ -212,6 +212,13 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 
 }
 
+-(void)isReady{
+    NSLog(@"device ready --");
+    connectedLabel.text = @"READY";
+    [self appendMessageToResults:@"Device is ready for use"];
+    //  [self appendMessageToResults:[NSString stringWithFormat:@"Framework Version: %@",[IDT_Device SDK_version]]];
+}
+
 //Clearent delegate controls this method
 //- (void) swipeMSRData:(IDTMSRData*)cardData{
 //    NSLog(@"--MSR event Received, Type: %d, data: %@", cardData.event, cardData.encTrack1);
