@@ -620,7 +620,7 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 }
 
 - (NSData*) exampleClearentTransactionRequestAsJson {
-    NSDictionary* dict = @{@"amount":txtAmount.text,@"type":@"SALE"};
+    NSDictionary* dict = @{@"amount":txtAmount.text,@"type":@"SALE", @"software-type":@"ios demo app",@"software-type-version":@"1"};
 
     return [NSJSONSerialization dataWithJSONObject:dict
                                            options:NSJSONWritingPrettyPrinted error:nil];
