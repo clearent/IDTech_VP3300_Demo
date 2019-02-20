@@ -38,6 +38,9 @@
 //CLEARENT: This is the object you will interact with.
 Clearent_VP3300 *clearentVP3300;
 
+//CLEARENT: This object will be used to create transaction tokens for manually entered cards.
+ClearentManualEntry *clearentManualEntry;
+
 extern int g_IOS_Type;
 
 -(void) appendMessageToResults:(NSString*) message{
@@ -520,10 +523,23 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     clearentVP3300 = [[Clearent_VP3300 alloc]  init];
     [clearentVP3300 init:self clearentBaseUrl:@"https://gateway-sb.clearent.net" publicKey:@"307a301406072a8648ce3d020106092b240303020801010c036200042b0cfb3a1faaca8fb779081717a0bafb03e0cb061a1ef297f75dc5b951aaf163b0c2021e9bb73071bf89c711070e96ab1b63c674be13041d9eb68a456eb6ae63a97a9345c120cd8bff1d5998b2ebbafc198c5c5b26c687bfbeb68b312feb43bf"];
     NSLog(@"clearentVP3300 has been initialized");
+    
+    clearentManualEntry = [[ClearentManualEntry alloc]  init];
+    [clearentManualEntry init:self clearentBaseUrl:@"https://gateway-sb.clearent.net" publicKey:@"307a301406072a8648ce3d020106092b240303020801010c036200042b0cfb3a1faaca8fb779081717a0bafb03e0cb061a1ef297f75dc5b951aaf163b0c2021e9bb73071bf89c711070e96ab1b63c674be13041d9eb68a456eb6ae63a97a9345c120cd8bff1d5998b2ebbafc198c5c5b26c687bfbeb68b312feb43bf"];
+    
+    NSLog(@"clearentManualEntry has been initialized");
 #endif
     [friendlyName setText: [clearentVP3300 device_getBLEFriendlyName]];
     //[friendlyName setText: @"IDTECH-VP3300-66797"];
     //[friendlyName setText: @"VP-2722"];
+}
+
+-(void) exampleManualEntry {
+    ClearentCard *clearentCard = [[ClearentCard alloc] init];
+    clearentCard.card = @"4111111111111111";
+    clearentCard.expirationDateMMYY=@"0820";
+    clearentCard.csc=@"999";
+    [clearentManualEntry createTransactionToken:clearentCard];
 }
 
 //CLEARENT: A public delegate implementation alerting you when the transaction token is successful. In this demo we've added code to use the JWT and immediately run a test payment transaction.
@@ -769,32 +785,33 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
     }
 }
 - (IBAction) f_allowPIN:(id)sender{
-    [self appendMessageToResults:@"Setting Major Terminal Configuration to 1C"];
-    RETURN_CODE rt = [clearentVP3300  emv_setTerminalMajorConfiguration:1];
-    if (RETURN_CODE_DO_SUCCESS == rt)
-    {
-        [self appendMessageToResults:@"Major Config Set OK "];
-    }
-    else{
-        [self displayUpRet2: @"Setting Major Config Failed " returnValue: rt];
-        return;
-    }
-    [self appendMessageToResults:@"Setting Terminal Tags To Allow PIN"];
-
-
-    NSString* TLVstring = @"5F3601029F1A0208409F3501229F3303E0F8C89F4005F000F0A0019F1E085465726D696E616C9F150212349F160F3030303030303030303030303030309F1C0838373635343332319F4E2231303732312057616C6B65722053742E20437970726573732C204341202C5553412EDF260101DF1008656E667265737A68DF110101DF270100DFEE150101DFEE160100DFEE170105DFEE180180DFEE1E08F0DC3CF0C29E9400DFEE1F0180DFEE1B083030303130353030DFEE20013CDFEE21010ADFEE2203323C3C";
-    NSData* TLV = [IDTUtility hexToData:TLVstring];
-    rt = [clearentVP3300 emv_setTerminalData:[IDTUtility TLVtoDICT:TLV]];
-
-
-
-    if (RETURN_CODE_DO_SUCCESS == rt)
-    {
-        [self appendMessageToResults:@"Terminal Tags Set OK "];
-    }
-    else{
-        [self displayUpRet2: @"Setting Terminal Tags Failed " returnValue: rt];
-    }
+    [self exampleManualEntry];
+//    [self appendMessageToResults:@"Setting Major Terminal Configuration to 1C"];
+//    RETURN_CODE rt = [clearentVP3300  emv_setTerminalMajorConfiguration:1];
+//    if (RETURN_CODE_DO_SUCCESS == rt)
+//    {
+//        [self appendMessageToResults:@"Major Config Set OK "];
+//    }
+//    else{
+//        [self displayUpRet2: @"Setting Major Config Failed " returnValue: rt];
+//        return;
+//    }
+//    [self appendMessageToResults:@"Setting Terminal Tags To Allow PIN"];
+//
+//
+//    NSString* TLVstring = @"5F3601029F1A0208409F3501229F3303E0F8C89F4005F000F0A0019F1E085465726D696E616C9F150212349F160F3030303030303030303030303030309F1C0838373635343332319F4E2231303732312057616C6B65722053742E20437970726573732C204341202C5553412EDF260101DF1008656E667265737A68DF110101DF270100DFEE150101DFEE160100DFEE170105DFEE180180DFEE1E08F0DC3CF0C29E9400DFEE1F0180DFEE1B083030303130353030DFEE20013CDFEE21010ADFEE2203323C3C";
+//    NSData* TLV = [IDTUtility hexToData:TLVstring];
+//    rt = [clearentVP3300 emv_setTerminalData:[IDTUtility TLVtoDICT:TLV]];
+//
+//
+//
+//    if (RETURN_CODE_DO_SUCCESS == rt)
+//    {
+//        [self appendMessageToResults:@"Terminal Tags Set OK "];
+//    }
+//    else{
+//        [self displayUpRet2: @"Setting Terminal Tags Failed " returnValue: rt];
+//    }
 }
 - (IBAction) f_noPin:(id)sender{
     [self appendMessageToResults:@"Setting Major Terminal Configuration to 2C"];

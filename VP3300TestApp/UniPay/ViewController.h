@@ -14,7 +14,8 @@
 #import <ClearentIdtechIOSFramework/ClearentIdtechIOSFramework.h>
 
 //CLEARENT make the view a Clearent_Public_IDTech_VP3300_Delegate
-@interface ViewController : UIViewController<UIAlertViewDelegate,Clearent_Public_IDTech_VP3300_Delegate, UIActionSheetDelegate,MFMailComposeViewControllerDelegate>
+//CLEARENTmake the view a ClearentManualEntryDelegate
+@interface ViewController : UIViewController<UIAlertViewDelegate,Clearent_Public_IDTech_VP3300_Delegate, UIActionSheetDelegate,MFMailComposeViewControllerDelegate, ClearentManualEntryDelegate>
 {
     
     IBOutlet UITextView *resultsTextView;
