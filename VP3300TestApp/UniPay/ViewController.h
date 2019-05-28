@@ -7,15 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <IDTech/IDTech.h>
+//#import <IDTech/IDTech.h>
 #import <MessageUI/MessageUI.h>
 #import <AVFoundation/AVFoundation.h>
 //CLEARENT: import the ClearentIdtechIOSFramework header
 #import <ClearentIdtechIOSFramework/ClearentIdtechIOSFramework.h>
 
 //CLEARENT make the view a Clearent_Public_IDTech_VP3300_Delegate
-//CLEARENTmake the view a ClearentManualEntryDelegate
-@interface ViewController : UIViewController<UIAlertViewDelegate,Clearent_Public_IDTech_VP3300_Delegate, UIActionSheetDelegate,MFMailComposeViewControllerDelegate, ClearentManualEntryDelegate>
+
+//CLEARENT make the view a ClearentManualEntryDelegate
+
+@interface ViewController : UIViewController<UIAlertViewDelegate,Clearent_Public_IDTech_VP3300_Delegate, UIActionSheetDelegate,MFMailComposeViewControllerDelegate,ClearentManualEntryDelegate>
 {
     
     IBOutlet UITextView *resultsTextView;
@@ -26,10 +28,11 @@
     IBOutlet UITextField *cmd;
     IBOutlet UITextField *subcmd;
     IBOutlet UISwitch *autoAuth;
-    IBOutlet UISwitch *autoComplete;
+    IBOutlet UISwitch *autoConfigure;
     IBOutlet UISwitch *stressTest;
     IBOutlet UITextField *friendlyName;
     IBOutlet UITextField *txtAmount;
+    IBOutlet UITextField *txtReceiptEmailAddress;
     
     
 }
@@ -56,6 +59,7 @@
 @property(nonatomic, strong) UIAlertView *prompt_doConnection_Low_Volume;
 @property(nonatomic, strong) UITextField *friendlyName;
 @property(nonatomic, strong) UITextField *txtAmount;
+@property(nonatomic, strong) UITextField *txtReceiptEmailAddress;
 
 - (IBAction) f_cancelTrans:(id)sender;
 - (IBAction) f_allowPIN:(id)sender;
@@ -117,4 +121,3 @@
 
 
 @end
-

@@ -5,13 +5,13 @@
 //  Created by David Higginbotham on 5/29/18.
 //  Copyright © 2018 Clearent, L.L.C. All rights reserved.
 //
+@class Clearent_VP3300;
 
 #import <Foundation/Foundation.h>
 #import <MessageUI/MessageUI.h>
-#import <IDTech/IDTech.h>
 #import <AVFoundation/AVFoundation.h>
-#import "ClearentDelegate.h"
 #import "ClearentPublicVP3300Delegate.h"
+#import "IDT_VP3300.h"
 
 /**
  * Interact with this object as a singleton. Provide a delegate that adheres to the Clearent_Public_IDTech_VP3300_Delegate protocol will allow the framework to send messages to you.
@@ -19,7 +19,6 @@
  **/
 
 @interface Clearent_VP3300 : NSObject
-@property(nonatomic) ClearentDelegate *clearentDelegate;
 @property(nonatomic) SEL callBackSelector;
 - (void) init : (id <Clearent_Public_IDTech_VP3300_Delegate>)publicDelegate clearentBaseUrl:(NSString*)clearentBaseUrl publicKey:(NSString*)publicKey;
 - (NSString*) SDK_version;
@@ -1434,6 +1433,17 @@
  
  */
 -(RETURN_CODE) device_startTransaction:(double)amount amtOther:(double)amtOther type:(int)type timeout:(int)timeout tags:(NSData*)tags forceOnline:(BOOL)forceOnline  fallback:(BOOL)fallback;
+
+
+/**
+ The reader has an emv configuration applied each time connects. After a successful configuration the device serial number and a flag denoting the reader was configured is stored using NSUserDefaults. If there is a need to clear out this information, maybe to support a configuration change/future updates, call this method to clear out the cache.
+ */
+- (void) clearConfigurationCache;
+
+/**
+ Enable/disable Clearent's configuration.
+ */
+- (void) setAutoConfiguration:(BOOL)enable;
 
 @end
 

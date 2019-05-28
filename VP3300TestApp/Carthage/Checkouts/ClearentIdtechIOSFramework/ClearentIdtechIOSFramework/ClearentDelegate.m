@@ -7,7 +7,11 @@
 //.
 
 #import "ClearentDelegate.h"
-#import "IDTech/IDT_VP3300.h"
+#import "ClearentConfigurator.h"
+#import "IDTech/IDTUtility.h"
+#import "ClearentUtils.h"
+#import "Teleport.h"
+#import "ClearentCache.h"
 
 static NSString *const TRACK2_DATA_EMV_TAG = @"57";
 static NSString *const TRACK1_DATA_EMV_TAG = @"56";
@@ -19,13 +23,19 @@ static NSString *const TAC_ONLINE = @"DF15";
 static NSString *const DEVICE_SERIAL_NUMBER_EMV_TAG = @"DF78";
 static NSString *const KERNEL_VERSION_EMV_TAG = @"DF79";
 static NSString *const GENERIC_CARD_READ_ERROR_RESPONSE = @"Card read error";
+static NSString *const USE_CHIP_READER = @"USE CHIP READER";
+static NSString *const CONTACTLESS_UNSUPPORTED = @"Contactless not supported. Insert card with chip first, then start transaction.";
 static NSString *const CARD_OFFLINE_DECLINED = @"Card declined";
 static NSString *const FALLBACK_TO_SWIPE_REQUEST = @"FALLBACK_TO_SWIPE_REQUEST";
-static NSString *const TIMEOUT_ERROR_RESPONSE = @"TIMEOUT";
+static NSString *const TIMEOUT_ERROR_RESPONSE = @"TIME OUT";
 static NSString *const GENERIC_TRANSACTION_TOKEN_ERROR_RESPONSE = @"Create Transaction Token Failed";
 static NSString *const FAILED_TO_READ_CARD_ERROR_RESPONSE = @"Failed to read card";
 
+static NSString *const READER_CONFIGURED_MESSAGE = @"Reader configured and ready";
+
 @implementation ClearentDelegate
+
+  ClearentConfigurator *clearentConfigurator;
 
 - (instancetype) init : (id <Clearent_Public_IDTech_VP3300_Delegate>) publicDelegate clearentBaseUrl:(NSString*)clearentBaseUrl publicKey:(NSString*)publicKey  {
     self = [super init];
@@ -34,7 +44,8 @@ static NSString *const FAILED_TO_READ_CARD_ERROR_RESPONSE = @"Failed to read car
         self.baseUrl = clearentBaseUrl;
         self.publicKey = publicKey;
         SEL configurationCallbackSelector = @selector(deviceMessage:);
-        self.clearentConfigurator = [[ClearentConfigurator alloc] init:self.baseUrl publicKey:self.publicKey callbackObject:self withSelector:configurationCallbackSelector sharedController:[IDT_VP3300 sharedController]];
+        clearentConfigurator = [[ClearentConfigurator alloc] init:self.baseUrl publicKey:self.publicKey callbackObject:self withSelector:configurationCallbackSelector sharedController:[IDT_VP3300 sharedController]];
+        self.autoConfiguration = true;
     }
     return self;
 }
@@ -44,13 +55,16 @@ static NSString *const FAILED_TO_READ_CARD_ERROR_RESPONSE = @"Failed to read car
     if (lines != nil) {
         for (NSString* message in lines) {
             if(message != nil && [message isEqualToString:@"TERMINATE"]) {
-                NSLog(@"IDTech framework terminated the request.");
+                [Teleport logError:@"IDTech framework terminated the request."];
                 [self deviceMessage:@"TERMINATE"];
             } else if(message != nil && [message isEqualToString:@"DECLINED"]) {
                 NSLog(@"This is not really a decline. Clearent is creating a transaction token for later use.");
             } else if(message != nil && [message isEqualToString:@"APPROVED"]) {
                 NSLog(@"This is not really an approval. Clearent is creating a transaction token for later use.");
             } else {
+                if(message != nil) {
+                    [Teleport logInfo:message];
+                }
                [updatedArray addObject:message];
             }
         }
@@ -75,8 +89,12 @@ static NSString *const FAILED_TO_READ_CARD_ERROR_RESPONSE = @"Failed to read car
     self.deviceSerialNumber = [self getDeviceSerialNumber];
     self.kernelVersion = [self getKernelVersion];
     [self.publicDelegate deviceConnected];
-    [self deviceMessage:@"Device connected. Waiting for configuration to complete..."];
-    [self.clearentConfigurator configure:self.kernelVersion deviceSerialNumber:self.deviceSerialNumber];
+    if(self.autoConfiguration) {
+        [self deviceMessage:@"Device connected. Waiting for configuration to complete..."];
+        [clearentConfigurator configure:self.kernelVersion deviceSerialNumber:self.deviceSerialNumber];
+    } else {
+        [self deviceMessage:READER_CONFIGURED_MESSAGE];
+    }
 }
 
 - (NSString *) getFirmwareVersion {
@@ -85,6 +103,7 @@ static NSString *const FAILED_TO_READ_CARD_ERROR_RESPONSE = @"Failed to read car
     if (RETURN_CODE_DO_SUCCESS == rt) {
         return result;
     } else{
+        [Teleport logError:@"Device Firmware version not found"];
         return @"Device Firmware version not found";
     }
 }
@@ -95,6 +114,7 @@ static NSString *const FAILED_TO_READ_CARD_ERROR_RESPONSE = @"Failed to read car
     if (RETURN_CODE_DO_SUCCESS == rt) {
         return result;
     } else{
+        [Teleport logError:@"Device Kernel Version Unknown"];
         return @"Device Kernel Version Unknown";
     }
 }
@@ -103,9 +123,16 @@ static NSString *const FAILED_TO_READ_CARD_ERROR_RESPONSE = @"Failed to read car
     NSString *result;
     RETURN_CODE rt = [[IDT_VP3300 sharedController] config_getSerialNumber:&result];
     if (RETURN_CODE_DO_SUCCESS == rt) {
-        return result;
+        NSString *firstTenOfDeviceSerialNumber = nil;
+        if (result != nil && [result length] >= 10) {
+            firstTenOfDeviceSerialNumber = [result substringToIndex:10];
+        } else {
+            firstTenOfDeviceSerialNumber = result;
+        }
+        return firstTenOfDeviceSerialNumber;
     } else{
-        return @"Device Serial number not found";
+        [Teleport logError:@"Failed to get device serial number using config_getSerialNumber"];
+        return @"9999999999";
     }
 }
 
@@ -114,12 +141,23 @@ static NSString *const FAILED_TO_READ_CARD_ERROR_RESPONSE = @"Failed to read car
 }
 
 - (void) deviceMessage:(NSString*)message {
-    if(message != nil && [message isEqualToString:@"Reader configured and ready"]) {
+    if(message != nil) {
+        [Teleport logInfo:[NSString stringWithFormat:@"%@:%@", @"deviceMessage", message]];
+    }
+    if(message != nil && [message isEqualToString:READER_CONFIGURED_MESSAGE]) {
+        NSString *firstTenOfDeviceSerialNumber = nil;
+        if (self.deviceSerialNumber != nil && [self.deviceSerialNumber length] >= 10) {
+            firstTenOfDeviceSerialNumber = [self.deviceSerialNumber substringToIndex:10];
+        } else {
+            firstTenOfDeviceSerialNumber = self.deviceSerialNumber;
+        }
+        [ClearentCache updateConfigurationCache:firstTenOfDeviceSerialNumber readerConfiguredFlag:@"true"];
+        [Teleport logInfo:@"Framework notified reader is ready"];
         [self.publicDelegate isReady];
         return;
     }
     if(message != nil && [message isEqualToString:@"POWERING UNIPAY"]) {
-       [self.publicDelegate deviceMessage:@"Powering up reader..."];
+        [self.publicDelegate deviceMessage:@"Powering up reader..."];
         return;
     }
     if(message != nil && [message isEqualToString:@"RETURN_CODE_LOW_VOLUME"]) {
@@ -130,9 +168,16 @@ static NSString *const FAILED_TO_READ_CARD_ERROR_RESPONSE = @"Failed to read car
 }
 
 - (void) swipeMSRData:(IDTMSRData*)cardData{
+
     if (cardData != nil && cardData.event == EVENT_MSR_CARD_DATA && (cardData.track2 != nil || cardData.encTrack2 != nil)) {
+        if(cardData.iccPresent) {
+            [self deviceMessage:USE_CHIP_READER];
+            return;
+        }
         ClearentTransactionTokenRequest *clearentTransactionTokenRequest = [self createClearentTransactionTokenRequestForASwipe:cardData];
         [self createTransactionToken:clearentTransactionTokenRequest];
+    } else if (cardData != nil && cardData.event == EVENT_MSR_TIMEOUT) {
+        [self deviceMessage:TIMEOUT_ERROR_RESPONSE];
     } else {
         [self deviceMessage:GENERIC_CARD_READ_ERROR_RESPONSE];
     }
@@ -156,6 +201,8 @@ static NSString *const FAILED_TO_READ_CARD_ERROR_RESPONSE = @"Failed to read car
     if (cardData != nil && cardData.event == EVENT_MSR_CARD_DATA && (cardData.track2 != nil || cardData.encTrack2 != nil)) {
         ClearentTransactionTokenRequest *clearentTransactionTokenRequest = [self createClearentTransactionTokenRequestFallbackSwipe:cardData];
         [self createTransactionToken:clearentTransactionTokenRequest];
+    } else if (cardData != nil && cardData.event == EVENT_MSR_TIMEOUT) {
+        [self deviceMessage:TIMEOUT_ERROR_RESPONSE];
     } else {
         [self deviceMessage:GENERIC_CARD_READ_ERROR_RESPONSE];
     }
@@ -195,12 +242,6 @@ static NSString *const FAILED_TO_READ_CARD_ERROR_RESPONSE = @"Failed to read car
 }
 
 - (void) emvTransactionData:(IDTEMVData*)emvData errorCode:(int)error{
-
-    NSLog(@"EMV Transaction Data Response: = %@",[[IDT_VP3300 sharedController] device_getResponseCodeString:error]);
-    
-    if (emvData.resultCodeV2 != EMV_RESULT_CODE_V2_NO_RESPONSE) {
-        NSLog(@"emvData.resultCodeV2: = %@",[NSString stringWithFormat:@"EMV_RESULT_CODE_V2_response = %2X",emvData.resultCodeV2]);
-    }
     
     if (emvData == nil) {
         return;
@@ -241,7 +282,8 @@ static NSString *const FAILED_TO_READ_CARD_ERROR_RESPONSE = @"Failed to read car
     }
 
     if (emvData.cardType == 1) {
-        NSLog(@"CONTACTLESS");
+        [self deviceMessage:CONTACTLESS_UNSUPPORTED];
+        return;
     }
 
     int entryMode = 0;
@@ -252,10 +294,8 @@ static NSString *const FAILED_TO_READ_CARD_ERROR_RESPONSE = @"Failed to read car
     }
 
     if(entryMode == 0) {
-        NSLog(@"No entryMode defined");
+        [Teleport logError:@"No entryMode defined"];
         return;
-    } else {
-        NSLog(@"entryMode: %d", entryMode);
     }
     
     if (emvData.cardData != nil && emvData.resultCodeV2 == EMV_RESULT_CODE_V2_MSR_SUCCESS) {
@@ -332,6 +372,7 @@ BOOL isSupportedEmvEntryMode (int entryMode) {
         if(RETURN_CODE_DO_SUCCESS == emvRetrieveTransactionResultRt) {
             outgoingTags = [transactionResultDictionary objectForKey:@"tags"];
         } else {
+            [Teleport logError:@"Failed to retrieve tlv from Device"];
             tlvInHex = @"Failed to retrieve tlv from Device";
         }
     }
@@ -343,12 +384,13 @@ BOOL isSupportedEmvEntryMode (int entryMode) {
     } else {
         NSDictionary *ff8105 = [IDTUtility TLVtoDICT_HEX_ASCII:[tags objectForKey:@"FF8105"]];
         if(ff8105 != nil) {
+            [Teleport logInfo:@"ff8105 found"];
             NSString *track2Data9F6B = [ff8105 objectForKey:TRACK2_DATA_CONTACTLESS_NON_CHIP_TAG];
             if(track2Data9F6B != nil && !([track2Data9F6B isEqualToString:@""])) {
-                NSLog(@"Use the track 2 data from tag 9F6B");
+                [Teleport logInfo:@"Use the track 2 data from tag 9F6B"];
                 clearentTransactionTokenRequest.track2Data = track2Data9F6B.uppercaseString;
             } else {
-                NSLog(@"Mobile SDK failed to read Track2Data");
+                [Teleport logError:@"Mobile SDK failed to read Track2Data"];
                 clearentTransactionTokenRequest.track2Data = @"Mobile SDK failed to read Track2Data";
             }
         }
@@ -412,7 +454,6 @@ BOOL isSupportedEmvEntryMode (int entryMode) {
         return;
     }
     NSString *targetUrl = [NSString stringWithFormat:@"%@/%@", self.baseUrl, @"rest/v2/mobilejwt"];
-    NSLog(@"targetUrl: %@", targetUrl);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     NSError *error;
     NSData *postData = [NSJSONSerialization dataWithJSONObject:clearentTransactionTokenRequest.asDictionary options:0 error:&error];
@@ -422,10 +463,13 @@ BOOL isSupportedEmvEntryMode (int entryMode) {
         return;
     }
     
+    [Teleport logInfo:@"Call Clearent to produce transaction token"];
+    
     [request setHTTPBody:postData];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:[ClearentUtils createExchangeChainId:self.deviceSerialNumber] forHTTPHeaderField:@"exchangeChainId"];
     [request setValue:self.publicKey forHTTPHeaderField:@"public-key"];
     [request setURL:[NSURL URLWithString:targetUrl]];
     
@@ -486,10 +530,15 @@ BOOL isSupportedEmvEntryMode (int entryMode) {
     }
     NSString *responseCode = [jsonDictionary objectForKey:@"code"];
     if([responseCode isEqualToString:@"200"]) {
+        [Teleport logInfo:@"Successful transaction token communicated to client app"];
         [self.publicDelegate successfulTransactionToken:response];
     } else {
         [self deviceMessage:GENERIC_TRANSACTION_TOKEN_ERROR_RESPONSE];    
     }
+}
+
+- (void) clearConfigurationCache {
+     [ClearentCache clearConfigurationCache];
 }
 
 @end
