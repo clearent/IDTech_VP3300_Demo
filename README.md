@@ -30,4 +30,5 @@ Carthage was used to build the project. See Clearent Framework README for more d
 1.0.26.1 - Uses the 1.0.26.1 release of the ClearentIdtechIOSFramework. You will notice audio jack logic commented out in areas. The demo was modified to show a feature recently added by IDTech to disable audio detection when you are exclusively using Bluetooth readers. By calling the following static methods before instantiating the Clearent_VP3300 object you can avoid an unpleasant microphone permission prompt, which might confuse your user.
 
 [IDT_VP3300 disableAudioDetection];
+
 [IDT_Device disableAudioDetection];
