@@ -32,3 +32,5 @@ Carthage was used to build the project. See Clearent Framework README for more d
 [IDT_VP3300 disableAudioDetection];
 
 [IDT_Device disableAudioDetection];
+
+1.0.26.2 - Uses the 1.0.26.2 release of the ClearentIdtechIOSFramework. Contains a fix for an issue related to the iOS13. Bluetooth fix only
