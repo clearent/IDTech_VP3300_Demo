@@ -12,7 +12,7 @@ Carthage was chosen to bring the Clearent framework into your project because of
 
 3 - Add a Cartfile to your project (at root). Point to Clearent's private github repository for this framework by adding the following to your Cartfile
 
-    github "clearent/ClearentIdtechIOSFramework" == 1.0.26
+    github "clearent/ClearentIdtechIOSFramework" == 1.0.26.3
 
 4 - Run this command from your project's root folder. This command will pull down a copy of the Clearent Framework and build it locally under Carthage/Build.
 
@@ -27,7 +27,7 @@ Carthage was chosen to bring the Clearent framework into your project because of
 
 7 - Build your app. The Clearent Framework should be available for use.
 
-## Use the Clearent Framework with an IDTech device
+## Use the Clearent Framework with an IDTech device - the code
 
 1 - Add this to your ViewController.h  
 #import <ClearentIdtechIOSFramework/ClearentIdtechIOSFramework.h>
@@ -57,6 +57,18 @@ When a card is processed (swipe or insert/dip of card with an emv chip), the fra
 7 - Monitor for errors by implementing the deviceMessage method.
 
 8 - When you are ready to process the payment, do a POST against endpoint /rest/v2/mobile/transactions/sale (for a sale). See demo app for an example (https://github.com/clearent/IDTech_VP3300_Demo)
+
+## Basic User Flow
+
+1 - Start a transaction. The framework exposes 3 methods for starting a transaction - emv_startTransaction (dip and swipe), ctls_startTransaction (contactless only), and device_startTransaction. If you will never support contactless use emv_startTransaction. If you plan on supporting contactless we recommend the device_startTransaction method since it supports contactless, dip, and swipe.
+
+-(RETURN_CODE) device_startTransaction:(double)amount amtOther:(double)amtOther type:(int)type timeout:(int)timeout tags:(NSData*)tags forceOnline:(BOOL)forceOnline  fallback:(BOOL)fallback;
+
+2 - Interact with reader - If you are using bluetooth make sure you've pressed the button on the reader. The bluetooth reader should have a blue led flashing quickly. This means it's connected and can communicate with the reader. The framework will callback in the deviceMessage with messages that indicate what is happening between the framework and the reader. If you see a message similar to 'Insert, swipe or, tap', that means the reader is ready for card interaction.
+
+3 - Success - If you get a callback to the successfulTransactionToken it means the card was read successfully and translated to a transaction token. The transaction token is short lived (24 hr) and is meant to facilitate a payment, not to save the card for future use. If you want to store the card send in 'create-token' as true on the /rest/v2/mobile/transactions/sale endpoint and you will receive a Clearent Vault token id (token-id) that you can save and send in the 'card' field of future transactions.
+
+4 - Failure - The framework will send messages back that indicate failure. ex - TERMINATE, 'Card read error'. When this happens, you can call the device_cancelTransaction method to cancel the current transaction and attempt again. If the problem persists it is recommended you key in the card and use the manual entry process.
 
 ## Use the Clearent Framework to create a transaction token (JWT) for a manually entered card
 
@@ -104,3 +116,7 @@ When the Clearent framework applies the emv configuration to the reader it is us
 [IDT_VP3300 disableAudioDetection];
 
 [IDT_Device disableAudioDetection];
+
+1.0.26.2 - ios13 fixes. (NSData description usage)
+
+1.0.26.3 - discovered another ios13 fix. It's recommended that both audio jack users and bluetooth users upgrade.
