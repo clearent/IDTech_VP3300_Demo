@@ -48,11 +48,23 @@ ClearentManualEntry *clearentManualEntry;
 extern int g_IOS_Type;
 
 -(void) appendMessageToResults:(NSString*) message{
+    if([message isKindOfClass:[NSString class]]) {
+           NSLog(@"appendMessageToResults a string");
+       } else {
+           NSLog(@"appendMessageToResults not a string");
+       }
     [self performSelectorOnMainThread:@selector(_appendMessageToResults:) withObject:message waitUntilDone:false];
     
 }
 -(void) _appendMessageToResults:(id)object{
-    [self.resultsTextView setText:[NSString stringWithFormat:@"%@\n%@\n", self.resultsTextView.text,(NSString*)object]];
+    if([object isKindOfClass:[NSString class]]) {
+           NSLog(@"_appendMessageToResults a string");
+            [self.resultsTextView setText:[NSString stringWithFormat:@"%@\n%@\n", self.resultsTextView.text,(NSString*)object]];
+       } else {
+           NSLog(@"_appendMessageToResults not a string");
+       }
+    
+
     // [self.resultsTextView scrollRangeToVisible:NSMakeRange([self.resultsTextView.text length], 0)];
     
 }
@@ -62,7 +74,15 @@ extern int g_IOS_Type;
     
 }
 -(void) _appendMessageToData:(id)object{
-    [self.dataTextView setText:[NSString stringWithFormat:@"%@\n%@\n", self.dataTextView.text, (NSString*)object]];
+    
+    if([object isKindOfClass:[NSString class]]) {
+        NSLog(@"_appendMessageToData a string");
+         [self.dataTextView setText:[NSString stringWithFormat:@"%@\n%@\n", self.dataTextView.text, (NSString*)object]];
+    } else {
+        NSLog(@"_appendMessageToData not a string");
+    }
+    
+//    [self.dataTextView setText:[NSString stringWithFormat:@"%@\n%@\n", self.dataTextView.text, (NSString*)object]];
     // [self.dataTextView scrollRangeToVisible:NSMakeRange([self.dataTextView.text length], 0)];
     
 }
@@ -122,12 +142,12 @@ extern int g_IOS_Type;
     //Do not perform this code if you are trying to avoid the microphone permission (if you use bluetooth devices only).
     if (alertView == prompt_doConnection || alertView == prompt_doConnection_Low_Volume)
     {
-        //selected option to start the connection task at the reader attachment prompt
-//        if (1 == buttonIndex) {
-//            //[self appendMessageToResults: @"Start Connect Task..."];
-//            [clearentVP3300 device_connectToAudioReader];
-//
-//        }
+       // selected option to start the connection task at the reader attachment prompt
+        if (1 == buttonIndex) {
+            //[self appendMessageToResults: @"Start Connect Task..."];
+            [clearentVP3300 device_connectToAudioReader];
+
+        }
     }
     
     
@@ -184,20 +204,27 @@ static EMV_PIN_MODE_Types _mode = EMV_PIN_MODE_CANCEL;
 }
 
 - (void) dataInOutMonitor:(NSData*)data  incoming:(BOOL)isIncoming{
-    [self appendMessageToData:[NSString stringWithFormat:@"%@: %@",isIncoming?@"IN":@"OUT",data.description]];
+    NSLog(@"before");
+    if([data isKindOfClass:[NSString class]]) {
+        NSLog(@"a string");
+    } else {
+        NSLog(@"not a string");
+    }
+  //  [self appendMessageToData:[NSString stringWithFormat:@"%@: //%@",isIncoming?@"IN":@"OUT",data.description]];
+    NSLog(@"after");
 }
 
 
 - (void) plugStatusChange:(BOOL)deviceInserted{
     if (deviceInserted) {
-        [self appendMessageToResults: @"device Attached. If you have disabled Audio Detection (using static method disableAudioDetection) you can't run tranasactions"];
+        [self appendMessageToResults: @"device Attached. If you have disabled Audio Detection (using static method disableAudioDetection) you can't run transactions"];
         
 //Do not perform this code if you are trying to avoid the microphone permission (if you use bluetooth devices only).
-//        if ([[AVAudioSession sharedInstance] outputVolume] < 1.0) {
-//            [prompt_doConnection_Low_Volume show];
-//        } else{
-//            [prompt_doConnection show];
-//        }
+        if ([[AVAudioSession sharedInstance] outputVolume] < 1.0) {
+            [prompt_doConnection_Low_Volume show];
+        } else{
+            [prompt_doConnection show];
+        }
         
     }
     else{
@@ -1496,7 +1523,7 @@ static bool searchInProgress = NO;
     
     if(RETURN_CODE_DO_SUCCESS == rt)
     {
-        [self appendMessageToResults:[NSString stringWithFormat:@"ICC Powered On, data: %@\n%@", response.description, [[NSString alloc] initWithData:response encoding:NSASCIIStringEncoding] ]];
+//        [self appendMessageToResults:[NSString stringWithFormat:@"ICC Powered On, data: %@\n%@", response.description, [[NSString alloc] initWithData:response encoding:NSASCIIStringEncoding] ]];
         
     }else
     {

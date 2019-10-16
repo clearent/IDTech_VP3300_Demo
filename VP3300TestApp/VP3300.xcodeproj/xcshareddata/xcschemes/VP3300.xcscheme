@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "40F1569016F6F22100999E23"
-               BuildableName = "VP3300.app"
+               BuildableName = "V1.0.26.3.app"
                BlueprintName = "VP3300"
                ReferencedContainer = "container:VP3300.xcodeproj">
             </BuildableReference>
@@ -27,19 +27,17 @@
       selectedDebuggerIdentifier = ""
       selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <Testables>
-      </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "40F1569016F6F22100999E23"
-            BuildableName = "VP3300.app"
+            BuildableName = "V1.0.26.3.app"
             BlueprintName = "VP3300"
             ReferencedContainer = "container:VP3300.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
+      <Testables>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -56,13 +54,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "40F1569016F6F22100999E23"
-            BuildableName = "VP3300.app"
+            BuildableName = "V1.0.26.3.app"
             BlueprintName = "VP3300"
             ReferencedContainer = "container:VP3300.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Debug"
@@ -75,7 +71,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "40F1569016F6F22100999E23"
-            BuildableName = "VP3300.app"
+            BuildableName = "V1.0.26.3.app"
             BlueprintName = "VP3300"
             ReferencedContainer = "container:VP3300.xcodeproj">
          </BuildableReference>

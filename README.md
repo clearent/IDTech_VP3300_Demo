@@ -36,3 +36,5 @@ Carthage was used to build the project. See Clearent Framework README for more d
 1.0.26.2 - Uses the 1.0.26.2 release of the ClearentIdtechIOSFramework. Contains a fix for an issue related to the iOS13. Bluetooth fix only
 
 1.0.26.3 - another ios13 fix was discovered on the audio jack side.
+
+1.0.26.4 - Fixed an issue where the framework was not handling the card data correctly when the user has been presented with the 'USE MAGSTRIPE' message after an invalid insert. The result was an NSInvalidArgumentException being thrown.
