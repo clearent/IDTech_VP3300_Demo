@@ -11,7 +11,9 @@
 #import <MessageUI/MessageUI.h>
 #import <AVFoundation/AVFoundation.h>
 #import "ClearentPublicVP3300Delegate.h"
-#import "IDT_VP3300.h"
+#import "ClearentPaymentRequest.h"
+#import "ClearentVP3300Configuration.h"
+#import <IDTech/IDT_VP3300.h>
 
 /**
  * Interact with this object as a singleton. Provide a delegate that adheres to the Clearent_Public_IDTech_VP3300_Delegate protocol will allow the framework to send messages to you.
@@ -20,7 +22,17 @@
 
 @interface Clearent_VP3300 : NSObject
 @property(nonatomic) SEL callBackSelector;
-- (void) init : (id <Clearent_Public_IDTech_VP3300_Delegate>)publicDelegate clearentBaseUrl:(NSString*)clearentBaseUrl publicKey:(NSString*)publicKey;
+
+/**
+ * This is deprecated. Use initWithConfig instead
+ */
+- (id) init : (id <Clearent_Public_IDTech_VP3300_Delegate>)publicDelegate clearentBaseUrl:(NSString*)clearentBaseUrl publicKey:(NSString*)publicKey;
+
+/**
+ * Configuration includes capability to disable remote logging
+ */
+- (id) initWithConfig : (id <Clearent_Public_IDTech_VP3300_Delegate>)publicDelegate clearentVP3300Configuration:(id <ClearentVP3300Configuration>) clearentVP3300Configuration;
+
 - (NSString*) SDK_version;
 
 /**
@@ -313,7 +325,6 @@
  The tags will be returned in the callback routine.
  
  @param amount Transaction amount value  (tag value 9F02)
- @param exponent Number of characters after decimile point
  @param type Transaction type (tag value 9C).
  @param timeout Timeout value in seconds.
  @param tags Any other tags to be included in the request.
@@ -1159,7 +1170,7 @@
  *
  Sets the CAPK as specified by the CAKey raw format
  
- @param key CAKey format:
+ @param file CAKey format:
  [5 bytes RID][1 byte Index][1 byte Hash Algorithm][1 byte Encryption Algorithm][20 bytes HashValue][4 bytes Public Key Exponent][2 bytes Modulus Length][Variable bytes Modulus]
  Where:
  - Hash Algorithm: The only algorithm supported is SHA-1.The value is set to 0x01
@@ -1248,10 +1259,6 @@
  */
 -(RETURN_CODE) emv_setTerminalData:(NSDictionary*)data;
 
-
-
-
-
 /**
  * Start EMV Transaction Request
  *
@@ -1271,7 +1278,6 @@
  Tag DFEE1A can be used to specify tags to be returned in response, in addition to the default tags. Example DFEE1A049F029F03 will return tags 9F02 and 9F03 with the response
  
  @param forceOnline TRUE = do not allow offline approval,  FALSE = allow ICC to approve offline if terminal capable
- @param autoAuthenticate Will automatically execute Authenticate Transacation after start transaction returns successful
  @param fallback Indicate if it supports fallback to MSR
  
  
@@ -1425,7 +1431,6 @@
  Tag DFEE1A can be used to specify tags to be returned in response, in addition to the default tags. Example DFEE1A049F029F03 will return tags 9F02 and 9F03 with the response
  
  @param forceOnline TRUE = do not allow offline approval,  FALSE = allow ICC to approve offline if terminal capable
- @param autoAuthenticate Will automatically execute Authenticate Transacation after start transaction returns successful
  @param fallback Indicate if it supports fallback to MSR
  
  
@@ -1441,9 +1446,73 @@
 - (void) clearConfigurationCache;
 
 /**
- Enable/disable Clearent's configuration.
+ Enable/disable Clearent's emv configuration. (true or false)
  */
 - (void) setAutoConfiguration:(BOOL)enable;
+
+/**
+ Enable/disable Clearent's contactless. default is false
+ */
+- (void) setContactless:(BOOL)enable;
+
+/**
+ Enable/disable Clearent's contactless configuration. (true or false)
+ */
+- (void) setContactlessAutoConfiguration:(BOOL)enable;
+
+/**
+ * Start A Transaction Request by passing in a payment request
+ *
+ Works just like the other device_startTransaction method except a protocol was introduced to stop the telescoping of the variables. This includes an optional email address that can be used
+ in the event of an offline decline to send a receipt (an emv certification requirement).
+ 
+ When this method is used the idtech framework will always turn on contactless first. if it identifies contactless it tries to process in that mode. If you instead insert the card it will process as a dip. if you swipe with a card with a chip the transaction will terminate and you will get an error saying to try chip first. if chip fails you will get indication to perform a
+ fallback swipe.
+ 
+ If you have an issue with processing a contactless card, and you are using this method, you can get around the contactless check by first inserting the chip card. The idtech framework will
+ ignore contactless and try to process the chip.
+ 
+ * @return RETURN_CODE:  Values can be parsed with errorCode.getErrorString()
+ 
+ */
+-(RETURN_CODE) device_startTransaction:(id<ClearentPaymentRequest>) clearentPaymentRequest;
+
+/**
+ The reader has a contactless configuration applied each time connects. After a successful configuration the device serial number and a flag denoting the reader was configured for contactless is stored using NSUserDefaults. If there is a need to clear out this information, maybe to support a configuration change/future updates, call this method to clear out the cache.
+ */
+- (void) clearContactlessConfigurationCache;
+
+/**
+ Set BLE Service Scan Filter.
+ 
+ When searching for BLE devices, this will limit the service search to the provided service ID's
+ 
+ Example data format:
+ NSArray<CBUUID *> *filter = [[NSArray alloc] initWithObjects:[CBUUID UUIDWithString:@"1820"], nil];
+ 
+ @param filter The array of services to filter for
+ */
+-(void) setServiceScanFilter:(NSArray<CBUUID *> *) filter;
+
+/**
+Set BLE Service Scan Filter.
+Filter out all service ids except for 1820, which is what IDTech readers use.
+*/
+- (void) setServiceScanFilterWithService1820;
+
+/**
+ * Search by  BLE Friendly Name - This is a convenience method created by Clearent to wrap Idtech's bluetooth scan functionality ito address a common scenario. If
+ * you  know the friendly name you can send it to the framework using this method and we will attempt to connect to the reader. Errors should be communicated in the deviceMessage callback
+ * and a success would communicate back using the isReady method.
+ *
+ * The format of an IDTECH friendly name for a VP3300 is IDTECH-VP3300-nnnnn, where the nnnnn is the last 5 digits of the device serial number printed on the back of the reader (and on the box it shipped in).
+ * If you cannot read the number a QR code is provided.
+ *
+ * @param friendlyName  The friendly name to be used when discovering any BLE devices
+ *
+ */
+-(void) startBluetoothScan:(NSString*)friendlyName;
+
 
 @end
 

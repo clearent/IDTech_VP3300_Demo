@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "40F1569016F6F22100999E23"
-               BuildableName = "V1.0.26.3.app"
+               BuildableName = "V1.1.0-BETA.app"
                BlueprintName = "VP3300"
                ReferencedContainer = "container:VP3300.xcodeproj">
             </BuildableReference>
@@ -31,7 +31,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "40F1569016F6F22100999E23"
-            BuildableName = "V1.0.26.3.app"
+            BuildableName = "V1.1.0-BETA.app"
             BlueprintName = "VP3300"
             ReferencedContainer = "container:VP3300.xcodeproj">
          </BuildableReference>
@@ -54,7 +54,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "40F1569016F6F22100999E23"
-            BuildableName = "V1.0.26.3.app"
+            BuildableName = "V1.1.0-BETA.app"
             BlueprintName = "VP3300"
             ReferencedContainer = "container:VP3300.xcodeproj">
          </BuildableReference>
@@ -71,7 +71,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "40F1569016F6F22100999E23"
-            BuildableName = "V1.0.26.3.app"
+            BuildableName = "V1.1.0-BETA.app"
             BlueprintName = "VP3300"
             ReferencedContainer = "container:VP3300.xcodeproj">
          </BuildableReference>

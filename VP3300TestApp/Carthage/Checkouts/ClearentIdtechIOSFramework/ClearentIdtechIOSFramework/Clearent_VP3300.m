@@ -10,24 +10,46 @@
 #import "Clearent_VP3300.h"
 #import "ClearentDelegate.h"
 #import "Teleport.h"
+#import "ClearentPayment.h"
 
 @implementation Clearent_VP3300 
 
+  static NSString *const READER_IS_NOT_CONFIGURED = @"Cannot run transaction. Reader is not configured.";
+  static NSString *const DEVICE_NOT_CONNECTED = @"Device is not connected";
+  static NSString *const BLUETOOTH_FRIENDLY_NAME_REQUIRED = @"Bluetooth friendly name required";
+
   ClearentDelegate *clearentDelegate;
 
-- (void) init : (id <Clearent_Public_IDTech_VP3300_Delegate>) publicDelegate clearentBaseUrl:(NSString*)clearentBaseUrl publicKey:(NSString*)publicKey {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+- (instancetype) init : (id <Clearent_Public_IDTech_VP3300_Delegate>) publicDelegate clearentBaseUrl:(NSString*)clearentBaseUrl publicKey:(NSString*)publicKey {
+    self = [super init];
+    if (self) {
         clearentDelegate = [[ClearentDelegate alloc] init:publicDelegate clearentBaseUrl:clearentBaseUrl publicKey:publicKey];
         [IDT_VP3300 sharedController].delegate = clearentDelegate;
-        
         //Using Variant of Teleport-NSLog -> https://github.com/kennethjiang/Teleport-NSLog
         //Disabled intercept of logging in favor of adding our own logs to a rotating file solution.
         //When reaping occurs, we send the logs to Clearent.
         TELEPORT_DEBUG = YES;
         [Teleport startWithForwarder:
-         [SimpleHttpForwarder forwarderWithAggregatorUrl:clearentBaseUrl publicKey:publicKey]];
-    });
+        [SimpleHttpForwarder forwarderWithAggregatorUrl:clearentBaseUrl publicKey:publicKey]];
+    }
+    return self;
+}
+
+- (instancetype) initWithConfig : (id <Clearent_Public_IDTech_VP3300_Delegate>)publicDelegate clearentVP3300Configuration:(id <ClearentVP3300Configuration>) clearentVP3300Configuration {
+    self = [super init];
+    if (self) {
+        clearentDelegate = [[ClearentDelegate alloc] initWithConfig:publicDelegate clearentVP3300Configuration:clearentVP3300Configuration];
+        [IDT_VP3300 sharedController].delegate = clearentDelegate;
+        if(!clearentVP3300Configuration.disableRemoteLogging) {
+        //Using Variant of Teleport-NSLog -> https://github.com/kennethjiang/Teleport-NSLog
+        //Disabled intercept of logging in favor of adding our own logs to a rotating file solution.
+        //When reaping occurs, we send the logs to Clearent.
+            TELEPORT_DEBUG = YES;
+            [Teleport startWithForwarder:
+            [SimpleHttpForwarder forwarderWithAggregatorUrl:clearentVP3300Configuration.clearentBaseUrl publicKey:clearentVP3300Configuration.publicKey]];
+        }
+    }
+    return self;
 }
 
 - (NSString*) SDK_version {
@@ -35,6 +57,7 @@
 }
 
 -(void) close {
+    [self clearCurrentRequest];
     [[IDT_VP3300 sharedController] close];
 }
 
@@ -43,11 +66,26 @@
 }
 
 -(RETURN_CODE) ctls_cancelTransaction {
+    [self clearCurrentRequest];
     return [[IDT_VP3300 sharedController] ctls_cancelTransaction];
 }
 
 -(RETURN_CODE) ctls_startTransaction {
-    return [[IDT_VP3300 sharedController] ctls_startTransaction];
+    [self clearCurrentRequest];
+    RETURN_CODE ctlsStartRt;
+    if(![[IDT_VP3300 sharedController] isConnected]) {
+        [Teleport logInfo:@"ctls_startTransaction no vars. Tried to start transaction but disconnected"];
+        [clearentDelegate deviceMessage:DEVICE_NOT_CONNECTED];
+        ctlsStartRt = RETURN_CODE_ERR_DISCONNECT;
+    } else if(![clearentDelegate isDeviceConfigured]) {
+        [Teleport logInfo:@"ctls_startTransaction no vars. Tried to start transaction but reader is not configured"];
+        [clearentDelegate deviceMessage:READER_IS_NOT_CONFIGURED];
+        ctlsStartRt = RETURN_CODE_EMV_FAILED;
+    } else {
+        [Teleport logInfo:@"ctls_startTransaction no vars"];
+        ctlsStartRt =   [[IDT_VP3300 sharedController] ctls_startTransaction];
+    }
+    return ctlsStartRt;
 }
 
 -(RETURN_CODE) device_cancelConnectToAudioReader {
@@ -58,7 +96,7 @@
     return [[IDT_VP3300 sharedController]  device_connectToAudioReader];
 }
 
--(RETURN_CODE) device_getFirmwareVersion:(NSString**)response {
+-(RETURN_CODE) device_getFirmwareVersion:(NSString* __autoreleasing *)response {
     return [[IDT_VP3300 sharedController] device_getFirmwareVersion:response];
 }
 
@@ -82,7 +120,7 @@
     return [[IDT_VP3300 sharedController] device_isConnected:device];
 }
 
--(RETURN_CODE) device_sendIDGCommand:(unsigned char)command subCommand:(unsigned char)subCommand data:(NSData*)data response:(NSData**)response {
+-(RETURN_CODE) device_sendIDGCommand:(unsigned char)command subCommand:(unsigned char)subCommand data:(NSData*)data response:(NSData* __autoreleasing *)response {
     return [[IDT_VP3300 sharedController] device_sendIDGCommand:command subCommand:subCommand data:data response:response];
 }
 
@@ -107,6 +145,7 @@
 }
 
 -(RETURN_CODE) emv_completeOnlineEMVTransaction:(BOOL)isSuccess hostResponseTags:(NSData*)tags {
+    [self clearCurrentRequest];
     return [[IDT_VP3300 sharedController] emv_completeOnlineEMVTransaction:isSuccess hostResponseTags:tags];
 }
 
@@ -114,7 +153,7 @@
     [[IDT_VP3300 sharedController] emv_disableAutoAuthenticateTransaction:disable];
 }
 
--(RETURN_CODE) emv_getEMVL2Version:(NSString**)response {
+-(RETURN_CODE) emv_getEMVL2Version:(NSString* __autoreleasing *)response {
     return [[IDT_VP3300 sharedController] emv_getEMVL2Version:response];
 }
 
@@ -134,11 +173,11 @@
     return [[IDT_VP3300 sharedController] emv_removeTerminalData];
 }
 
--(RETURN_CODE) emv_retrieveAIDList:(NSArray**)response {
+-(RETURN_CODE) emv_retrieveAIDList:(NSArray* __autoreleasing *)response {
     return [[IDT_VP3300 sharedController] emv_retrieveAIDList:response];
 }
 
--(RETURN_CODE) emv_retrieveApplicationData:(NSString*)AID response:(NSDictionary**)responseAID {
+-(RETURN_CODE) emv_retrieveApplicationData:(NSString*)AID response:(NSDictionary* __autoreleasing *)responseAID {
     return [[IDT_VP3300 sharedController] emv_retrieveApplicationData:AID response:responseAID];
 }
 
@@ -146,23 +185,23 @@
     return [[IDT_VP3300 sharedController] emv_retrieveCAPK:rid index:index response:response];
 }
 
--(RETURN_CODE) emv_retrieveCAPKFile:(NSString*)rid index:(NSString*)index response:(NSData**)response {
+-(RETURN_CODE) emv_retrieveCAPKFile:(NSString*)rid index:(NSString*)index response:(NSData* __autoreleasing *)response {
     return [[IDT_VP3300 sharedController] emv_retrieveCAPKFile:rid index:index response:response];
 }
 
--(RETURN_CODE) emv_retrieveCAPKList:(NSArray**)response {
+-(RETURN_CODE) emv_retrieveCAPKList:(NSArray* __autoreleasing *)response {
     return [[IDT_VP3300 sharedController] emv_retrieveCAPKList:response];
 }
 
--(RETURN_CODE) emv_retrieveCRLList:(NSMutableArray**)response {
+-(RETURN_CODE) emv_retrieveCRLList:(NSMutableArray* __autoreleasing *)response {
     return [[IDT_VP3300 sharedController] emv_retrieveCRLList:response];
 }
 
--(RETURN_CODE) emv_retrieveTerminalData:(NSDictionary**)responseData {
+-(RETURN_CODE) emv_retrieveTerminalData:(NSDictionary* __autoreleasing *)responseData {
     return [[IDT_VP3300 sharedController] emv_retrieveTerminalData:responseData];
 }
 
--(RETURN_CODE) emv_retrieveTransactionResult:(NSData*)tags retrievedTags:(NSDictionary**)retrievedTags {
+-(RETURN_CODE) emv_retrieveTransactionResult:(NSData*)tags retrievedTags:(NSDictionary* __autoreleasing *)retrievedTags {
     return [[IDT_VP3300 sharedController] emv_retrieveTransactionResult:tags retrievedTags:retrievedTags];
 }
 
@@ -187,15 +226,29 @@
 }
 
 -(RETURN_CODE) emv_startTransaction:(double)amount amtOther:(double)amtOther type:(int)type timeout:(int)timeout tags:(NSData*)tags forceOnline:(BOOL)forceOnline fallback:(BOOL)fallback {
-    RETURN_CODE emvStartRt =  [[IDT_VP3300 sharedController] emv_startTransaction:amount amtOther:amtOther type:type timeout:timeout tags:tags forceOnline:forceOnline fallback:fallback];
+    [self clearCurrentRequest];
+    RETURN_CODE emvStartRt;
+    if(![[IDT_VP3300 sharedController] isConnected]) {
+        [Teleport logInfo:@"emv_startTransaction. Tried to start transaction but disconnected"];
+        [clearentDelegate deviceMessage:DEVICE_NOT_CONNECTED];
+        emvStartRt = RETURN_CODE_ERR_DISCONNECT;
+    } else if(![clearentDelegate isDeviceConfigured]) {
+        [Teleport logInfo:@"emv_startTransaction. Tried to start transaction but reader is not configured"];
+        [clearentDelegate deviceMessage:READER_IS_NOT_CONFIGURED];
+        emvStartRt = RETURN_CODE_EMV_FAILED;
+    } else {
+        [[IDT_VP3300 sharedController] emv_disableAutoAuthenticateTransaction:FALSE];
+        [Teleport logInfo:@"emv_startTransaction"];
+        emvStartRt =  [[IDT_VP3300 sharedController] emv_startTransaction:amount amtOther:amtOther type:type timeout:timeout tags:tags forceOnline:forceOnline fallback:fallback];
+    }
     return emvStartRt;
 }
 
--(RETURN_CODE) config_getSerialNumber:(NSString**)response {
+-(RETURN_CODE) config_getSerialNumber:(NSString* __autoreleasing *)response {
     return [[IDT_VP3300 sharedController] config_getSerialNumber:response];
 }
 
--(RETURN_CODE) icc_exchangeAPDU:(NSData*)dataAPDU response:(APDUResponse**)response {
+-(RETURN_CODE) icc_exchangeAPDU:(NSData*)dataAPDU response:(APDUResponse* __autoreleasing *)response {
     return [[IDT_VP3300 sharedController] icc_exchangeAPDU:dataAPDU response:response];
 }
 
@@ -203,19 +256,21 @@
     return [[IDT_VP3300 sharedController] icc_getICCReaderStatus:readerStatus];
 }
 
--(RETURN_CODE) icc_powerOnICC:(NSData**)response {
+-(RETURN_CODE) icc_powerOnICC:(NSData* __autoreleasing *)response {
     return [[IDT_VP3300 sharedController] icc_powerOnICC:response];
 }
 
--(RETURN_CODE) icc_powerOffICC:(NSString**)error {
+-(RETURN_CODE) icc_powerOffICC:(NSString* __autoreleasing *)error {
     return [[IDT_VP3300 sharedController] icc_powerOffICC:error];
 }
 
 -(RETURN_CODE) msr_cancelMSRSwipe {
+    [self clearCurrentRequest];
     return [[IDT_VP3300 sharedController] msr_cancelMSRSwipe];
 }
 
 -(RETURN_CODE) msr_startMSRSwipe {
+    [self clearCurrentRequest];
     return [[IDT_VP3300 sharedController] msr_startMSRSwipe];
 }
 
@@ -227,7 +282,7 @@
      return [[IDT_VP3300 sharedController] assignBypassDelegate:del];
 }
 
--(RETURN_CODE) ctls_getConfigurationGroup:(int)group response:(NSDictionary**)response {
+-(RETURN_CODE) ctls_getConfigurationGroup:(int)group response:(NSDictionary* __autoreleasing *)response {
     return [[IDT_VP3300 sharedController] ctls_getConfigurationGroup:group response:response];
 }
 
@@ -247,23 +302,23 @@
     return [[IDT_VP3300 sharedController] ctls_removeConfigurationGroup:group ];
 }
 
--(RETURN_CODE) ctls_retrieveAIDList:(NSArray**)response {
+-(RETURN_CODE) ctls_retrieveAIDList:(NSArray* __autoreleasing *)response {
     return [[IDT_VP3300 sharedController] ctls_retrieveAIDList:response];
 }
 
--(RETURN_CODE)  ctls_retrieveApplicationData:(NSString*)AID response:(NSDictionary**)response {
+-(RETURN_CODE)  ctls_retrieveApplicationData:(NSString*)AID response:(NSDictionary* __autoreleasing *)response {
     return [[IDT_VP3300 sharedController] ctls_retrieveApplicationData:AID response:response];
 }
 
--(RETURN_CODE)  ctls_retrieveCAPK:(NSData*)capk key:(NSData**)key {
+-(RETURN_CODE)  ctls_retrieveCAPK:(NSData*)capk key:(NSData* __autoreleasing *)key {
     return [[IDT_VP3300 sharedController] ctls_retrieveCAPK:capk key:key];
 }
 
--(RETURN_CODE)  ctls_retrieveCAPKList:(NSArray**)keys {
+-(RETURN_CODE)  ctls_retrieveCAPKList:(NSArray* __autoreleasing *)keys {
     return [[IDT_VP3300 sharedController] ctls_retrieveCAPKList:keys];
 }
 
--(RETURN_CODE)  ctls_retrieveTerminalData:(NSData**)tlv {
+-(RETURN_CODE)  ctls_retrieveTerminalData:(NSData* __autoreleasing *)tlv {
     return [[IDT_VP3300 sharedController] ctls_retrieveTerminalData:tlv];
 }
 
@@ -284,10 +339,25 @@
 }
 
 -(RETURN_CODE) ctls_startTransaction:(double)amount type:(int)type timeout:(int)timeout tags:(NSMutableDictionary *)tags {
-    return [[IDT_VP3300 sharedController] ctls_startTransaction:amount type:type timeout:timeout tags:tags];
+    [self clearCurrentRequest];
+    RETURN_CODE ctlsStartRt;
+    if(![[IDT_VP3300 sharedController] isConnected]) {
+        [Teleport logInfo:@"ctls_startTransaction. Tried to start transaction but disconnected"];
+        [clearentDelegate deviceMessage:DEVICE_NOT_CONNECTED];
+        ctlsStartRt = RETURN_CODE_ERR_DISCONNECT;
+    } else if(![clearentDelegate isDeviceConfigured]) {
+        [Teleport logInfo:@"ctls_startTransaction. Tried to start transaction but reader is not configured"];
+        [clearentDelegate deviceMessage:READER_IS_NOT_CONFIGURED];
+        ctlsStartRt = RETURN_CODE_EMV_FAILED;
+    } else {
+         [Teleport logInfo:@"ctls_startTransaction with vars"];
+        ctlsStartRt =  [[IDT_VP3300 sharedController] ctls_startTransaction:amount type:type timeout:timeout tags:tags];
+    }
+    return ctlsStartRt;
 }
 
 -(RETURN_CODE) device_cancelTransaction {
+    [self clearCurrentRequest];
     return [[IDT_VP3300 sharedController] device_cancelTransaction];
 }
 
@@ -296,10 +366,11 @@
 }
 
 -(bool) device_enableBLEDeviceSearch:(NSUUID*)identifier {
+    [self setServiceScanFilterWithService1820];
     return [[IDT_VP3300 sharedController] device_enableBLEDeviceSearch:identifier];
 }
 
--(RETURN_CODE)  device_getAutoPollTransactionResults:(IDTEMVData**)result {
+-(RETURN_CODE)  device_getAutoPollTransactionResults:(IDTEMVData* __autoreleasing *)result {
     return [[IDT_VP3300 sharedController] device_getAutoPollTransactionResults:result];
 }
 
@@ -320,7 +391,27 @@
 }
 
 -(RETURN_CODE) device_startTransaction:(double)amount amtOther:(double)amtOther type:(int)type timeout:(int)timeout tags:(NSData*)tags forceOnline:(BOOL)forceOnline  fallback:(BOOL)fallback {
-    return [[IDT_VP3300 sharedController] device_startTransaction:amount amtOther:amtOther type:type timeout:timeout tags:tags forceOnline:forceOnline  fallback:fallback];
+    
+    [self clearCurrentRequest];
+    
+    ClearentPayment *clearentPayment = [self createPaymentRequest:amount amtOther:amtOther type:type timeout:timeout tags:tags forceOnline:forceOnline  fallback:fallback ];
+    
+    [clearentDelegate setClearentPayment:clearentPayment];
+    
+    return [self device_startTransaction:clearentPayment];
+}
+
+- (ClearentPayment*) createPaymentRequest:(double)amount amtOther:(double)amtOther type:(int)type timeout:(int)timeout tags:(NSData*)tags forceOnline:(BOOL)forceOnline  fallback:(BOOL)fallback {
+    ClearentPayment *paymentRequest = [[ClearentPayment alloc] init];
+    [paymentRequest setAmount:amount];
+    paymentRequest.amtOther = amtOther;
+    paymentRequest.type = type;
+    paymentRequest.timeout = timeout;
+    paymentRequest.tags = tags;
+    paymentRequest.emailAddress = nil;
+    paymentRequest.fallback = fallback;
+    paymentRequest.forceOnline = forceOnline;
+    return paymentRequest;
 }
 
 -(RETURN_CODE) emv_callbackResponsePIN:(EMV_PIN_MODE_Types)mode KSN:(NSData*)KSN PIN:(NSData*)PIN {
@@ -328,6 +419,7 @@
 }
 
 -(RETURN_CODE) emv_cancelTransaction {
+    [self clearCurrentRequest];
     return [[IDT_VP3300 sharedController] emv_cancelTransaction];
 }
 
@@ -349,6 +441,98 @@
 
 - (void) setAutoConfiguration:(BOOL)enable {
     [clearentDelegate setAutoConfiguration:enable];
+}
+
+- (void) setContactless:(BOOL)enable {
+    [clearentDelegate setContactless:enable];
+}
+
+- (void) setContactlessAutoConfiguration:(BOOL)enable {
+     [clearentDelegate setContactlessAutoConfiguration:enable];
+}
+
+-(RETURN_CODE) device_startTransaction:(id<ClearentPaymentRequest>) clearentPaymentRequest {
+    RETURN_CODE deviceStartRt;
+    if(![[IDT_VP3300 sharedController] isConnected]) {
+        [Teleport logInfo:@"device_startTransaction. Tried to start transaction but disconnected"];
+        [clearentDelegate deviceMessage:DEVICE_NOT_CONNECTED];
+        deviceStartRt = RETURN_CODE_ERR_DISCONNECT;
+    } else if(![clearentDelegate isDeviceConfigured]) {
+        [Teleport logInfo:@"device_startTransaction. Tried to start transaction but reader is not configured"];
+        [clearentDelegate deviceMessage:READER_IS_NOT_CONFIGURED];
+        deviceStartRt = RETURN_CODE_EMV_FAILED;
+        RETURN_CODE cancelTransactionRt = [[IDT_VP3300 sharedController] device_cancelTransaction];
+        if (RETURN_CODE_DO_SUCCESS == cancelTransactionRt) {
+            [clearentDelegate deviceMessage:@"Transaction cancelled"];
+        }
+    } else {
+        [NSThread sleepForTimeInterval:0.5f];
+        [[IDT_VP3300 sharedController] emv_disableAutoAuthenticateTransaction:FALSE];
+        [clearentDelegate setClearentPayment:clearentPaymentRequest];
+        [self resetInvalidDeviceData];
+        
+        deviceStartRt = [[IDT_VP3300 sharedController] device_startTransaction:clearentPaymentRequest.amount amtOther:clearentPaymentRequest.amtOther type:clearentPaymentRequest.type timeout:clearentPaymentRequest.timeout tags:clearentPaymentRequest.tags forceOnline:clearentPaymentRequest.forceOnline  fallback:clearentPaymentRequest.fallback];
+
+        if(RETURN_CODE_OK_NEXT_COMMAND == deviceStartRt || RETURN_CODE_DO_SUCCESS == deviceStartRt) {
+            [Teleport logInfo:@"device_startTransaction successful on first try"];
+        } else if([[IDT_VP3300 sharedController] isConnected]) {
+            [NSThread sleepForTimeInterval:0.5f];
+            
+            [[IDT_VP3300 sharedController] device_cancelTransaction];
+            
+            deviceStartRt = [[IDT_VP3300 sharedController] device_startTransaction:clearentPaymentRequest.amount amtOther:clearentPaymentRequest.amtOther type:clearentPaymentRequest.type timeout:clearentPaymentRequest.timeout tags:clearentPaymentRequest.tags forceOnline:clearentPaymentRequest.forceOnline  fallback:clearentPaymentRequest.fallback];
+            
+            if(RETURN_CODE_OK_NEXT_COMMAND == deviceStartRt || RETURN_CODE_DO_SUCCESS == deviceStartRt) {
+                [Teleport logInfo:@"device_startTransaction successful on second try"];
+            } else {
+                 [Teleport logInfo:@"device_startTransaction failed on second try"];
+            }
+        } else {
+            [clearentDelegate deviceMessage:DEVICE_NOT_CONNECTED];
+        }
+    }
+    return deviceStartRt;
+}
+
+- (void) clearCurrentRequest{
+    [clearentDelegate setClearentPayment:nil];
+}
+
+//Sometimes our initial call to the reader requesting information fails. We still need to allow the system to continue on since this data is not considered critical to
+//the run of the transaction.
+- (void) resetInvalidDeviceData {
+   [clearentDelegate resetInvalidDeviceData];
+}
+
+- (void) clearContactlessConfigurationCache {
+    [clearentDelegate clearContactlessConfigurationCache];
+}
+
+-(void) setServiceScanFilter:(NSArray<CBUUID *> *) filter {
+    return [[IDT_Device sharedController] setServiceScanFilter:filter];
+}
+
+- (void) setServiceScanFilterWithService1820 {
+    NSArray<CBUUID *> *filter = [[NSArray alloc] initWithObjects:[CBUUID UUIDWithString:@"1820"], nil];
+    [self setServiceScanFilter:filter];
+}
+
+-(void) startBluetoothScan:(NSString*) friendlyName {
+    [clearentDelegate resetBluetoothSearch];
+    if (friendlyName == nil || friendlyName.length == 0) {
+        [clearentDelegate deviceMessage:BLUETOOTH_FRIENDLY_NAME_REQUIRED];
+    } else {
+        [clearentDelegate setDefaultBluetoothFriendlyName:friendlyName];
+        [self device_setBLEFriendlyName:friendlyName];
+        NSUUID* val = nil;
+        bool device_enableBLEDeviceSearchReturnCode = [self device_enableBLEDeviceSearch:val];
+        if(device_enableBLEDeviceSearchReturnCode) {
+            [clearentDelegate deviceMessage:@"Bluetooth scan started. Press button"];
+        } else {
+            [clearentDelegate deviceMessage:@"Bluetooth scan failed"];
+            [Teleport logInfo:@"Bluetooth scan failed"];
+        }
+    }
 }
 
 @end

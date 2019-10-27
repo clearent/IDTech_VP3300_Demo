@@ -1,4 +1,6 @@
-# Demo app showing the Clearent Framework working with the IDTech VP3300 device
+![Screenshot](docs/clearent_logo.jpg)
+
+# Demo app showing the Clearent Framework working with the IDTech VP3300 reader
 
 Clearent Framework is here : https://github.com/clearent/ClearentIdtechIOSFramework
 
