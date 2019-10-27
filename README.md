@@ -2,7 +2,7 @@
 
 # Demo app showing the Clearent Framework working with the IDTech VP3300 reader
 
-Clearent Framework is here : https://github.com/clearent/ClearentIdtechIOSFramework
+See [Clearent Framework](https://github.com/clearent/ClearentIdtechIOSFramework) for more details.
 
 This demo is a version of the VP3300TestApp demo that's included in the 80149808-001-A.zip download from here: https://atlassian.idtechproducts.com/confluence/display/KB/VP3300+-+Home.
 
