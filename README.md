@@ -40,3 +40,5 @@ Carthage was used to build the project. See Clearent Framework README for more d
 1.0.26.3 - another ios13 fix was discovered on the audio jack side.
 
 1.0.26.4 - Fixed an issue where the framework was not handling the card data correctly when the user has been presented with the 'USE MAGSTRIPE' message after an invalid insert. The result was an NSInvalidArgumentException being thrown.
+
+:new: - 1.1.4-beta contactless support (current)

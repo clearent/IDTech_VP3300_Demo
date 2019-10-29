@@ -1,0 +1,1655 @@
+BCSymbolMap Version: 2.0
+-[ClearentConfiguration initWithJson:]
+-[ClearentConfiguration initFromJson]
+-[ClearentConfiguration isValid]
+-[ClearentConfiguration setValid:]
+-[ClearentConfiguration rawJson]
+-[ClearentConfiguration setRawJson:]
+-[ClearentConfiguration contactAids]
+-[ClearentConfiguration setContactAids:]
+-[ClearentConfiguration publicKeys]
+-[ClearentConfiguration setPublicKeys:]
+-[ClearentConfiguration .cxx_destruct]
+_OBJC_IVAR_$_ClearentConfiguration._valid
+_OBJC_IVAR_$_ClearentConfiguration._rawJson
+_OBJC_IVAR_$_ClearentConfiguration._contactAids
+_OBJC_IVAR_$_ClearentConfiguration._publicKeys
+Apple clang version 11.0.0 (clang-1100.0.33.8)
+/Users/davidhigginbotham/Documents/mdbfs/IDTech_VP3300_Demo/VP3300TestApp/Carthage/Checkouts/ClearentIdtechIOSFramework/ClearentIdtechIOSFramework/ClearentConfiguration.m
+/Users/davidhigginbotham/Documents/mdbfs/IDTech_VP3300_Demo/VP3300TestApp/Carthage/Checkouts/ClearentIdtechIOSFramework
+ClearentIdtechIOSFramework/ClearentConfiguration.m
+ClearentIdtechIOSFramework/ClearentConfiguration.h
+-[Clearent_VP3300 init:clearentBaseUrl:publicKey:]
+___50-[Clearent_VP3300 init:clearentBaseUrl:publicKey:]_block_invoke
+___copy_helper_block_e8_32s40s48s56s
+___destroy_helper_block_e8_32s40s48s56s
+-[Clearent_VP3300 SDK_version]
+-[Clearent_VP3300 close]
+-[Clearent_VP3300 device_connectToUSB]
+-[Clearent_VP3300 ctls_cancelTransaction]
+-[Clearent_VP3300 ctls_startTransaction]
+-[Clearent_VP3300 device_cancelConnectToAudioReader]
+-[Clearent_VP3300 device_connectToAudioReader]
+-[Clearent_VP3300 device_getFirmwareVersion:]
+-[Clearent_VP3300 device_disableBLEDeviceSearch]
+-[Clearent_VP3300 device_connectedBLEDevice]
+-[Clearent_VP3300 device_isAudioReaderConnected]
+-[Clearent_VP3300 device_getResponseCodeString:]
+-[Clearent_VP3300 device_isConnected:]
+-[Clearent_VP3300 device_sendIDGCommand:subCommand:data:response:]
+-[Clearent_VP3300 device_setAudioVolume:]
+-[Clearent_VP3300 device_setPassThrough:]
+-[Clearent_VP3300 device_startRKI]
+-[Clearent_VP3300 emv_authenticateTransaction:]
+-[Clearent_VP3300 emv_callbackResponseLCD:selection:]
+-[Clearent_VP3300 emv_completeOnlineEMVTransaction:hostResponseTags:]
+-[Clearent_VP3300 emv_disableAutoAuthenticateTransaction:]
+-[Clearent_VP3300 emv_getEMVL2Version:]
+-[Clearent_VP3300 emv_removeApplicationData:]
+-[Clearent_VP3300 emv_removeCAPK:index:]
+-[Clearent_VP3300 emv_removeCRLList]
+-[Clearent_VP3300 emv_removeTerminalData]
+-[Clearent_VP3300 emv_retrieveAIDList:]
+-[Clearent_VP3300 emv_retrieveApplicationData:response:]
+-[Clearent_VP3300 emv_retrieveCAPK:index:response:]
+-[Clearent_VP3300 emv_retrieveCAPKFile:index:response:]
+-[Clearent_VP3300 emv_retrieveCAPKList:]
+-[Clearent_VP3300 emv_retrieveCRLList:]
+-[Clearent_VP3300 emv_retrieveTerminalData:]
+-[Clearent_VP3300 emv_retrieveTransactionResult:retrievedTags:]
+-[Clearent_VP3300 emv_setApplicationData:configData:]
+-[Clearent_VP3300 emv_setCAPK:]
+-[Clearent_VP3300 emv_setCAPKFile:]
+-[Clearent_VP3300 emv_setCRLEntries:]
+-[Clearent_VP3300 emv_setTerminalData:]
+-[Clearent_VP3300 emv_startTransaction:amtOther:type:timeout:tags:forceOnline:fallback:]
+-[Clearent_VP3300 config_getSerialNumber:]
+-[Clearent_VP3300 icc_exchangeAPDU:response:]
+-[Clearent_VP3300 icc_getICCReaderStatus:]
+-[Clearent_VP3300 icc_powerOnICC:]
+-[Clearent_VP3300 icc_powerOffICC:]
+-[Clearent_VP3300 msr_cancelMSRSwipe]
+-[Clearent_VP3300 msr_startMSRSwipe]
+-[Clearent_VP3300 isConnected]
+-[Clearent_VP3300 assignBypassDelegate:]
+-[Clearent_VP3300 ctls_getConfigurationGroup:response:]
+-[Clearent_VP3300 ctls_removeAllCAPK]
+-[Clearent_VP3300 ctls_removeApplicationData:]
+-[Clearent_VP3300 ctls_removeCAPK:]
+-[Clearent_VP3300 ctls_removeConfigurationGroup:]
+-[Clearent_VP3300 ctls_retrieveAIDList:]
+-[Clearent_VP3300 ctls_retrieveApplicationData:response:]
+-[Clearent_VP3300 ctls_retrieveCAPK:key:]
+-[Clearent_VP3300 ctls_retrieveCAPKList:]
+-[Clearent_VP3300 ctls_retrieveTerminalData:]
+-[Clearent_VP3300 ctls_setApplicationData:]
+-[Clearent_VP3300 ctls_setCAPK:]
+-[Clearent_VP3300 ctls_setConfigurationGroup:]
+-[Clearent_VP3300 ctls_setTerminalData:]
+-[Clearent_VP3300 ctls_startTransaction:type:timeout:tags:]
+-[Clearent_VP3300 device_cancelTransaction]
+-[Clearent_VP3300 device_disconnectBLE]
+-[Clearent_VP3300 device_enableBLEDeviceSearch:]
+-[Clearent_VP3300 device_getAutoPollTransactionResults:]
+-[Clearent_VP3300 device_getBLEFriendlyName]
+-[Clearent_VP3300 device_setBLEFriendlyName:]
+-[Clearent_VP3300 device_setBurstMode:]
+-[Clearent_VP3300 device_setPollMode:]
+-[Clearent_VP3300 device_startTransaction:amtOther:type:timeout:tags:forceOnline:fallback:]
+-[Clearent_VP3300 emv_callbackResponsePIN:KSN:PIN:]
+-[Clearent_VP3300 emv_cancelTransaction]
+-[Clearent_VP3300 emv_getTerminalMajorConfiguration:]
+-[Clearent_VP3300 emv_setTerminalMajorConfiguration:]
+-[Clearent_VP3300 processBypassResponse:]
+-[Clearent_VP3300 clearentDelegate]
+-[Clearent_VP3300 setClearentDelegate:]
+-[Clearent_VP3300 callBackSelector]
+-[Clearent_VP3300 setCallBackSelector:]
+-[Clearent_VP3300 .cxx_destruct]
+_init:clearentBaseUrl:publicKey:.onceToken
+___block_descriptor_64_e8_32s40s48s56s_e5_v8?0l
+_OBJC_IVAR_$_Clearent_VP3300._clearentDelegate
+_OBJC_IVAR_$_Clearent_VP3300._callBackSelector
+/Users/davidhigginbotham/Documents/mdbfs/IDTech_VP3300_Demo/VP3300TestApp/Carthage/Checkouts/ClearentIdtechIOSFramework/ClearentIdtechIOSFramework/Clearent_VP3300.m
+ClearentIdtechIOSFramework/Clearent_VP3300.m
+ClearentIdtechIOSFramework/Clearent_VP3300.h
+__destroy_helper_block_e8_32s40s48s56s
+__copy_helper_block_e8_32s40s48s56s
+__50-[Clearent_VP3300 init:clearentBaseUrl:publicKey:]_block_invoke
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.1.sdk/usr/include/dispatch/once.h
+-[ClearentEmvConfigurator initWithIdtechSharedController:]
+-[ClearentEmvConfigurator configure:]
+-[ClearentEmvConfigurator configureMajorTags]
+-[ClearentEmvConfigurator configureUsingClearentConfiguration:]
+-[ClearentEmvConfigurator configureContactAids:]
+-[ClearentEmvConfigurator configureContactCapks:]
+-[ClearentEmvConfigurator sharedController]
+-[ClearentEmvConfigurator setSharedController:]
+-[ClearentEmvConfigurator .cxx_destruct]
+_OBJC_IVAR_$_ClearentEmvConfigurator._sharedController
+/Users/davidhigginbotham/Documents/mdbfs/IDTech_VP3300_Demo/VP3300TestApp/Carthage/Checkouts/ClearentIdtechIOSFramework/ClearentIdtechIOSFramework/ClearentEmvConfigurator.m
+ClearentIdtechIOSFramework/ClearentEmvConfigurator.m
+ClearentIdtechIOSFramework/ClearentEmvConfigurator.h
+-[ClearentClockConfigurator initWithIdtechSharedController:]
+-[ClearentClockConfigurator initClock]
+-[ClearentClockConfigurator initClockDate]
+-[ClearentClockConfigurator getClockDateAsYYYYMMDD]
+-[ClearentClockConfigurator initClockTime]
+-[ClearentClockConfigurator getClockTimeAsHHMM]
+-[ClearentClockConfigurator sharedController]
+-[ClearentClockConfigurator setSharedController:]
+-[ClearentClockConfigurator .cxx_destruct]
+_OBJC_IVAR_$_ClearentClockConfigurator._sharedController
+/Users/davidhigginbotham/Documents/mdbfs/IDTech_VP3300_Demo/VP3300TestApp/Carthage/Checkouts/ClearentIdtechIOSFramework/ClearentIdtechIOSFramework/ClearentClockConfigurator.m
+ClearentIdtechIOSFramework/ClearentClockConfigurator.m
+ClearentIdtechIOSFramework/ClearentClockConfigurator.h
+-[ClearentConfigurator init:publicKey:callbackObject:withSelector:sharedController:]
+-[ClearentConfigurator configure:deviceSerialNumber:]
+___53-[ClearentConfigurator configure:deviceSerialNumber:]_block_invoke
+___copy_helper_block_e8_32s
+___destroy_helper_block_e8_32s
+-[ClearentConfigurator configure:]
+-[ClearentConfigurator initClock]
+-[ClearentConfigurator notify:]
+-[ClearentConfigurator baseUrl]
+-[ClearentConfigurator setBaseUrl:]
+-[ClearentConfigurator publicKey]
+-[ClearentConfigurator setPublicKey:]
+-[ClearentConfigurator selector]
+-[ClearentConfigurator setSelector:]
+-[ClearentConfigurator callbackObject]
+-[ClearentConfigurator setCallbackObject:]
+-[ClearentConfigurator isConfigured]
+-[ClearentConfigurator setConfigured:]
+-[ClearentConfigurator sharedController]
+-[ClearentConfigurator setSharedController:]
+-[ClearentConfigurator .cxx_destruct]
+___block_descriptor_40_e8_32s_e22_v16?0"NSDictionary"8l
+_OBJC_IVAR_$_ClearentConfigurator._configured
+_OBJC_IVAR_$_ClearentConfigurator._baseUrl
+_OBJC_IVAR_$_ClearentConfigurator._publicKey
+_OBJC_IVAR_$_ClearentConfigurator._selector
+_OBJC_IVAR_$_ClearentConfigurator._callbackObject
+_OBJC_IVAR_$_ClearentConfigurator._sharedController
+/Users/davidhigginbotham/Documents/mdbfs/IDTech_VP3300_Demo/VP3300TestApp/Carthage/Checkouts/ClearentIdtechIOSFramework/ClearentIdtechIOSFramework/ClearentConfigurator.m
+ClearentIdtechIOSFramework/ClearentConfigurator.m
+ClearentIdtechIOSFramework/ClearentConfigurator.h
+__destroy_helper_block_e8_32s
+__copy_helper_block_e8_32s
+__53-[ClearentConfigurator configure:deviceSerialNumber:]_block_invoke
+-[ClearentTransactionTokenRequest asDictionary]
+-[ClearentTransactionTokenRequest asJson]
+-[ClearentTransactionTokenRequest tlv]
+-[ClearentTransactionTokenRequest setTlv:]
+-[ClearentTransactionTokenRequest encrypted]
+-[ClearentTransactionTokenRequest setEncrypted:]
+-[ClearentTransactionTokenRequest emv]
+-[ClearentTransactionTokenRequest setEmv:]
+-[ClearentTransactionTokenRequest firmwareVersion]
+-[ClearentTransactionTokenRequest setFirmwareVersion:]
+-[ClearentTransactionTokenRequest deviceSerialNumber]
+-[ClearentTransactionTokenRequest setDeviceSerialNumber:]
+-[ClearentTransactionTokenRequest kernelVersion]
+-[ClearentTransactionTokenRequest setKernelVersion:]
+-[ClearentTransactionTokenRequest track2Data]
+-[ClearentTransactionTokenRequest setTrack2Data:]
+-[ClearentTransactionTokenRequest applicationPreferredNameTag9F12]
+-[ClearentTransactionTokenRequest setApplicationPreferredNameTag9F12:]
+-[ClearentTransactionTokenRequest .cxx_destruct]
+_OBJC_IVAR_$_ClearentTransactionTokenRequest._encrypted
+_OBJC_IVAR_$_ClearentTransactionTokenRequest._emv
+_OBJC_IVAR_$_ClearentTransactionTokenRequest._tlv
+_OBJC_IVAR_$_ClearentTransactionTokenRequest._firmwareVersion
+_OBJC_IVAR_$_ClearentTransactionTokenRequest._deviceSerialNumber
+_OBJC_IVAR_$_ClearentTransactionTokenRequest._kernelVersion
+_OBJC_IVAR_$_ClearentTransactionTokenRequest._track2Data
+_OBJC_IVAR_$_ClearentTransactionTokenRequest._applicationPreferredNameTag9F12
+/Users/davidhigginbotham/Documents/mdbfs/IDTech_VP3300_Demo/VP3300TestApp/Carthage/Checkouts/ClearentIdtechIOSFramework/ClearentIdtechIOSFramework/ClearentTransactionTokenRequest.m
+ClearentIdtechIOSFramework/ClearentTransactionTokenRequest.m
+ClearentIdtechIOSFramework/ClearentTransactionTokenRequest.h
+-[ClearentDelegate init:clearentBaseUrl:publicKey:]
+-[ClearentDelegate lcdDisplay:lines:]
+-[ClearentDelegate dataInOutMonitor:incoming:]
+-[ClearentDelegate plugStatusChange:]
+-[ClearentDelegate bypassData:]
+-[ClearentDelegate deviceConnected]
+-[ClearentDelegate getFirmwareVersion]
+-[ClearentDelegate getKernelVersion]
+-[ClearentDelegate getDeviceSerialNumber]
+-[ClearentDelegate deviceDisconnected]
+-[ClearentDelegate deviceMessage:]
+-[ClearentDelegate swipeMSRData:]
+-[ClearentDelegate createClearentTransactionTokenRequestForASwipe:]
+-[ClearentDelegate swipeMSRDataFallback:]
+-[ClearentDelegate createClearentTransactionTokenRequestFallbackSwipe:]
+-[ClearentDelegate createClearentTransactionToken:encrypted:track2Data:]
+-[ClearentDelegate emvTransactionData:errorCode:]
+-[ClearentDelegate startFallbackSwipe]
+-[ClearentDelegate createClearentTransactionTokenRequest:]
+-[ClearentDelegate createClearentTransactionTokenRequest:isEncrypted:cardType:]
+-[ClearentDelegate addRequiredTags:]
+-[ClearentDelegate removeInvalidTSYSTags:]
+-[ClearentDelegate createTransactionToken:]
+___43-[ClearentDelegate createTransactionToken:]_block_invoke
+-[ClearentDelegate handleError:]
+-[ClearentDelegate handleResponse:]
+-[ClearentDelegate firmwareVersion]
+-[ClearentDelegate setFirmwareVersion:]
+-[ClearentDelegate deviceSerialNumber]
+-[ClearentDelegate setDeviceSerialNumber:]
+-[ClearentDelegate kernelVersion]
+-[ClearentDelegate setKernelVersion:]
+-[ClearentDelegate baseUrl]
+-[ClearentDelegate setBaseUrl:]
+-[ClearentDelegate publicKey]
+-[ClearentDelegate setPublicKey:]
+-[ClearentDelegate publicDelegate]
+-[ClearentDelegate setPublicDelegate:]
+-[ClearentDelegate clearentConfigurator]
+-[ClearentDelegate setClearentConfigurator:]
+-[ClearentDelegate originalEntryMode]
+-[ClearentDelegate setOriginalEntryMode:]
+-[ClearentDelegate .cxx_destruct]
+___block_descriptor_40_e8_32s_e46_v32?0"NSData"8"NSURLResponse"16"NSError"24l
+__OBJC_PROTOCOL_$_NSObject
+__OBJC_LABEL_PROTOCOL_$_NSObject
+__OBJC_PROTOCOL_$_IDT_VP3300_Delegate
+__OBJC_LABEL_PROTOCOL_$_IDT_VP3300_Delegate
+_OBJC_IVAR_$_ClearentDelegate._originalEntryMode
+_OBJC_IVAR_$_ClearentDelegate._firmwareVersion
+_OBJC_IVAR_$_ClearentDelegate._deviceSerialNumber
+_OBJC_IVAR_$_ClearentDelegate._kernelVersion
+_OBJC_IVAR_$_ClearentDelegate._baseUrl
+_OBJC_IVAR_$_ClearentDelegate._publicKey
+_OBJC_IVAR_$_ClearentDelegate._publicDelegate
+_OBJC_IVAR_$_ClearentDelegate._clearentConfigurator
+/Users/davidhigginbotham/Documents/mdbfs/IDTech_VP3300_Demo/VP3300TestApp/Carthage/Checkouts/ClearentIdtechIOSFramework/ClearentIdtechIOSFramework/ClearentDelegate.m
+ClearentIdtechIOSFramework/ClearentDelegate.m
+ClearentIdtechIOSFramework/ClearentDelegate.h
+__43-[ClearentDelegate createTransactionToken:]_block_invoke
+isSupportedEmvEntryMode
+getEntryMode
+NSMakeRange
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.1.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSRange.h
+-[ClearentCard asDictionary]
+-[ClearentCard asJson]
+-[ClearentCard card]
+-[ClearentCard setCard:]
+-[ClearentCard csc]
+-[ClearentCard setCsc:]
+-[ClearentCard expirationDateMMYY]
+-[ClearentCard setExpirationDateMMYY:]
+-[ClearentCard softwareType]
+-[ClearentCard setSoftwareType:]
+-[ClearentCard softwareTypeVersion]
+-[ClearentCard setSoftwareTypeVersion:]
+-[ClearentCard .cxx_destruct]
+_OBJC_IVAR_$_ClearentCard._card
+_OBJC_IVAR_$_ClearentCard._csc
+_OBJC_IVAR_$_ClearentCard._expirationDateMMYY
+_OBJC_IVAR_$_ClearentCard._softwareType
+_OBJC_IVAR_$_ClearentCard._softwareTypeVersion
+/Users/davidhigginbotham/Documents/mdbfs/IDTech_VP3300_Demo/VP3300TestApp/Carthage/Checkouts/ClearentIdtechIOSFramework/ClearentIdtechIOSFramework/ClearentCard.m
+ClearentIdtechIOSFramework/ClearentCard.m
+ClearentIdtechIOSFramework/ClearentCard.h
+-[ClearentManualEntry init:clearentBaseUrl:publicKey:]
+-[ClearentManualEntry handleManualEntryError:]
+-[ClearentManualEntry createTransactionToken:]
+___46-[ClearentManualEntry createTransactionToken:]_block_invoke
+-[ClearentManualEntry handleError:]
+-[ClearentManualEntry handleResponse:]
+-[ClearentManualEntry clearentManualEntryDelegate]
+-[ClearentManualEntry setClearentManualEntryDelegate:]
+-[ClearentManualEntry clearentBaseUrl]
+-[ClearentManualEntry setClearentBaseUrl:]
+-[ClearentManualEntry publicKey]
+-[ClearentManualEntry setPublicKey:]
+-[ClearentManualEntry .cxx_destruct]
+_OBJC_IVAR_$_ClearentManualEntry._clearentManualEntryDelegate
+_OBJC_IVAR_$_ClearentManualEntry._clearentBaseUrl
+_OBJC_IVAR_$_ClearentManualEntry._publicKey
+/Users/davidhigginbotham/Documents/mdbfs/IDTech_VP3300_Demo/VP3300TestApp/Carthage/Checkouts/ClearentIdtechIOSFramework/ClearentIdtechIOSFramework/ClearentManualEntry.m
+ClearentIdtechIOSFramework/ClearentManualEntry.m
+ClearentIdtechIOSFramework/ClearentManualEntry.h
+__46-[ClearentManualEntry createTransactionToken:]_block_invoke
+-[ClearentConfigFetcher init:baseUrl:deviceSerialNumber:kernelVersion:publicKey:]
+-[ClearentConfigFetcher fetchConfiguration:]
++[ClearentConfigFetcher getClearentConfigFetcherTaskCompletionHandler:]
+___71+[ClearentConfigFetcher getClearentConfigFetcherTaskCompletionHandler:]_block_invoke
+___copy_helper_block_e8_32b
+-[ClearentConfigFetcher createNSMutableURLRequest]
+-[ClearentConfigFetcher createTargetUrl]
+-[ClearentConfigFetcher session]
+-[ClearentConfigFetcher setSession:]
+-[ClearentConfigFetcher baseUrl]
+-[ClearentConfigFetcher setBaseUrl:]
+-[ClearentConfigFetcher publicKey]
+-[ClearentConfigFetcher setPublicKey:]
+-[ClearentConfigFetcher deviceSerialNumber]
+-[ClearentConfigFetcher setDeviceSerialNumber:]
+-[ClearentConfigFetcher kernelVersion]
+-[ClearentConfigFetcher setKernelVersion:]
+-[ClearentConfigFetcher .cxx_destruct]
+___block_descriptor_40_e8_32bs_e46_v32?0"NSData"8"NSURLResponse"16"NSError"24l
+_OBJC_IVAR_$_ClearentConfigFetcher._session
+_OBJC_IVAR_$_ClearentConfigFetcher._baseUrl
+_OBJC_IVAR_$_ClearentConfigFetcher._publicKey
+_OBJC_IVAR_$_ClearentConfigFetcher._deviceSerialNumber
+_OBJC_IVAR_$_ClearentConfigFetcher._kernelVersion
+/Users/davidhigginbotham/Documents/mdbfs/IDTech_VP3300_Demo/VP3300TestApp/Carthage/Checkouts/ClearentIdtechIOSFramework/ClearentIdtechIOSFramework/ClearentConfigFetcher.m
+ClearentIdtechIOSFramework/ClearentConfigFetcher.m
+ClearentIdtechIOSFramework/ClearentConfigFetcher.h
+__copy_helper_block_e8_32b
+__71+[ClearentConfigFetcher getClearentConfigFetcherTaskCompletionHandler:]_block_invoke
+/Users/davidhigginbotham/Library/Caches/org.carthage.CarthageKit/DerivedData/11.1_11A1027/ClearentIdtechIOSFramework/1.01/Build/Intermediates.noindex/ArchiveIntermediates/ClearentIdtechIOSFramework/IntermediateBuildFilesPath/ClearentIdtechIOSFramework.build/Release-iphoneos/ClearentIdtechIOSFramework.build/DerivedSources/ClearentIdtechIOSFramework_vers.c
+_pc1
+_bytebit
+_totrot
+_pc2
+_bigbyte
+_KnL
+_SP7
+_SP5
+_SP3
+_SP1
+_SP8
+_SP6
+_SP4
+_SP2
+Apple LLVM version 9.1.0 (clang-902.0.39.1)
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/DUKPT/DES.c
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS
+func3
+func4
+func
+Des_Decryption333
+getInjectData
+getKSNData
+Hex_Ascii
+getStatusData
+getsCRC
+getEncodedLength
+Des_Decryption111
+GetIK
+GetXORKey
+AtoH
+asctohex
+unscrun
+desfunc
+scrunch
+des
+cpkey
+usekey
+cookey
+deskey
+MemCpy
+triple_des_dec
+des_dec
+single_des_dec
+des_enc
+des_key
+triple_des_enc
+single_des_enc
+DEA_decryption
+des_cbc_decryption
+DEA_encryption
+memxor
+des_cbc_encryption
++[IDTUtility frameworkBundle]
+___29+[IDTUtility frameworkBundle]_block_invoke
++[IDTUtility hexToString:startByte:length:]
++[IDTUtility dataToString:startByte:length:]
++[IDTUtility getSubString:startPosition:length:]
++[IDTUtility stringByPaddingTheLeftToLength:newLen:withString:]
++[IDTUtility padLeftZeros:Length:]
++[IDTUtility padRightZeros:Length:]
++[IDTUtility hex2int:]
++[IDTUtility shortToDataReverse:]
++[IDTUtility shortToData:]
++[IDTUtility longToData:]
++[IDTUtility byteToData:]
++[IDTUtility dtv:]
++[IDTUtility dataToPrintableString:]
++[IDTUtility char2hex:]
++[IDTUtility hexToData:]
++[IDTUtility dataToString:]
++[IDTUtility extendedHextoHex:]
++[IDTUtility stringToData:]
++[IDTUtility doneWaiting]
++[IDTUtility pause:]
++[IDTUtility hexToString:]
++[IDTUtility dataToHexString:]
++[IDTUtility addByte:value:]
++[IDTUtility addShort:value:]
++[IDTUtility TLVtoDICT_HEX_ASCII:]
++[IDTUtility TLVtoDICT:]
++[IDTUtility tagLookup:]
++[IDTUtility processTLVUnencrypted:]
++[IDTUtility processTLV:]
++[IDTUtility combineDictionaries:dest:overwrite:]
++[IDTUtility computeSHA1:]
++[IDTUtility DICTotTLV:]
++[IDTUtility encodeTags:]
+_frameworkBundle.frameworkBundle
+_frameworkBundle.predicate
+___block_descriptor_tmp
+___block_literal_global
+_waiting
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/IDTUtility.m
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSRange.h
+__29+[IDTUtility frameworkBundle]_block_invoke
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/usr/include/dispatch/once.h
+-[IDT_DUKPT_Lib2 init]
+-[IDT_DUKPT_Lib2 Decrypt_Data::::::]
+-[IDT_DUKPT_Lib2 ready_KEY_KSN_ForInject::]
+-[IDT_DUKPT_Lib2 getData_CMD1]
+-[IDT_DUKPT_Lib2 CheckResponse_ForLoadKeyCMD:]
+-[IDT_DUKPT_Lib2 CheckResponse_CMD1:]
+-[IDT_DUKPT_Lib2 getData_CMD2]
+-[IDT_DUKPT_Lib2 CheckResponse_CMD2:]
+-[IDT_DUKPT_Lib2 getData_CMD3]
+-[IDT_DUKPT_Lib2 CheckResponse_CMD3:]
+-[IDT_DUKPT_Lib2 getEnterEncryptionModeCMD:]
+-[IDT_DUKPT_Lib2 CheckResponse_EnterEncryptionModeCMD:]
+_s_init_KEY_KSN_ForInject
+_s_IPEK_toLoad
+_s_KSN_toLoad
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/DUKPT/IDT_DUKPT_Lib2.m
+-[IDTEMVData clear]
++[IDTEMVData sharedController]
+___30+[IDTEMVData sharedController]_block_invoke
+-[IDTEMVData resultCode]
+-[IDTEMVData setResultCode:]
+-[IDTEMVData encryptionMode]
+-[IDTEMVData setEncryptionMode:]
+-[IDTEMVData cardType]
+-[IDTEMVData setCardType:]
+-[IDTEMVData unencryptedTags]
+-[IDTEMVData setUnencryptedTags:]
+-[IDTEMVData encryptedTags]
+-[IDTEMVData setEncryptedTags:]
+-[IDTEMVData maskedTags]
+-[IDTEMVData setMaskedTags:]
+-[IDTEMVData KSN]
+-[IDTEMVData setKSN:]
+-[IDTEMVData resultCodeV2]
+-[IDTEMVData setResultCodeV2:]
+-[IDTEMVData hasAdvise]
+-[IDTEMVData setHasAdvise:]
+-[IDTEMVData hasReversal]
+-[IDTEMVData setHasReversal:]
+-[IDTEMVData cardData]
+-[IDTEMVData setCardData:]
+-[IDTEMVData .cxx_destruct]
+_sharedController.SharedInstance
+_sharedController.onceToken
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/IDTEMVData.m
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/IDTEMVData.h
+__30+[IDTEMVData sharedController]_block_invoke
+-[IDT_Device CalculateCRC:length:]
+-[IDT_Device isConnected:]
+-[IDT_Device anyConnected]
+-[IDT_Device UniPay_EventFunctionAttachment]
+-[IDT_Device UniPay_EventFunctionDetachment]
+-[IDT_Device UniPay_EventFunctionConnect:]
+-[IDT_Device sendMessage:]
+-[IDT_Device UniPay_EventFunctionMessage:]
+-[IDT_Device UniPay_EventFunctionMSR:card:]
+-[IDT_Device UniPay_EventFunctionICC:]
+-[IDT_Device commandTimeout]
++[IDT_Device cancelM_APDU]
+-[IDT_Device processBypassResponse:]
+-[IDT_Device receiveData:]
+-[IDT_Device getUniMagResponse]
+-[IDT_Device UniPay_ReceivedData:]
++[IDT_Device SDK_version]
++[IDT_Device disableBlocking:]
++[IDT_Device setDeviceType:]
+-[IDT_Device assignDelegate2:]
+-[IDT_Device assignBypassDelegate:]
++[IDT_Device isBlockingDisabled]
+-[IDT_Device setDelegate:]
+-[IDT_Device delegate]
+-[IDT_Device connectedBLEDevice]
+-[IDT_Device getBLEFriendlyName]
+-[IDT_Device setBLEFriendlyName:]
+-[IDT_Device device_disconnectBLE]
+-[IDT_Device enableBLEDeviceSearch:identifier:]
+-[IDT_Device disableBLEDeviceSearch]
+-[IDT_Device deviceMessage:]
+-[IDT_Device centralManagerDidUpdateState:]
+-[IDT_Device pauseScan]
+-[IDT_Device resumeScan]
+-[IDT_Device centralManager:didDiscoverPeripheral:advertisementData:RSSI:]
+-[IDT_Device delayedConnection]
+-[IDT_Device centralManager:didConnectPeripheral:]
+-[IDT_Device centralManager:didFailToConnectPeripheral:error:]
+-[IDT_Device centralManager:didDisconnectPeripheral:error:]
+-[IDT_Device peripheral:didDiscoverServices:]
+-[IDT_Device peripheral:didDiscoverCharacteristicsForService:error:]
+-[IDT_Device foundITP:]
+-[IDT_Device foundVivoPacket:]
+-[IDT_Device peripheral:didUpdateValueForCharacteristic:error:]
+-[IDT_Device sendBLE:]
++[IDT_Device sharedController]
+___30+[IDT_Device sharedController]_block_invoke
+-[IDT_Device processReceivedData:]
+-[IDT_Device getEncryptedUniPayTags]
+-[IDT_Device getMaskedUniPayTags]
+-[IDT_Device sendDataToDevice:]
+-[IDT_Device init]
+-[IDT_Device sessionOpen:]
+-[IDT_Device disconnect]
++[IDT_Device bypassOutput:]
+-[IDT_Device attemptConnect]
+-[IDT_Device open]
+-[IDT_Device sessionClose]
+-[IDT_Device close]
+-[IDT_Device destroy]
+-[IDT_Device stayConnected:]
+-[IDT_Device applicationDidEnterBackground:]
+-[IDT_Device applicationWillEnterForeground:]
+-[IDT_Device accessoryConnected:]
+-[IDT_Device accessoryDisconnected:]
+-[IDT_Device checkPinPad:]
+-[IDT_Device deviceIsConnected]
+-[IDT_Device sendEMVTransactionData:errorCode:]
+-[IDT_Device getCurrentDevice]
+-[IDT_Device getMultiAPDU]
+-[IDT_Device DataReceived_posted:]
+-[IDT_Device sendSerialData:]
+-[IDT_Device receiveSerialData:]
+-[IDT_Device notifyDataReceived:]
+-[IDT_Device stream:handleEvent:]
+-[IDT_Device computeLRC:]
+-[IDT_Device computeSUM:]
+-[IDT_Device preparePacket:]
+-[IDT_Device preparePacket_iMag:]
+-[IDT_Device IsEligible:]
+-[IDT_Device IsEligible_iMag:]
+-[IDT_Device transmitPacket_RT2:returnVal:]
+-[IDT_Device timeoutError3]
+-[IDT_Device minWaitTimeReached1]
+-[IDT_Device minWaitTime:]
+-[IDT_Device threadLoop]
+-[IDT_Device pauseForResponse:]
+-[IDT_Device DoReadCmd_RT2:]
+-[IDT_Device transmitPacket_do_RT2:returnVal:]
+-[IDT_Device Do_Check_CMD:]
+-[IDT_Device setCmdTimeOutDuration:]
+-[IDT_Device getInterfaceDeviceSN:]
+-[IDT_Device setInterfaceDeviceSN:]
+-[IDT_Device getTerminalIdentification:]
+-[IDT_Device setTerminalIdentification:]
+-[IDT_Device burstModeOff]
+-[IDT_Device pollOnDemand]
+-[IDT_Device waitForVivo]
+-[IDT_Device pingVivoTech]
+-[IDT_Device activateTransaction:timeout:]
+-[IDT_Device activateTransactionThread]
+-[IDT_Device emv_cancelTransaction]
+-[IDT_Device device_cancelTransaction]
+-[IDT_Device cancelCTLSTransaction]
+-[IDT_Device getFirmwareVersionExtendedUnipay]
+-[IDT_Device inEvent]
+-[IDT_Device getFirmwareVersion:]
+-[IDT_Device getFunctionKeyUniPay:]
+-[IDT_Device returnFN]
+-[IDT_Device getFunctionKeyThread]
+-[IDT_Device getEMVL1Version:]
+-[IDT_Device getEMVL2Version:]
+-[IDT_Device getEMVKernelVersion:]
+-[IDT_Device sendDataCommand:calcLRC:response:]
+-[IDT_Device setBurstMode:]
+-[IDT_Device setPollMode:]
+-[IDT_Device setPassThrough:]
+-[IDT_Device getBatteryVoltage:]
+-[IDT_Device getSerialNumber:]
+-[IDT_Device setSerialNumber:]
+-[IDT_Device getDateTime:]
+-[IDT_Device setDateTime:]
+-[IDT_Device enterSleepMode]
+-[IDT_Device setIdleTimeForSleep:]
+-[IDT_Device getKeyStatus:]
+-[IDT_Device getModelNumber:]
+-[IDT_Device backlightControl:]
+-[IDT_Device clearDisplay:]
+-[IDT_Device setBluetoothAddress:]
+-[IDT_Device sendBeepUniPayII:duration:]
+-[IDT_Device sendBeep:numberOfTones:]
+-[IDT_Device defaultSettingsPinPadUniPay]
+-[IDT_Device rebootDevice]
+-[IDT_Device savePromptUniPayII:location:]
+-[IDT_Device displayMessageUniPayII:lineNumber:]
+-[IDT_Device displayPromptUniPayII:lineNumber:]
+-[IDT_Device displayMessage:line2:line3:line4:]
+-[IDT_Device getEncryptedPIN:keyType:line1:line2:line3:]
+-[IDT_Device cancelMSRSwipe]
+-[IDT_Device getLevelAndBaud:]
+-[IDT_Device getICCReaderStatus:]
+-[IDT_Device setEncryptedUniPay:]
+-[IDT_Device powerOnICC:]
+-[IDT_Device powerOnICC:response:]
+-[IDT_Device powerOnICC:useOptions:response:]
+-[IDT_Device powerOffICC:]
+-[IDT_Device dataToString:forceBinary:]
+-[IDT_Device getBCDMaskChar:]
+-[IDT_Device getExpiryDateOption:]
+-[IDT_Device setExpiryDateOption:]
+-[IDT_Device restoreDefaultSettings]
+-[IDT_Device setBCDMaskChar:]
+-[IDT_Device getASCIIMaskChar:]
+-[IDT_Device setASCIIMaskChar:]
+-[IDT_Device getPrePostFixPAN:]
+-[IDT_Device setPrePostFixPAN:postfix:]
+-[IDT_Device getCardOption:]
+-[IDT_Device setCardOption:]
+-[IDT_Device getRKITimeout:]
+-[IDT_Device setRKITimeout:]
+-[IDT_Device getKSN:ksn:]
+-[IDT_Device getAPDU_KSN:]
+-[IDT_Device exchangeMultiAPDU:response:]
+-[IDT_Device parseR_APDU:]
++[IDT_Device checkCID82:]
+-[IDT_Device exchangeAPDU:encrypted:ksn:response:]
+-[IDT_Device exchangeEncryptedAPDU:response:]
+-[IDT_Device getPINpadStatus:]
+-[IDT_Device getNumericLength:]
+-[IDT_Device getPinLength:]
+-[IDT_Device setPinLength:maxLength:]
+-[IDT_Device setNumericLength:maxLength:]
+-[IDT_Device pin_captureAmount:maxPIN:message:signature:]
+-[IDT_Device pin_captureNumericInput:minPIN:maxPIN:message:signature:]
+-[IDT_Device pin_captureAmountInput:maxPIN:message:signature:]
+-[IDT_Device pin_capturePin:PAN:minPIN:maxPIN:message:]
+-[IDT_Device felica_authentication:]
+-[IDT_Device felica_readWithMac:blockList:blocks:]
+-[IDT_Device felica_writeWithMac:data:]
+-[IDT_Device felica_read:numBlocks:blockList:blocks:]
+-[IDT_Device felica_write:blockList:data:statusFlag:]
+-[IDT_Device felica_nfcCommand:response:]
+-[IDT_Device pin_captureFunctionKey]
+-[IDT_Device cancelPin]
+-[IDT_Device getLanguageType:]
+-[IDT_Device setLanguageType:]
+-[IDT_Device getPrePostPANCtrlData:post:]
+-[IDT_Device setPrePostPANCtrlData:post:]
+-[IDT_Device getASCIIMaskData:]
+-[IDT_Device setDefaultICCGroupSettings]
+-[IDT_Device setASCIIMaskData:]
+-[IDT_Device getBCDMaskData:]
+-[IDT_Device getICCConnector:]
+-[IDT_Device getDUKPTKeyVariant:]
+-[IDT_Device setBCDMaskData:]
+-[IDT_Device setICCConnector:]
+-[IDT_Device setDUKPTKeyVariant:]
+-[IDT_Device getDUKPTKeyEncryption:]
+-[IDT_Device setDUKPTKeyEncryption:]
+-[IDT_Device setICCNotification:]
+-[IDT_Device getEncryptMSRFormat:]
+-[IDT_Device setEncryptMSRFormat:]
+-[IDT_Device getCardDataEncryptedAlgorithm:]
+-[IDT_Device setCardDataEncryptedAlgorithm:]
+-[IDT_Device getTransactionTimeout:]
+-[IDT_Device setTransactionTimeout:]
+-[IDT_Device getKeyFormatForICCDUKPT:]
+-[IDT_Device setKeyFormatForICCDUKPT:]
+-[IDT_Device getSwipeMaskOption:]
+-[IDT_Device getSwipeForcedEncryptionOption:]
+-[IDT_Device getSwipeEncryption:]
+-[IDT_Device getExpirationMask:]
+-[IDT_Device getBacklightStatus:]
+-[IDT_Device getClearPANID:]
+-[IDT_Device getKeyTypeForICCDUKPT:]
+-[IDT_Device setKeyTypeForICCDUKPT:]
+-[IDT_Device setSwipeMaskOption:track2:track3:]
+-[IDT_Device setSwipeForcedEncryptionOption:track2:track3:track3card0:]
+-[IDT_Device setSwipeEncryption:]
+-[IDT_Device setExpirationMask:]
+-[IDT_Device setExpirationMaskII:]
+-[IDT_Device setClearPANIDII:]
+-[IDT_Device setClearPANID:]
+-[IDT_Device timeoutError4]
+-[IDT_Device checkForCardInsert]
+-[IDT_Device checkForCardRemoval]
+-[IDT_Device waitForCardInsert]
+-[IDT_Device waitForCardRemoval]
+-[IDT_Device cardInsertTimeout:]
+-[IDT_Device charToHexString:length:]
+-[IDT_Device charToString:]
+-[IDT_Device getAllTags:]
+-[IDT_Device getTagBT:tagData:]
+-[IDT_Device getTag:tagData:]
+-[IDT_Device ctls_getConfigurationGroup:response:]
+-[IDT_Device ctls_removeAllCAPK]
+-[IDT_Device ctls_removeApplicationData:]
+-[IDT_Device ctls_removeCAPK:]
+-[IDT_Device ctls_removeConfigurationGroup:]
+-[IDT_Device ctls_retrieveAIDList:]
+-[IDT_Device ctls_retrieveApplicationData:response:]
+-[IDT_Device ctls_retrieveCAPK:key:]
+-[IDT_Device ctls_retrieveCAPKList:]
+-[IDT_Device ctls_retrieveCAPKRIDIndexes:key:]
+-[IDT_Device ctls_retrieveCAPKRIDList:]
+-[IDT_Device getAutoPollTransactionResults:]
+-[IDT_Device ctls_retrieveTerminalData:]
+-[IDT_Device ctls_setCAPK:]
+-[IDT_Device ctls_setConfigurationGroup:]
+-[IDT_Device ctls_setApplicationData:]
+-[IDT_Device ctls_setTerminalData:]
+-[IDT_Device ctls_startTransaction:type:timeout:tags:]
+-[IDT_Device device_startTransaction:amtOther:type:timeout:tags:forceOnline:fallback:]
+-[IDT_Device startTransaction:amtOther:type:timeout:tags:forceOnline:fallback:]
+-[IDT_Device disableAutoAuthenticateTransaction:]
+-[IDT_Device callbackResponsePIN:KSN:PIN:]
+-[IDT_Device callbackResponseLCD:selection:]
+-[IDT_Device authenticateTransaction:]
+-[IDT_Device startEMVTransaction:otherAmount:timeout:transactionType:additionalTags:]
+-[IDT_Device completeOnlineEMVTransaction:hostResponseTags:]
+-[IDT_Device completeOnlineEMVTransaction:hostResponseTags:responseTags:]
+-[IDT_Device startMSRSwipeWithDisplay:line2:line3:]
+-[IDT_Device waitForSwipe]
+-[IDT_Device startMSRSwipe:]
+-[IDT_Device floatToPadData:leftPadding:]
+-[IDT_Device getEncryptedMessageFromXMLUniPayII:language:isMask:]
+-[IDT_Device getEncryptedMessageFromXML:language:]
+-[IDT_Device getAmount:maxLength:messageID:language:]
+-[IDT_Device getNumericUniPayII:messageID:language:]
+-[IDT_Device getNumeric:minLength:maxLength:messageID:language:]
+-[IDT_Device getFunctionKey]
+-[IDT_Device getCardAccount:max:line1:line2:]
+-[IDT_Device getEncryptedData:minLength:maxLength:messageID:language:]
+-[IDT_Device getResponseCodeStringFromInt:]
+-[IDT_Device getResponseCodeStringData:]
++[IDT_Device getResourceBundleVersion]
+-[IDT_Device getLCDMessage:]
+-[IDT_Device getResponseCodeString:]
+-[IDT_Device uploadJPEG:]
+-[IDT_Device setTerminalDataUniPay:]
+-[IDT_Device setTerminalMajorConfiguration:]
+-[IDT_Device getTerminalMajorConfiguration:]
+-[IDT_Device setApplicationDataUniPay:configData:]
+-[IDT_Device setApplicationData:]
+-[IDT_Device retrieveTransactionResult:retrievedTags:]
+-[IDT_Device retrieveTerminalDataUniPay:]
+-[IDT_Device retrieveApplicationDataUniPay:response:]
+-[IDT_Device retrieveApplicationData:response:]
+-[IDT_Device timeoutError5]
+-[IDT_Device waitForReset]
+-[IDT_Device resetUSB]
+-[IDT_Device removeApplicationData:]
+-[IDT_Device retrieveAIDList:]
+-[IDT_Device showJPEG:Y0:X1:Y1:]
+-[IDT_Device setTerminalData:]
+-[IDT_Device retrieveTerminalData:]
+-[IDT_Device removeTerminalData]
+-[IDT_Device setCAPK:]
+-[IDT_Device setCAPKFile:]
+-[IDT_Device retrieveCAPK:index:response:]
+-[IDT_Device retrieveCAPKFile:index:response:]
+-[IDT_Device removeCAPK:index:]
+-[IDT_Device retrieveCAPKList:]
+-[IDT_Device retrieveCRLList:]
+-[IDT_Device retrieveCRLForRID:response:]
+-[IDT_Device removeCRLUnit:]
+-[IDT_Device sendIDGCommand:subCommand:data:response:]
+-[IDT_Device setCRLEntries:]
+-[IDT_Device setCRL:]
+-[IDT_Device removeCRLList]
+-[IDT_Device removeCRL:]
+-[IDT_Device grsiP1Command:subCommand:data1:data2:]
+-[IDT_Device grsiSpecialFrame:data2:data3:data4:]
+-[IDT_Device grsiP2Command:statusCode:data:]
+-[IDT_Device retrieveIDGData:]
+-[IDT_Device isAudioReaderConnected]
+-[IDT_Device connectToAudioReader]
+-[IDT_Device cancelConnectToAudioReader]
+-[IDT_Device setAudioVolume:]
+-[IDT_Device getMaskAndEncryption:]
+-[IDT_Device restoreMaskAndEncryptionDefaults]
+-[IDT_Device setExpMasking:]
+-[IDT_Device setPANMaskingCharacter:]
+-[IDT_Device sendUniMagCommand:]
+-[IDT_Device getNextKSN:]
+-[IDT_Device setPrePANClearDigits:]
+-[IDT_Device setPostPANClearDigits:]
+-[IDT_Device setMaskingOption:]
+-[IDT_Device setEncryptionOption:]
+-[IDT_Device executeCardLoop]
+-[IDT_Device loopCardCheck]
+-[IDT_Device multiAPP:]
+-[IDT_Device passThrough:]
+-[IDT_Device startRKI]
+-[IDT_Device convertReturnCode:]
+-[IDT_Device parseJSON:]
+-[IDT_Device contactHost:]
+-[IDT_Device getJsonData:step:command:error:]
+-[IDT_Device multiFile:]
+-[IDT_Device loadDUKPTKey:ksn:initialKey:]
+-[IDT_Device delegate2]
+-[IDT_Device setDelegate2:]
+-[IDT_Device bypassDelegate]
+-[IDT_Device setBypassDelegate:]
+-[IDT_Device centralManager]
+-[IDT_Device setCentralManager:]
+-[IDT_Device bleDevice]
+-[IDT_Device setBleDevice:]
+-[IDT_Device .cxx_destruct]
+_s_etStarter
+_session
+_s_cmdResponseLock
+_s_cmdResponse
+_s_readData
+_PROTOCOL_STRING
+_PROTOCOL_STRING_BTPAY
+_PROTOCOL_STRING_IMAG
+_PROTOCOL_STRING_BTMAG
+_CrcTable
+__connected
+__deviceType
+_s_nEventType
+_inTimer
+_cmdTimeout
+__waitForMultiAPDU
+__bypassOutput
+_to
+_waitingForUniMagResponse
+_uniMagResponseData
+__disableBlocking
+_lastDeviceType
+_OBJC_IVAR_$_IDT_Device._delegate
+_notifyConnect
+_currentFirmware
+_currentExtendedFirmware
+_bleFriendlyName
+_bleIdentifer
+_foundIdentifer
+_OBJC_IVAR_$_IDT_Device.bleDevice
+_OBJC_IVAR_$_IDT_Device.centralManager
+_keepScanning
+_searchForBLE
+_bleType
+_isLERD
+_bleData
+_waitingForResponse
+_captureLastResponse
+__lastResponse
+_s_bAsyncFlag
+_s_bCMDFlag
+__sentMultiAPDU
+_encryptedTagsDictionary
+_maskedTagsDictionary
+_s_Init_First
+__connectCounter
+__attemptConnect
+__stayConnected
+_s_bNeedConn
+_lastEMV
+_rAPDU
+__inLoop
+__receivedMultiAPDU
+__unencTags
+__encTags
+__maskedTags
+__lcdDisplayMode
+__lcdTimeoutValue
+__lcdLang
+_enableCompletion
+__fallbackToEMV
+___amount
+___amtOther
+___type
+___timeout
+___tags
+___forceOnline
+___fallback
+_theCard
+_UniPayEMVData
+__disableAutoAuthenticate
+_originalEmvTags
+__bypassSendData
+__bypassReceiveData
+_pingRequest
+_s_isDirectIO_CMD
+_timeoutReached3
+_minWaitTimeReached
+__minWaitTime
+_s_nCmdTimeOutDuration
+_noResponse
+_moreData
+_GET_INTERFACE_DEVICE_SN_COMMAND
+_SET_INTERFACE_DEVICE_SN_COMMAND
+_GET_TERMINAL_IDENTIFICATION_COMMAND
+_SET_TERMINAL_IDENTIFICATION_COMMAND
+__vivoAlive
+__ignorePing
+__bypassEvent
+_activatePacket
+_GET_FIRMWARE_VERSION_COMMAND_UNIPAY_EXTENDED
+_GET_FIRMWARE_VERSION_COMMAND_IMAG
+_GET_FIRMWARE_VERSION_COMMAND
+_GET_FUNCTION_KEY
+_functionPacket
+_functionResults
+__cancelPressed
+_GET_EMV_L1_VERSION
+_GET_EMV_KERNAL
+_GET_BATTERY_VOLTAGE_COMMAND
+_GET_SERIAL_NUMBER_COMMAND_IMAG
+_GET_SERIAL_NUMBER_COMMAND
+_SET_SERIAL_NUMBER_COMMAND_IMAG
+_SET_SERIAL_NUMBER_COMMAND
+_GET_DATE_COMMAND
+_SET_DATE_COMMAND
+_ENTER_SLEEP_MODE_COMMAND
+_SET_IDLE_TIME_FOR_SLEEP_CMD
+_GET_KEY_STATUS_COMMAND
+_GET_MODEL_NUMBER_COMMAND
+_CONTROL_BACKLIGHT_UNIPAYII
+_CLEAR_DISPLAY_UNIPAYII
+_SET_BTADDRESS_COMMAND
+_SET_BEEPER_COMMAND_UNIPAYII
+_SET_BEEPER_COMMAND
+_DEFAULT_PINPAD_SETTING_UNIPAYII
+_SET_REBOOT_COMMAND
+_SET_REBOOT_COMMAND_UNIPAY
+_SAVE_PROMPT_UNIPAYII
+_DISPLAY_MESSAGE_UNIPAYII
+_DISPLAY_PROMPT_UNIPAYII
+_DISPLAY_MSG_COMMAND
+_GET_ENCRYPTED_PIN_COMMAND
+_inEnableMSR
+_SET_DISABLE_MSR_COMMAND
+_SET_DISABLE_MSR_COMMAND_UNIPAY
+_SET_SETMSR_DISABLE
+_GET_LEVEL_AND_BAUD
+_s
+_GET_ICC_STATUS_COMMAND
+_isEncryptedUniPay
+__allTags
+__82Found
+__theCDOL
+__theCMV
+_POWER_ON_COMMAND
+_POWER_OFF_COMMAND
+_GET_BCD_MASK
+_GET_EXPIRY_DATE_OPTION
+_SET_EXPIRY_DATE_OPTION
+_RESTORE_DEFAULT_SETTINGS
+_SET_BCD_MASK
+_GET_ASCII_MASK
+_SET_ASCII_MASK
+_GET_PRE_POSTFIX_PAN
+_SET_PRE_POSTFIX_PAN
+_GET_CARD_OPTION
+_SET_CARD_OPTION
+_GET_RKI_TIMEOUT
+_SET_RKI_TIMEOUT
+_GET_ACCT_KSN
+_GET_KSN
+_EXCHANGE_APDU
+_EXCHANGE_ENCRYPTED_UNIPAY_APDU
+_EXCHANGE_ENCRYPTED_APDU
+_GET_PIN_STATUS_COMMAND
+_GET_NUMERIC_LENGTH_COMMAND
+_GET_PIN_LENGTH_COMMAND
+_SET_PIN_LENGTH_COMMAND
+_SET_NUMERIC_LENGTH_COMMAND
+_GET_CANCEL_PIN_COMMAND
+_GET_LANGUAGE_TYPE
+_SET_LANGUAGE_TYPE
+_GET_PRE_POST_PAN_CTRL_DATA
+_prebytes
+_postByte
+_SET_PRE_POST_PAN_CTRL_DATA
+_GET_ASCII_MASK_DATA
+_SET_DEFAULT_ICC_GROUP_SETTINGS
+_SET_ASCII_MASK_DATA
+_GET_BCD_MASK_DATA
+_GET_ICC_CONNECTOR
+_GET_DUKPT_KEY_VARIANT
+_SET_BCD_MASK_DATA
+_SET_ICC_CONNECTOR
+_SET_DUKPT_KEY_VARIANT
+_GET_DUKPT_KEY_ENCRYPTION
+_SET_DUKPT_KEY_ENCRYPTION
+_SET_ICC_NOTIFICATION
+_GET_MSR_FORMAT_COMMAND
+_SET_MSR_FORMAT_COMMAND
+_GET_CARD_DATA_ENCRYPTED_ALGORITHM
+_SET_CARD_DATA_ENCRYPTED_ALGORITHM
+_GET_TRANSACTION_TIMEOUT
+_SET_TRANSACTION_TIMEOUT
+_GET_ICC_DUKPT_KEY_FORMAT
+_SET_ICC_DUKPT_KEY_FORMAT
+_GET_TRACK_CAPTURE_SETTINGS
+_GET_BACKLIGHT_UNIPAYII
+_GET_ICC_DUKPT_KEY_TYPE
+_SET_ICC_DUKPT_KEY_TYPE
+_SET_TRACK_CAPTURE_SETTINGS
+_SET_TRACK_CAPTURE_SETTINGS_BTMAG
+_pingCard
+_timeoutReached4
+_waitingForCardInsert
+_waitingForCardRemoval
+__cardInsertTimeout
+_allInterfaces
+_onlyMSR
+__transTimeout
+__forceOnline
+_START_EMV_TRANSACTION
+_COMPLETE_EMV_ONLINE_TRANSACTION
+_COMPLETE_EMV_ONLINE_TRANSACTION_UNIPAYII
+_ENABLE_MSR_GET_DATA_COMMAND
+__isStartEMV
+_ENABLE_MSR_GET_DATA_COMMAND_UNIPAY
+_ENABLE_MSR_GET_DATA_COMMAND_UNIPAYII
+_SET_SETMSR_ENABLE
+_GET_AMOUNT_COMMAND
+_GET_NUMERIC_COMMAND_UNIPAYII
+_GET_NUMERIC_COMMAND
+_GET_ACCOUNT_COMMAND
+_GET_EPT_DATA_COMMAND
+_STORE_PICTURE
+_SET_EMV_AID
+_aidDict
+__lastIDTCode
+_GET_EMV_AID
+_GET_EMV_AID_UNIPAY
+_secondAttempt
+_timeoutReached5
+__waitForReset
+_GET_EMV_AID_LIST
+_SHOW_PICTURE
+_SET_EMV_TERMINAL
+_GET_EMV_TERMINAL
+_REMOVE_EMV_TERMINAL
+_REMOVE_EMV_TERMINAL_UNIPAY
+_SET_EMV_CAPK
+_SET_EMV_CAPK_UNIPAYII
+_GET_EMV_CAPK
+_newBlock
+_REMOVE_EMV_CAPK
+_GET_EMV_CAPK_LIST
+_GET_EMV_CRL_LIST
+_GET_EMV_CRL
+_REMOVE_EMV_CRL_UNIT
+_REMOVE_EMV_CRL_UNIT_UNIPAY
+_SET_EMV_CRL
+_SET_EMV_CRL_UNIPAYII
+_REMOVE_EMV_CRL_INDEX
+_GET_MASK_AND_ENCRYPTION
+_maskEnc
+_SET_MASK_AND_ENCRYPTION_DEFAULTS
+_SET_MASK_AND_ENCRYPTION_SETTING
+__isSeated
+_isLooping
+_cardLoop
+__passthroughOn
+_lib2
+l_OBJC_PROTOCOL_$_NSObject
+l_OBJC_LABEL_PROTOCOL_$_NSObject
+l_OBJC_PROTOCOL_$_EAAccessoryDelegate
+l_OBJC_LABEL_PROTOCOL_$_EAAccessoryDelegate
+l_OBJC_PROTOCOL_$_NSStreamDelegate
+l_OBJC_LABEL_PROTOCOL_$_NSStreamDelegate
+l_OBJC_PROTOCOL_$_UniPay_Delegate
+l_OBJC_LABEL_PROTOCOL_$_UniPay_Delegate
+l_OBJC_PROTOCOL_$_CBCentralManagerDelegate
+l_OBJC_LABEL_PROTOCOL_$_CBCentralManagerDelegate
+l_OBJC_PROTOCOL_$_CBPeripheralDelegate
+l_OBJC_LABEL_PROTOCOL_$_CBPeripheralDelegate
+__resultTags
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/IDT_Device.m
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/IDT_Device.h
+__30+[IDT_Device sharedController]_block_invoke
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/DUKPT/DUKPT.c
+IDT_NonReversibleKeyGen
+IDT_InitCryptoReg
+IDT_ChangeCounter
+IDT_SpecialDEAEncrypt
+IDT_GetNumOfOnes
+IDT_GenNewKeys
+IDT_CalcLRC
+IDT_SetBit
+IDT_GetSetBitPos
+IDT_EncryptPIN
+IDT_PropogateKeys
+IDT_UpdateKSN
+IDT_LoadInitKey
+-[APDUResponse clear]
++[APDUResponse sharedController]
+___32+[APDUResponse sharedController]_block_invoke
+-[APDUResponse SW1]
+-[APDUResponse setSW1:]
+-[APDUResponse SW2]
+-[APDUResponse setSW2:]
+-[APDUResponse hasKSN]
+-[APDUResponse setHasKSN:]
+-[APDUResponse hasEncryption]
+-[APDUResponse setHasEncryption:]
+-[APDUResponse response]
+-[APDUResponse setResponse:]
+-[APDUResponse ksn]
+-[APDUResponse setKsn:]
+-[APDUResponse apduLength]
+-[APDUResponse setApduLength:]
+-[APDUResponse .cxx_destruct]
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/APDUResponse.m
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/APDUResponse.h
+__32+[APDUResponse sharedController]_block_invoke
+_base64digits
+_base64val
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/DUKPT/BASE64.c
+from64tobits
+to64frombits
+-[BQ1 init]
+-[BQ1 dealloc]
+-[BQ1 put:]
+-[BQ1 take]
++[UniPay isKeyLoad:]
++[UniPay isVP3300:]
++[UniPay isUniMag:]
++[UniPay usePreamble:]
+-[UniPay uniMagNotifEnable:]
+-[UniPay umn_InsufficientPower:]
+-[UniPay umn_Powering:]
+-[UniPay umn_Timeout:]
+-[UniPay umn_Swipe:]
+-[UniPay umn_TimeoutSwipe:]
+-[UniPay umn_DataProcessing:]
+-[UniPay umn_InvalidSwipe:]
+-[UniPay umn_DidReceiveData:]
+-[UniPay umn_CmdSending:]
+-[UniPay umn_CommandTimeout:]
+-[UniPay umn_DidReceiveCmd:]
+-[UniPay umn_SystemMessage:]
+-[UniPay umn_DidConnect:]
+-[UniPay umn_DidDisconnect:]
+-[UniPay umRetToRC:]
+-[UniPay comn_GetErrorString:]
+-[UniPay playAudioCommand:]
+-[UniPay playVivoCommand:]
+-[UniPay rec_getFile]
+-[UniPay rec_init:]
+_rec_aqCallback
+-[UniPay rec_start]
+-[UniPay rec_stop]
+-[UniPay rec_levelDbAverage]
+-[UniPay AttachmentData_posted]
+-[UniPay notifyAttachment_Fire:]
+-[UniPay ConnectData_posted]
+-[UniPay notifyConnect_Fire:]
+-[UniPay MessageData_posted:]
+-[UniPay notifyMessage_Fire:]
+-[UniPay MSRData_posted:]
+-[UniPay notifyMSR_Fire::]
+-[UniPay ICCStatus_posted]
+-[UniPay notifyICC_Fire:]
+-[UniPay notifier:]
+-[UniPay postNote::]
+-[UniPay activateAudioSession:]
+-[UniPay event_attachStateChanged:]
+-[UniPay beginInterruption]
+-[UniPay endInterruption]
+-[UniPay checkAndFireTachmentEvent]
+-[UniPay checkAndFireOnlyAttachmentEvent]
+-[UniPay checkAndFireOnlyAttachmentEventRestart]
+-[UniPay registerAttachmentCallback:]
+_audioRouteChangeListenerCallback
+-[UniPay startTask_hook]
+-[UniPay stopTask]
+-[UniPay cmut_isReaderConnected]
+-[UniPay stopConnection]
+-[UniPay startTaskConnect]
+-[UniPay startTaskICC_notify]
+-[UniPay init]
+-[UniPay dealloc]
++[UniPay SDK_version]
+-[UniPay cmut_setVolume:]
+-[UniPay cmut_setCmdTimeoutDuration:]
+-[UniPay cmut_setAutoAdjustVolume:]
++[UniPay start:]
+-[UniPay restart]
+-[UniPay startUniPay:]
+_RDStatus_lookup
+-[UniPay cmut_StartConnect_Task]
+-[UniPay setConnect]
+-[UniPay setDisconnect]
+-[UniPay cmut_CancelConnect_Task]
+-[UniPay getFlagByte]
+-[UniPay Get_NGA_Package:]
+-[UniPay Get_LoadKey_Package:]
++[UniPay sharedController]
+___26+[UniPay sharedController]_block_invoke
+-[UniPay setVivoAlive:]
+-[UniPay isHeadsetPluggedIn]
+-[UniPay cmd_Transfer:]
+_unhexlify
+_hexlify
+_playCommand
+-[UniPay Do_Check_CMD:]
+-[UniPay DealResult::]
+-[UniPay noWaitNextCommand:]
+-[UniPay isNoWait]
+-[UniPay comn_GetFirmVersion]
+-[UniPay comn_GetSerialNumber]
+-[UniPay comn_SetSerialNumber:]
+_str2hexStr
+-[UniPay comn_GetModelNumber]
+-[UniPay comn_ResetReader]
+-[UniPay smart_GetICC_Status]
+-[UniPay smart_ICC_PowerOn]
+-[UniPay smart_ICC_PowerOff]
+-[UniPay smart_ExchangeAPDU:]
+-[UniPay smart_ExchangeAPDU_Encrypted:]
+-[UniPay smart_GetEncryptionMode]
+-[UniPay smart_SetEncryptionMode:]
+-[UniPay smart_Get_KeyType_DUKPT]
+-[UniPay smart_Set_KeyType_DUKPT:]
+-[UniPay smart_GetAllSetting]
+-[UniPay smart_SetAllSetting_Default]
+-[UniPay EnableMSR]
+-[UniPay CancelMSR]
+-[UniPay StartMSR_Task]
+-[UniPay CancelMSR_Task]
+-[UniPay GetAllSetting]
+-[UniPay SetAllSetting_Default]
+-[UniPay GetEncryptionMode]
+-[UniPay SetEncryptionMode:]
+-[UniPay GetSecurityLevel]
+-[UniPay GetCommonSetting:]
+-[UniPay SetCommonSetting::]
+-[UniPay comn_directIO:]
+-[UniPay smart_GetKSN]
+-[UniPay smart_ExchangeAPDU_DUKPT_Fully:]
+-[UniPay clearTask]
++[UniPay enableLogging:]
+-[UniPay getWave]
+-[UniPay getWave2]
+-[UniPay debug_GetReceivedWave]
+-[UniPay setWavePath:]
+-[UniPay state_isVP3300Command]
+-[UniPay setState_isVP3300Command:]
+-[UniPay state_isReaderAttached]
+-[UniPay setState_isReaderAttached:]
+-[UniPay state_isReaderConnected]
+-[UniPay setState_isReaderConnected:]
+-[UniPay state_runningTask]
+-[UniPay setState_runningTask:]
+-[UniPay swipe_statusByte]
+-[UniPay setSwipe_statusByte:]
+-[UniPay rd_wavePath]
+-[UniPay setRd_wavePath:]
+-[UniPay delegate]
+-[UniPay setDelegate:]
+-[TaskBase1 setArgs:]
+-[TaskBase1 dealloc]
+-[TaskBase1 CalculateCRC:length:]
+-[TaskBase1 CheckCMD_Response_VM:]
+-[TaskBase1 CheckCMD_Response:]
+-[TaskBase1 CheckCMD_LoadKey_Response:]
+-[TaskBase1 CheckAllReceivedData:]
+-[TaskBase1 reset_for_CMD]
+-[TaskBase1 checkDeal_TimeOut]
+-[TaskBase1 recordDecode::]
+-[TaskConnect1 doCancel]
+-[TaskConnect1 main]
+-[TaskICCNotify1 doStop]
+-[TaskICCNotify1 main]
+-[AByteList1 init]
+-[AByteList1 add:]
+-[AByteList1 get:]
+-[AByteList1 size]
+-[AByteList1 dealloc]
+-[AByteList1 list]
+-[AByteList1 setList:]
+-[SDEntryList1 init]
+-[SDEntryList1 add:]
+-[SDEntryList1 get:]
+-[SDEntryList1 size]
+-[SDEntryList1 updateAcc:]
+-[SDEntryList1 dealloc]
+-[SDEntryList1 list]
+-[SDEntryList1 setList:]
+-[Parser1 initWithClient:]
+-[Parser1 dealloc]
+-[Parser1 setLog:all:]
+-[Parser1 purge]
+-[Parser1 parseWaveData:]
+-[Parser1 pipe_lineToHML:]
+-[Parser1 pipe_hmlToSd:]
+-[Parser1 pipe_hmlToSd_init::]
+-[Parser1 pipe_sdToBytes:]
+_matchAt
+-[Parser1 saveLoggedData]
+-[Parser1 writeToFile:data:byteDepth:]
+_put44BWaveHeader
+_getHeadsetAttachmentState
+_char2hex
+_playCommand_internalUM
+_playCommand_internal
+_encodeUmCommand
+_synth_cmdToQit
+_synthSqwPeriod_getByteLen
+_synthSqwPeriod
+_kQIT_PERIOD_FREQ
+_synth_qitStringByteCount
+_put44BWaveHeader_8bPCM
+_cmdToWavData
+_cmdToBinaryFormat
+_hexToWavData
+_putIntLE32
+_putIntLE16
+_s_chunk
+__isKL
+__isVM
+__isUM
+__usePreamble
+__bypassCheck
+_OBJC_IVAR_$_UniPay.rec_info
+_s_bAttached
+_s_connect_result
+_s_ICC_Attach_data
+_resetAudioRoute
+_OBJC_IVAR_$_UniPay.haveNotStartFirstTask
+_OBJC_IVAR_$_UniPay.cfg_enableDeferredActivateAudioSession
+_OBJC_IVAR_$_UniPay.cfg_enableAutoConnect
+_OBJC_IVAR_$_UniPay.taskQueue
+_OBJC_IVAR_$_UniPay.cfg_enableAutoAdjustVolume
+_s_fAudioVolume
+_cfg_cmdDuration
+_OBJC_IVAR_$_UniPay.cfg_swipeDuration
+__del
+_OBJC_IVAR_$_UniPay._swipe_statusByte
+_OBJC_IVAR_$_UniPay._rd_wavePath
+_s_bCMD_CancelMSR
+_s_bCMD_bLoadKey
+_s_CMD_Result
+_s_startCMD_Time
+_s_bCMD_flag
+_noWait
+_OBJC_IVAR_$_UniPay._state_isVP3300Command
+_OBJC_IVAR_$_UniPay._state_isReaderAttached
+_OBJC_IVAR_$_UniPay._state_isReaderConnected
+_OBJC_IVAR_$_UniPay._state_runningTask
+l_OBJC_PROTOCOL_$_AVAudioSessionDelegate
+l_OBJC_LABEL_PROTOCOL_$_AVAudioSessionDelegate
+__pingingDevice
+_recordDecode::.canceledResult
+_recordDecode::.failedResult
+_s_use_BoudRate
+_OBJC_IVAR_$_AByteList1._list
+_OBJC_IVAR_$_SDEntryList1._list
+_OBJC_IVAR_$_Parser1._cfg_outFile_prefix
+_OBJC_IVAR_$_Parser1._cfg_log
+_OBJC_IVAR_$_Parser1._cfg_logAll
+_OBJC_IVAR_$_Parser1._cfg_samplingRate
+_OBJC_IVAR_$_Parser1._cfg_baud
+_OBJC_IVAR_$_Parser1._cfg_sdThresholdResolve_high
+_OBJC_IVAR_$_Parser1._cfg_sdThresholdResolve_low
+_OBJC_IVAR_$_Parser1._log_inp
+_OBJC_IVAR_$_Parser1._log_hmlEnvP
+_OBJC_IVAR_$_Parser1._log_hmlEnvN
+_OBJC_IVAR_$_Parser1._log_hmlThrP
+_OBJC_IVAR_$_Parser1._log_hmlThrN
+_OBJC_IVAR_$_Parser1._log_hmlHML
+_OBJC_IVAR_$_Parser1._hml_sEnvN
+_OBJC_IVAR_$_Parser1._hml_sEnvP
+_OBJC_IVAR_$_Parser1._sd_inited
+_OBJC_IVAR_$_Parser1._sd_snd
+_OBJC_IVAR_$_Parser1._sd_sdList
+_OBJC_IVAR_$_Parser1._sd_sdDbg
+_OBJC_IVAR_$_Parser1._sd_lastLineLevel
+_OBJC_IVAR_$_Parser1._sd_accum
+_OBJC_IVAR_$_Parser1._sd_sdLevel
+_OBJC_IVAR_$_Parser1._sd_accumNext
+_OBJC_IVAR_$_Parser1._sd_noChangeCounter
+_pipe_sdToBytes:.uniPreamb
+_pipe_sdToBytes:.LH
+_lastTime
+_kQIT_PERIOD_FREQ.kQIT_PERIOD_FREQ_table
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/UniPaySDK/UniPay.m
+putIntLE16
+putIntLE32
+hexToWavData
+cmdToBinaryFormat
+cmdToWavData
+put44BWaveHeader_8bPCM
+synth_qitStringByteCount
+kQIT_PERIOD_FREQ
+synthSqwPeriod
+synthSqwPeriod_getByteLen
+synth_cmdToQit
+encodeUmCommand
+playCommand_internal
+playCommand_internalUM
+char2hex
+getHeadsetAttachmentState
+put44BWaveHeader
+matchAt
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/UniPaySDK/UniPay.h
+str2hexStr
+playCommand
+hexlify
+unhexlify
+__26+[UniPay sharedController]_block_invoke
+RDStatus_lookup
+audioRouteChangeListenerCallback
+rec_aqCallback
+-[IDT_VP3300 setDelegate:]
+-[IDT_VP3300 delegate]
+-[IDT_VP3300 deviceConnected]
+-[IDT_VP3300 device_isConnected:]
+-[IDT_VP3300 emvTransactionData:errorCode:]
+-[IDT_VP3300 lcdDisplay:lines:]
+-[IDT_VP3300 pinRequest:key:PAN:startTO:intervalTO:language:]
+-[IDT_VP3300 deviceDisconnected]
+-[IDT_VP3300 dataInOutMonitor:incoming:]
+-[IDT_VP3300 swipeMSRData:]
+-[IDT_VP3300 bypassData:]
+-[IDT_VP3300 plugStatusChange:]
+-[IDT_VP3300 deviceMessage:]
++[IDT_VP3300 SDK_version]
++[IDT_VP3300 sharedController]
+___30+[IDT_VP3300 sharedController]_block_invoke
+-[IDT_VP3300 device_setPassThrough:]
+-[IDT_VP3300 icc_powerOnICC:]
+-[IDT_VP3300 device_getResponseCodeString:]
+-[IDT_VP3300 device_isAudioReaderConnected]
+-[IDT_VP3300 icc_exchangeAPDU:response:]
+-[IDT_VP3300 device_connectToAudioReader]
+-[IDT_VP3300 device_cancelConnectToAudioReader]
+-[IDT_VP3300 device_setAudioVolume:]
+-[IDT_VP3300 isConnected]
+-[IDT_VP3300 icc_powerOffICC:]
+-[IDT_VP3300 device_getFirmwareVersion:]
+-[IDT_VP3300 icc_getICCReaderStatus:]
+-[IDT_VP3300 device_enableBLEDeviceSearch:]
+-[IDT_VP3300 device_getBLEFriendlyName]
+-[IDT_VP3300 device_setBLEFriendlyName:]
+-[IDT_VP3300 device_disableBLEDeviceSearch]
+-[IDT_VP3300 device_connectedBLEDevice]
+-[IDT_VP3300 device_disconnectBLE]
+-[IDT_VP3300 close]
+-[IDT_VP3300 device_connectToUSB]
+-[IDT_VP3300 ctls_setApplicationData:]
+-[IDT_VP3300 ctls_startTransaction]
+-[IDT_VP3300 ctls_cancelTransaction]
+-[IDT_VP3300 emv_cancelTransaction]
+-[IDT_VP3300 device_cancelTransaction]
+-[IDT_VP3300 emv_retrieveTransactionResult:retrievedTags:]
+-[IDT_VP3300 msr_startMSRSwipe]
+-[IDT_VP3300 msr_cancelMSRSwipe]
+-[IDT_VP3300 config_getSerialNumber:]
+-[IDT_VP3300 processBypassResponse:]
+-[IDT_VP3300 assignBypassDelegate:]
+-[IDT_VP3300 emv_retrieveApplicationData:response:]
+-[IDT_VP3300 emv_removeApplicationData:]
+-[IDT_VP3300 emv_setApplicationData:configData:]
+-[IDT_VP3300 emv_retrieveAIDList:]
+-[IDT_VP3300 emv_startTransaction:amtOther:type:timeout:tags:forceOnline:fallback:]
+-[IDT_VP3300 emv_completeOnlineEMVTransaction:hostResponseTags:]
+-[IDT_VP3300 emv_setCRLEntries:]
+-[IDT_VP3300 emv_removeCRLList]
+-[IDT_VP3300 device_sendIDGCommand:subCommand:data:response:]
+-[IDT_VP3300 emv_retrieveCRLList:]
+-[IDT_VP3300 emv_retrieveCAPKFile:index:response:]
+-[IDT_VP3300 emv_retrieveCAPK:index:response:]
+-[IDT_VP3300 emv_removeCAPK:index:]
+-[IDT_VP3300 emv_setCAPK:]
+-[IDT_VP3300 emv_setCAPKFile:]
+-[IDT_VP3300 emv_retrieveCAPKList:]
+-[IDT_VP3300 emv_retrieveTerminalData:]
+-[IDT_VP3300 emv_removeTerminalData]
+-[IDT_VP3300 emv_setTerminalData:]
+-[IDT_VP3300 emv_callbackResponseLCD:selection:]
+-[IDT_VP3300 emv_callbackResponsePIN:KSN:PIN:]
+-[IDT_VP3300 emv_authenticateTransaction:]
+-[IDT_VP3300 emv_disableAutoAuthenticateTransaction:]
+-[IDT_VP3300 emv_getEMVL2Version:]
+-[IDT_VP3300 emv_setTerminalMajorConfiguration:]
+-[IDT_VP3300 emv_getTerminalMajorConfiguration:]
+-[IDT_VP3300 ctls_getConfigurationGroup:response:]
+-[IDT_VP3300 ctls_removeAllCAPK]
+-[IDT_VP3300 ctls_removeApplicationData:]
+-[IDT_VP3300 ctls_removeCAPK:]
+-[IDT_VP3300 ctls_removeConfigurationGroup:]
+-[IDT_VP3300 ctls_retrieveAIDList:]
+-[IDT_VP3300 ctls_retrieveApplicationData:response:]
+-[IDT_VP3300 ctls_retrieveCAPK:key:]
+-[IDT_VP3300 ctls_retrieveCAPKList:]
+-[IDT_VP3300 ctls_retrieveTerminalData:]
+-[IDT_VP3300 ctls_setCAPK:]
+-[IDT_VP3300 ctls_setConfigurationGroup:]
+-[IDT_VP3300 ctls_setTerminalData:]
+-[IDT_VP3300 device_startTransaction:amtOther:type:timeout:tags:forceOnline:fallback:]
+-[IDT_VP3300 ctls_startTransaction:type:timeout:tags:]
+-[IDT_VP3300 device_getAutoPollTransactionResults:]
+-[IDT_VP3300 device_setBurstMode:]
+-[IDT_VP3300 device_setPollMode:]
+-[IDT_VP3300 device_startRKI]
+-[IDT_VP3300 bypassDelegate]
+-[IDT_VP3300 setBypassDelegate:]
+-[IDT_VP3300 .cxx_destruct]
+_OBJC_IVAR_$_IDT_VP3300._delegate
+l_OBJC_PROTOCOL_$_IDT_Device_Delegate
+l_OBJC_LABEL_PROTOCOL_$_IDT_Device_Delegate
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/IDT_VP3300.m
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/IDT_VP3300.h
+__30+[IDT_VP3300 sharedController]_block_invoke
+-[IDTMSRData clear]
++[IDTMSRData sharedController]
+___30+[IDTMSRData sharedController]_block_invoke
+-[IDTMSRData event]
+-[IDTMSRData setEvent:]
+-[IDTMSRData cardData]
+-[IDTMSRData setCardData:]
+-[IDTMSRData captureEncodeType]
+-[IDTMSRData setCaptureEncodeType:]
+-[IDTMSRData captureEncryptType]
+-[IDTMSRData setCaptureEncryptType:]
+-[IDTMSRData track1]
+-[IDTMSRData setTrack1:]
+-[IDTMSRData track2]
+-[IDTMSRData setTrack2:]
+-[IDTMSRData track3]
+-[IDTMSRData setTrack3:]
+-[IDTMSRData track1Length]
+-[IDTMSRData setTrack1Length:]
+-[IDTMSRData track2Length]
+-[IDTMSRData setTrack2Length:]
+-[IDTMSRData track3Length]
+-[IDTMSRData setTrack3Length:]
+-[IDTMSRData encTrack1]
+-[IDTMSRData setEncTrack1:]
+-[IDTMSRData encTrack2]
+-[IDTMSRData setEncTrack2:]
+-[IDTMSRData encTrack3]
+-[IDTMSRData setEncTrack3:]
+-[IDTMSRData hashTrack1]
+-[IDTMSRData setHashTrack1:]
+-[IDTMSRData hashTrack2]
+-[IDTMSRData setHashTrack2:]
+-[IDTMSRData hashTrack3]
+-[IDTMSRData setHashTrack3:]
+-[IDTMSRData KSN]
+-[IDTMSRData setKSN:]
+-[IDTMSRData sessionID]
+-[IDTMSRData setSessionID:]
+-[IDTMSRData readStatus]
+-[IDTMSRData setReadStatus:]
+-[IDTMSRData RSN]
+-[IDTMSRData setRSN:]
+-[IDTMSRData errorCode]
+-[IDTMSRData setErrorCode:]
+-[IDTMSRData iccPresent]
+-[IDTMSRData setIccPresent:]
+-[IDTMSRData unencryptedTags]
+-[IDTMSRData setUnencryptedTags:]
+-[IDTMSRData encryptedTags]
+-[IDTMSRData setEncryptedTags:]
+-[IDTMSRData maskedTags]
+-[IDTMSRData setMaskedTags:]
+-[IDTMSRData .cxx_destruct]
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/IDTMSRData.m
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/IDTMSRData.h
+__30+[IDTMSRData sharedController]_block_invoke
+_calculateCipherLen
+_m_bKey
+_m_keyLength
+_m_rounds
+_m_bIv
+_m_iv
+_m_bCounter
+_m_counter
+_m_ke
+_m_kd
+_sm_sbox
+_sm_rcon
+_sm_imc1
+_sm_imc2
+_sm_imc3
+_sm_imc4
+_sm_te1
+_sm_te2
+_sm_te3
+_sm_te4
+_sm_td1
+_sm_td2
+_sm_td3
+_sm_td4
+_sm_isbox
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/DUKPT/AesCipher.c
+decryptBlock
+encryptBlock
+makeRoundKey
+incrCounter
+encryptMultiBlock
+calculateCipherLen
+encryptString
+setCounter
+setIV
+xorBlock
+getRounds
+getKeyLength
+decrypt
+decryptString
+-[EventHandlingThread initWithLock:]
+-[EventHandlingThread getRunloop]
+-[EventHandlingThread name]
+-[EventHandlingThread main]
+-[EventHandlingThread .cxx_destruct]
+-[EventThreadStarter init]
+-[EventThreadStarter start]
+-[EventThreadStarter stop]
+-[EventThreadStarter isRunning]
+-[EventThreadStarter thread]
+-[EventThreadStarter runloop]
+-[EventThreadStarter poke]
+-[EventThreadStarter .cxx_destruct]
+_OBJC_IVAR_$_EventThreadStarter._isRunning
+_OBJC_IVAR_$_EventThreadStarter._thread
+_OBJC_IVAR_$_EventThreadStarter._threadJoinLock
+_OBJC_IVAR_$_EventThreadStarter._runLoop
+/Volumes/Ext_SSD/Repo/Universal_SDK_iOS/IDTech/EventThreadStarter.m
